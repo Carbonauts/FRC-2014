@@ -83,12 +83,15 @@ public class BaseProject extends IterativeRobot {
      */
     private DriverStation mDriverStation;
     
+    private LogHelper mLogHelper = new LogHelper();
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         SmartDashboard.putString(SD_LOG, "Entered 'robotInit()'");
+        mLogHelper.log("Entered 'robotInit()'");
         
         mRobotDrive = new RobotDrive(DRIVE_LEFT_FRONT, DRIVE_LEFT_REAR, 
                 DRIVE_RIGHT_FRONT, DRIVE_RIGHT_REAR);
