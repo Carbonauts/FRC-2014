@@ -22,7 +22,6 @@ public class Constants {
     
     /*
      * Declare channels for Driver Station Data
-     * 
      * For use with "getDigitalIn(int channel)", "getAnalogIn(int channel)"
      * and "setDigitalOut(int channel)"
      */
@@ -51,4 +50,7 @@ public class Constants {
      * Declare constants of the USB ports for specified joysticks
      */
     public static final int JOYSTICK = 1;
+    
+    public static final boolean DRIVE_DIRECTION_FORWARD = true;
+    public static final boolean DRIVE_DIRECTION_REVERSE = false;
 }

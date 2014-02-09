@@ -8,11 +8,10 @@
 package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.command.CommandBase;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,20 +35,11 @@ public class BaseProject extends IterativeRobot {
     private Joystick mJoystick;
     
     /**
-     * Driver Station object to transfer data to and from the DS
-     */
-    private DriverStation mDriverStation;
-    
-    /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         CommandBase.init();
-        
-        mJoystick = new Joystick(Constants.JOYSTICK);
-        
-        mDriverStation = DriverStation.getInstance();
     }
 
     /**
@@ -63,9 +53,7 @@ public class BaseProject extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        while(isEnabled() && isOperatorControl()) {
-            mRobotDrive.arcadeDrive(mJoystick.getY(), mJoystick.getX());
-        }
+        Scheduler.getInstance().run();
     }
     
     /**
