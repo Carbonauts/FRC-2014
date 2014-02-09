@@ -8,9 +8,9 @@
 package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.command.CommandBase;
+import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -22,17 +22,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class BaseProject extends IterativeRobot {
     
-    /**
-     * RobotDrive object handles the four drive motors in the manner required 
-     * for an arcade, tank, or omni-directional drive
-     */
-    private RobotDrive mRobotDrive;
-    
-    /**
-     * Joystick object handles the fetching of all user input from a single
-     * physical device.
-     */
-    private Joystick mJoystick;
+    Command autonomousCommand; //Example autonomous command
     
     /**
      * This function is run when the robot is first started up and should be
@@ -40,15 +30,24 @@ public class BaseProject extends IterativeRobot {
      */
     public void robotInit() {
         CommandBase.init();
+        autonomousCommand = new ExampleAutonomousCommand();
     }
 
+    public void autonomousInit() {
+        autonomousCommand.start();
+    }
+    
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        
+        Scheduler.getInstance().run();
     }
 
+    public void teleopInit() {
+        
+    }
+    
     /**
      * This function is called periodically during operator control
      */

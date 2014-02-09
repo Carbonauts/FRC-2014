@@ -21,6 +21,13 @@ public class Constants {
     public static final int DRIVE_RIGHT_REAR = 4;
     
     /*
+     * Declare Digital IO ports of digital sensors
+     */
+    public static final int LIMIT_PICKUP_FORWARD = 1;
+    public static final int LIMIT_PICKUP_RESTING = 2;
+    public static final int LIMIT_PICKUP_REVERSE = 3;
+    
+    /*
      * Declare channels for Driver Station Data
      * For use with "getDigitalIn(int channel)", "getAnalogIn(int channel)"
      * and "setDigitalOut(int channel)"
@@ -32,6 +39,7 @@ public class Constants {
     public static final int DS_DIGITAL_5 = 5;
     public static final int DS_DIGITAL_6 = 6;
     public static final int DS_DIGITAL_7 = 7;
+    public static final int DS_DIGITAL_8 = 8;
     
     public static final int DS_ANALOG_1 = 1;
     public static final int DS_ANALOG_2 = 2;
@@ -51,6 +59,14 @@ public class Constants {
      */
     public static final int JOYSTICK = 1;
     
+    /*
+     * Declare constants for robot states or conditions
+     */
     public static final boolean DRIVE_DIRECTION_FORWARD = true;
     public static final boolean DRIVE_DIRECTION_REVERSE = false;
+    public static final int PICKUP_POSITION_FORWARD = 1;
+    public static final int PICKUP_POSITION_RESTING = 2;
+    public static final int PICKUP_POSITION_REVERSE = 3;
+    public static final int PICKUP_POSITION_UNKNOWN = 4;
+    public static final boolean DIGITAL_INPUTS_INVERTED = false;
 }

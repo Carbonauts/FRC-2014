@@ -5,7 +5,7 @@
 package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Constants;
-import com.carbonauts.frc2014.command.OperatorDrive;
+import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -60,7 +60,7 @@ public class Drive extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        setDefaultCommand(new OperatorDrive());
+        setDefaultCommand(new OperatorDriveCommand());
     }
     
     private int getDirection() {

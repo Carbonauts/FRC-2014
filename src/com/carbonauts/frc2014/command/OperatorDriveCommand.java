@@ -10,9 +10,9 @@ import com.carbonauts.frc2014.Console;
  *
  * @author Nick
  */
-public class OperatorDrive extends CommandBase {
+public class OperatorDriveCommand extends CommandBase {
 
-    public OperatorDrive() {
+    public OperatorDriveCommand() {
         requires(mDrive);
     }
     

@@ -5,6 +5,7 @@
 package com.carbonauts.frc2014;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -19,6 +20,12 @@ public class Console {
      * Driver Station object to transfer data to and from the DS
      */
     private DriverStation mDriverStation;
+    
+    /**
+     * The object for writing data to the "User Messages" box on the Driver
+     * Station.  Can be used for debugging or state conditions.
+     */
+    private DriverStationLCD mLCD;
     
     public static Joystick mJoystick = new Joystick(Constants.JOYSTICK);
 }
