@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.team1829.frc2014.command;
+package com.carbonauts.frc2014.command;
 
-import com.team1829.frc2014.subsystems.DriveGearbox;
+import com.carbonauts.frc2014.subsystems.Drive;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class CommandBase extends Command {
     
-    public static DriveGearbox mDriveGearbox = new DriveGearbox();
+    public static Drive mDrive = new Drive();
     
     /**
      * This method exists to ensure that CommandBase has been constructed
