@@ -19,6 +19,8 @@ public class Constants {
     public static final int DRIVE_LEFT_REAR = 2;
     public static final int DRIVE_RIGHT_FRONT = 3;
     public static final int DRIVE_RIGHT_REAR = 4;
+    public static final int PICKUP_PIVOT = 5;
+    public static final int PICKUP_ROLLER = 6;
     
     /*
      * Declare Digital IO ports of digital sensors
@@ -68,5 +70,13 @@ public class Constants {
     public static final int PICKUP_POSITION_RESTING = 2;
     public static final int PICKUP_POSITION_REVERSE = 3;
     public static final int PICKUP_POSITION_UNKNOWN = 4;
-    public static final boolean DIGITAL_INPUTS_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_1_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_2_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_3_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_4_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_5_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_6_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_7_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_8_INVERTED = false;
+    public static final boolean DIGITAL_INPUT_9_INVERTED = false;
 }

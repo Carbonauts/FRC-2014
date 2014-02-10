@@ -9,7 +9,8 @@ import com.carbonauts.frc2014.subsystems.Pickup;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Keeps a static reference to every Subsystem, so that each command has access
+ * to call methods from those Subsystems
  * @author Nick
  */
 public abstract class CommandBase extends Command {
@@ -18,7 +19,6 @@ public abstract class CommandBase extends Command {
      * Instantiate all subsystems as static objects
      */
     public static Drive mDrive = new Drive();
-    
     public static Pickup mPickup = new Pickup();
     
     /**
