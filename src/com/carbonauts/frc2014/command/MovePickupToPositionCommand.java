@@ -13,17 +13,20 @@ public class MovePickupToPositionCommand extends CommandBase {
     private boolean isFinished = false;
     
     public MovePickupToPositionCommand(int position) {
-        if(mPickup.isAtPosition(position)) {  //If we're at the position we want to go to do nothing
+        if(mPickupPivot.isAtPosition(position)) {  //If we're at the position we want to go to do nothing
             isFinished = true;  //Notify that command is done
         }
     }
     
     protected void initialize() {
-        requires(mPickup);
+        requires(mPickupPivot);
     }
 
     protected void execute() {
-        //Code that moves arm to position.  Return true when at position
+        /*
+         * Code that moves arm to position.  Add a condition which will trigger
+         * a return of "true" to the isFinished() method when this completes.
+         */
     }
 
     protected boolean isFinished() {

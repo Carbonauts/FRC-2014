@@ -5,7 +5,8 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.subsystems.Drive;
-import com.carbonauts.frc2014.subsystems.Pickup;
+import com.carbonauts.frc2014.subsystems.PickupIntake;
+import com.carbonauts.frc2014.subsystems.PickupPivot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -19,7 +20,8 @@ public abstract class CommandBase extends Command {
      * Instantiate all subsystems as static objects
      */
     public static Drive mDrive = new Drive();
-    public static Pickup mPickup = new Pickup();
+    public static PickupPivot mPickupPivot = new PickupPivot();
+    public static PickupIntake mPickupIntake = new PickupIntake();
     
     /**
      * This method exists to ensure that CommandBase has been constructed
