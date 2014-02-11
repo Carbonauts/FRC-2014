@@ -55,8 +55,8 @@ public class Constants {
     public static final int JOYSTICK = 1;
     
     //Declare constants for robot states or conditions
-    public static final boolean DRIVE_DIRECTION_FORWARD = true;
-    public static final boolean DRIVE_DIRECTION_REVERSE = false;
+    public static final int DRIVE_DIRECTION_FORWARD = 1;
+    public static final int DRIVE_DIRECTION_REVERSE = -1;
     public static final int PICKUP_POSITION_FORWARD = 1;
     public static final int PICKUP_POSITION_RESTING = 2;
     public static final int PICKUP_POSITION_REVERSE = 3;
