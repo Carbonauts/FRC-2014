@@ -34,7 +34,7 @@ public class Constants {
     //Joystick buttons
     //to-do: add final button values
     public static final int THROW_BUTTON = 1;
-    public static final int PASS_BUTTON = 1;
+    public static final int PASS_BUTTON = 0;
     public static final int ARM_FRONT_BUTTON = 2;
     public static final int ARM_RESTING_BUTTON = 3;
     public static final int ARM_REAR_BUTTON = 4;
