@@ -12,13 +12,15 @@ package com.carbonauts.frc2014;
  */
 public class Constants {
     
-    //Declare constants of the PWM ports of specified motors 
+    //Declare constants of the PWM ports of specified motors
+    //TODO rewrite values with correct correspondance to the robot.
     public static final int DRIVE_LEFT_FRONT = 1;
     public static final int DRIVE_LEFT_REAR = 2;
     public static final int DRIVE_RIGHT_FRONT = 3;
     public static final int DRIVE_RIGHT_REAR = 4;
     public static final int PICKUP_PIVOT = 5;
     public static final int PICKUP_INTAKE = 6;
+    public static final int SHIFTER_SOLENOID = 7;
     
     //Declare Digital IO ports of digital sensors
     public static final int LIMIT_PICKUP_FORWARD = 1;
