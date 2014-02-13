@@ -25,7 +25,7 @@ public class PickupPivot extends Subsystem {
     /*
      * Declare Limit switch objects
      */
-    private DigitalInput mLimitForward ;
+    private DigitalInput mLimitForward;
     private DigitalInput mLimitResting;
     private DigitalInput mLimitReverse;
     
@@ -38,6 +38,16 @@ public class PickupPivot extends Subsystem {
     /**
      * Construct the subsystem; define hardware
      */
+    /************************************************
+     * Comment by Greg:
+     * for consistency with the WPI functions consider having the constructor
+     * take the talon and LS ports as input. When you instantiate the object
+     * you use the appropriate constants from Constants.java
+     * pros: as written this is more user-proof (you don't get the opportunity to NOT
+     * use the constants)
+     * cons: as written this is less abstract; it contains a lateral dependency
+     * ************************************************
+    */
     public PickupPivot() {
         
         //Define Talon
@@ -63,6 +73,13 @@ public class PickupPivot extends Subsystem {
      * Determines whether the pickup arm is currently positioned at one of the
      * preset positions
      * @return True if the arm is at preset, false otherwise
+     * 
+     * ********************************************************
+     * Comment by Greg:
+     * is this redundant with isAtPosition()?
+     * if not they should both be implemented with the same private (or public)
+     * method getPosition()
+     * ********************************************************
      */
     public boolean isAtLimit() {
         return mLimitForward.get() || mLimitResting.get() || mLimitReverse.get();
@@ -73,6 +90,22 @@ public class PickupPivot extends Subsystem {
      * parameter
      * @param position The position we're checking whether we're at or not
      * @return True if we're at position, false otherwise
+     * @param position
+     * @return 
+     */
+    
+    /************************************************************
+     * Comment by Greg:
+     * There should really be at least 5 positions for the arm.
+     * The three you have listed below and two more for the in between states
+     * Having those explicitly as positions might simplify the commands
+     * (I'm thinking about roller direction)
+     * 
+     * Also doesn't it make more sense for there to be a private method or
+     * variable that keeps track of the current position?
+     * Then this method could be implemented with a single line:
+     * return position == privatePosition;
+     * **************************************************************
      */
     public boolean isAtPosition(int position) {
         switch(position) {
