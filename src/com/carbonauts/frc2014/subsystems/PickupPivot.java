@@ -49,13 +49,13 @@ public class PickupPivot extends Subsystem {
          * construction and is controlled from constants
          */
         mLimitForward = new CarbonDigitalInput(
-                Constants.LIMIT_PICKUP_FORWARD,
+                Constants.FRONT_ARM_LIMIT_SWITCH,
                 Constants.DIGITAL_INPUT_1_INVERTED);
         mLimitResting = new CarbonDigitalInput(
-                Constants.LIMIT_PICKUP_RESTING,
+                Constants.RESTING_ARM_LIMIT_SWITCH,
                 Constants.DIGITAL_INPUT_2_INVERTED);
         mLimitReverse = new CarbonDigitalInput(
-                Constants.LIMIT_PICKUP_REVERSE,
+                Constants.REAR_ARM_LIMIT_SWITCH,
                 Constants.DIGITAL_INPUT_3_INVERTED);
     }
     
