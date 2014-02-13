@@ -14,6 +14,7 @@ public class OperatorDriveCommand extends CommandBase {
 
     public OperatorDriveCommand() {
         requires(mDrive);
+        setInterruptible(true);
     }
     
     protected void initialize() {
