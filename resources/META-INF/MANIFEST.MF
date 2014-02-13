@@ -1,6 +1,6 @@
-MIDlet-Name: BaseProjectExampleCode
+MIDlet-Name: BaseProject
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
-MIDlet-1: BaseProject, ,  com.team1829.frc2014.BaseProject
+MIDlet-1: BaseProject, ,  com.carbonauts.frc2014.BaseProject
 MicroEdition-Profile: IMP-1.0
 MicroEdition-Configuration: CLDC-1.1
