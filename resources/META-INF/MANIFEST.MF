@@ -1,4 +1,4 @@
-MIDlet-Name: BaseProjectExampleCode
+MIDlet-Name: BaseProject
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
 MIDlet-1: BaseProject, ,  com.team1829.frc2014.BaseProject
