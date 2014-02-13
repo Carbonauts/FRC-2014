@@ -19,14 +19,29 @@ public class Constants {
     public static final int DRIVE_RIGHT_FRONT = 3;
     public static final int DRIVE_RIGHT_REAR = 4;
     public static final int PICKUP_PIVOT = 5;
-    public static final int PICKUP_INTAKE = 6;
-    public static final int SHIFTER_SOLENOID = 7;
+    public static final int PICKUP_ROLLERS = 6;
+    
+    //Solenoid outputs
+    public static final int SHIFTER_SOLENOID = 1;
     
     //Declare Digital IO ports of digital sensors
-    public static final int LIMIT_PICKUP_FORWARD = 1;
-    public static final int LIMIT_PICKUP_RESTING = 2;
-    public static final int LIMIT_PICKUP_REVERSE = 3;
+    public static final int FRONT_ARM_LIMIT_SWITCH = 1;
+    public static final int RESTING_ARM_LIMIT_SWITCH = 2;
+    public static final int REAR_ARM_LIMIT_SWITCH = 3;
+    public static final int PASSING_LIMIT_SWITCH = 4;
+    public static final int THROWING_LIMIT_SWITCH = 5;
     
+    //Joystick buttons
+    //to-do: add final button values
+    public static final int THROW_BUTTON = 1;
+    public static final int PASS_BUTTON = 1;
+    public static final int ARM_FRONT_BUTTON = 2;
+    public static final int ARM_RESTING_BUTTON = 3;
+    public static final int ARM_REAR_BUTTON = 4;
+    public static final int ROLLER_ON_BUTTON = 5;
+    public static final int REVERSE_DRIVE_BUTTON = 6;
+
+            
     /*
      * Declare channels for Driver Station Data. For use with 
      * "getDigitalIn(int channel)", 
