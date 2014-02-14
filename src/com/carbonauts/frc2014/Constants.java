@@ -74,17 +74,22 @@ public class Constants {
     //Declare constants for robot states or conditions
     public static final int DRIVE_DIRECTION_FORWARD = 1;
     public static final int DRIVE_DIRECTION_REVERSE = -1;
-    public static final int PICKUP_POSITION_FORWARD = 1;
-    public static final int PICKUP_POSITION_RESTING = 2;
-    public static final int PICKUP_POSITION_REVERSE = 3;
-    public static final int PICKUP_POSITION_UNKNOWN = 4;
-    public static final boolean DIGITAL_INPUT_1_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_2_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_3_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_4_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_5_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_6_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_7_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_8_INVERTED = false;
-    public static final boolean DIGITAL_INPUT_9_INVERTED = false;
+    
+    public static final int PICKUP_DIRECTION_FORWARD = 1;
+    public static final int PICKUP_DIRECTION_STILL = 0;
+    public static final int PICKUP_DIRECTION_REVERSE = -1;
+    public static final int PICKUP_POSITION_FORWARD = 0;
+    public static final int PICKUP_POSITION_RESTING = 1;
+    public static final int PICKUP_POSITION_REVERSE = 2;
+    public static final int PICKUP_POSITION_UNKNOWN = 3;
+    
+    public static final boolean DIO1_INVERTED = false;
+    public static final boolean DIO2_INVERTED = false;
+    public static final boolean DIO3_INVERTED = false;
+    public static final boolean DIO4_INVERTED = false;
+    public static final boolean DIO5_INVERTED = false;
+    public static final boolean DIO6_INVERTED = false;
+    public static final boolean DIO7_INVERTED = false;
+    public static final boolean DIO8_INVERTED = false;
+    public static final boolean DIO9_INVERTED = false;
 }

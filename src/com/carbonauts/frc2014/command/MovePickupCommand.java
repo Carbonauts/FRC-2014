@@ -8,11 +8,11 @@ package com.carbonauts.frc2014.command;
  *
  * @author Nick
  */
-public class MovePickupToPositionCommand extends CommandBase {
+public class MovePickupCommand extends CommandBase {
     
     private boolean isFinished = false;
     
-    public MovePickupToPositionCommand(int position) {
+    public MovePickupCommand(int position) {
         if(mPickupPivot.isAtPosition(position)) {  //If we're at the position we want to go to, do nothing
             isFinished = true;  //Notify that command is done
         }

@@ -55,9 +55,7 @@ public class BaseProject extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        while(isEnabled() && isOperatorControl()) {
-            Scheduler.getInstance().run();
-        }
+        Scheduler.getInstance().run();
     }
     
     /**

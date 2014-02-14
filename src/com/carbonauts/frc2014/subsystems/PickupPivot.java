@@ -32,22 +32,12 @@ public class PickupPivot extends Subsystem {
     /*
      * State-keeping variables (may replace with methods)
      */
-    private int mLastPosition;
+    private int mPosition;
     private int mRollerDirection = 0;
     
     /**
      * Construct the subsystem; define hardware
      */
-    /************************************************
-     * Comment by Greg:
-     * for consistency with the WPI functions consider having the constructor
-     * take the talon and LS ports as input. When you instantiate the object
-     * you use the appropriate constants from Constants.java
-     * pros: as written this is more user-proof (you don't get the opportunity to NOT
-     * use the constants)
-     * cons: as written this is less abstract; it contains a lateral dependency
-     * ************************************************
-    */
     public PickupPivot() {
         
         //Define Talon
@@ -60,64 +50,97 @@ public class PickupPivot extends Subsystem {
          */
         mLimitForward = new CarbonDigitalInput(
                 Constants.FRONT_ARM_LIMIT_SWITCH,
-                Constants.DIGITAL_INPUT_1_INVERTED);
+                Constants.DIO1_INVERTED);
         mLimitResting = new CarbonDigitalInput(
                 Constants.RESTING_ARM_LIMIT_SWITCH,
-                Constants.DIGITAL_INPUT_2_INVERTED);
+                Constants.DIO2_INVERTED);
         mLimitReverse = new CarbonDigitalInput(
                 Constants.REAR_ARM_LIMIT_SWITCH,
-                Constants.DIGITAL_INPUT_3_INVERTED);
+                Constants.DIO3_INVERTED);
     }
     
     /**
      * Determines whether the pickup arm is currently positioned at one of the
-     * preset positions
+     * preset positions with a limit switch
      * @return True if the arm is at preset, false otherwise
-     * 
-     * ********************************************************
-     * Comment by Greg:
-     * is this redundant with isAtPosition()?
-     * if not they should both be implemented with the same private (or public)
-     * method getPosition()
-     * ********************************************************
      */
     public boolean isAtLimit() {
         return mLimitForward.get() || mLimitResting.get() || mLimitReverse.get();
     }
     
-    /**
-     * Determines whether the system is currently at the position fed as a
-     * parameter
-     * @param position The position we're checking whether we're at or not
-     * @return True if we're at position, false otherwise
-     * @param position
-     * @return 
-     */
-    
-    /************************************************************
-     * Comment by Greg:
-     * There should really be at least 5 positions for the arm.
-     * The three you have listed below and two more for the in between states
-     * Having those explicitly as positions might simplify the commands
-     * (I'm thinking about roller direction)
-     * 
-     * Also doesn't it make more sense for there to be a private method or
-     * variable that keeps track of the current position?
-     * Then this method could be implemented with a single line:
-     * return position == privatePosition;
-     * **************************************************************
-     */
     public boolean isAtPosition(int position) {
         switch(position) {
             case Constants.PICKUP_POSITION_FORWARD:
-                return mLimitForward.get();
-            case Constants.PICKUP_POSITION_RESTING:
-                return mLimitResting.get();
+                if(mLimitForward.get()) {
+                    mPosition = Constants.PICKUP_POSITION_FORWARD;
+                    return true;
+                }
             case Constants.PICKUP_POSITION_REVERSE:
-                return mLimitReverse.get();
+                if(mLimitReverse.get()) {
+                    mPosition = Constants.PICKUP_POSITION_REVERSE;
+                    return true;
+                }
+            case Constants.PICKUP_POSITION_RESTING:
+                if(mLimitResting.get()) {
+                    mPosition = Constants.PICKUP_POSITION_RESTING;
+                    return true;
+                }
             default:
+                mPosition = Constants.PICKUP_POSITION_UNKNOWN;
                 return false;
         }
+    }
+    
+    /**
+     * Move the pivot motor
+     * @param speed speed to move motor at
+     * @return true if the motor is set properly, false if limit is hit
+     */
+    public boolean moveSpeed(double speed) {
+        if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
+                mLimitForward.get()) {
+            mPivotMotor.set(0.0);
+            return false;
+        }
+        
+        if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_REVERSE &&
+                mLimitReverse.get()) {
+            mPivotMotor.set(0.0);
+            return false;
+        }
+        
+        //Scale the output if the range is too wide.
+        if(speed > 1.0) {
+            speed = 1.0;
+        } else if (speed < -1.0) {
+            speed = -1.0;
+        }
+        
+        mPivotMotor.set(speed);
+        return true;
+    }
+    
+    public boolean moveDirection(int direction) {
+        switch(direction) {
+            case Constants.PICKUP_DIRECTION_FORWARD:
+                return moveSpeed(1.0);
+            case Constants.PICKUP_DIRECTION_REVERSE:
+                return moveSpeed(-1.0);
+            case Constants.PICKUP_DIRECTION_STILL:
+                return moveSpeed(0.0);
+            default:
+                moveSpeed(0.0);
+                return false;
+        }
+    }
+    
+    private int directionFromSpeed(double speed) {
+        if(speed > 0) {
+            return Constants.PICKUP_DIRECTION_FORWARD;
+        } else if (speed < 0) {
+            return Constants.PICKUP_DIRECTION_REVERSE;
+        }
+        return Constants.PICKUP_DIRECTION_STILL;
     }
     
     protected void initDefaultCommand() {
