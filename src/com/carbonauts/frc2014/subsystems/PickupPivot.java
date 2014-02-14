@@ -49,13 +49,13 @@ public class PickupPivot extends Subsystem {
          * construction and is controlled from constants
          */
         mLimitForward = new CarbonDigitalInput(
-                Constants.FRONT_ARM_LIMIT_SWITCH,
+                Constants.PICKUP_LIMIT_FORWARD,
                 Constants.DIO1_INVERTED);
         mLimitResting = new CarbonDigitalInput(
-                Constants.RESTING_ARM_LIMIT_SWITCH,
+                Constants.PICKUP_LIMIT_RESTING,
                 Constants.DIO2_INVERTED);
         mLimitReverse = new CarbonDigitalInput(
-                Constants.REAR_ARM_LIMIT_SWITCH,
+                Constants.PICKUP_LIMIT_REVERSE,
                 Constants.DIO3_INVERTED);
     }
     
@@ -126,7 +126,7 @@ public class PickupPivot extends Subsystem {
                 return moveSpeed(1.0);
             case Constants.PICKUP_DIRECTION_REVERSE:
                 return moveSpeed(-1.0);
-            case Constants.PICKUP_DIRECTION_STILL:
+            case Constants.PICKUP_DIRECTION_STOPPED:
                 return moveSpeed(0.0);
             default:
                 moveSpeed(0.0);
@@ -140,7 +140,7 @@ public class PickupPivot extends Subsystem {
         } else if (speed < 0) {
             return Constants.PICKUP_DIRECTION_REVERSE;
         }
-        return Constants.PICKUP_DIRECTION_STILL;
+        return Constants.PICKUP_DIRECTION_STOPPED;
     }
     
     protected void initDefaultCommand() {

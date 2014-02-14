@@ -4,17 +4,23 @@
  */
 package com.carbonauts.frc2014.command;
 
+import com.carbonauts.frc2014.Console;
+
 /**
  *
  * @author Nick
  */
-public class MovePickupCommand extends CommandBase {
+public class MovePickupTeleopCommand extends CommandBase {
     
-    private boolean isFinished = false;
+    private boolean mFinished = false;
+    private int mDirection;
     
-    public MovePickupCommand(int position) {
-        if(mPickupPivot.isAtPosition(position)) {  //If we're at the position we want to go to, do nothing
-            isFinished = true;  //Notify that command is done
+    public MovePickupTeleopCommand() {
+        requires(mPickupPivot);
+        setInterruptible(true);
+        
+        if(mPickupPivot.isAtPosition(mDirection)) {  //If we're at the position we want to go to, do nothing
+            mFinished = true;  //Notify that command is done
         }
         /*****************************************************
          * Comment by Greg:
@@ -26,8 +32,7 @@ public class MovePickupCommand extends CommandBase {
     }
     
     protected void initialize() {
-        requires(mPickupPivot);
-        setInterruptible(true);
+        
     }
 
     protected void execute() {
@@ -35,10 +40,15 @@ public class MovePickupCommand extends CommandBase {
          * Code that moves arm to position.  Add a condition which will trigger
          * a return of "true" to the isFinished() method when this completes.
          */
+        if(mPickupPivot.isAtPosition(mDirection)) {
+            mFinished = true;
+        } else {
+            
+        }
     }
 
     protected boolean isFinished() {
-        return isFinished;
+        return mFinished;
     }
 
     protected void end() {

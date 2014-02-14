@@ -7,6 +7,8 @@ package com.carbonauts.frc2014;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * Class to contain all of the user input devices (Joysticks, gamepads) and
@@ -27,5 +29,11 @@ public class Console {
      */
     private DriverStationLCD mLCD;
     
+    /*
+     * TODO rename controls and use constants
+     */
     public static Joystick mJoystick = new Joystick(Constants.JOYSTICK);
+    public static Button mButton1 = new JoystickButton(mJoystick, 1);
+    public static Button mButton2 = new JoystickButton(mJoystick, 2);
+    public static Button mButton3 = new JoystickButton(mJoystick, 3);
 }
