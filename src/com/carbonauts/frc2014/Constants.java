@@ -62,6 +62,7 @@ public class Constants {
     public static final int BUTTON_ARM_REVERSE = 4;     //Button ID
     public static final int BUTTON_ROLLERS_ON = 5;      //Button ID
     public static final int BUTTON_INVERT_DRIVE = 6;    //Button ID
+    public static final int BUTTON_SHIFT = 7;           //Button ID
     
     /***************************************************************************
      * All INVERSION constants

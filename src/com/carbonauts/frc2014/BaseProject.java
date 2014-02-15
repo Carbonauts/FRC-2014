@@ -56,6 +56,8 @@ public class BaseProject extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        
     }
     
     /**

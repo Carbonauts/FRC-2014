@@ -4,6 +4,7 @@
  */
 package com.carbonauts.frc2014;
 
+import com.carbonauts.frc2014.util.CarbonJoystick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Joystick;
@@ -32,8 +33,17 @@ public class Console {
     /*
      * TODO rename controls and use constants
      */
-    public static Joystick mJoystick = new Joystick(Constants.JOYSTICK);
+    public static final CarbonJoystick mJoystick = new CarbonJoystick(Constants.JOYSTICK);
     public static Button mButton1 = new JoystickButton(mJoystick, 1);
     public static Button mButton2 = new JoystickButton(mJoystick, 2);
     public static Button mButton3 = new JoystickButton(mJoystick, 3);
+    public static Button mButton4 = new JoystickButton(mJoystick, 3);
+    public static Button mButton5 = new JoystickButton(mJoystick, 3);
+    public static Button mButton6 = new JoystickButton(mJoystick, 3);
+    public static Button mButton7 = new JoystickButton(mJoystick, 3);
+    public static Button mButton8 = new JoystickButton(mJoystick, 3);
+    public static Button mButton9 = new JoystickButton(mJoystick, 3);
+    public static Button mButton10 = new JoystickButton(mJoystick, 3);
+    public static Button mButton11 = new JoystickButton(mJoystick, 3);
+    public static Button mButton12 = new JoystickButton(mJoystick, 3);
 }
