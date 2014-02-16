@@ -5,21 +5,25 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.Constants;
 
 /**
- *
+ * Moves the PivotPickup subsystem in a direction given by a parameter
  * @author Nick
  */
-public class MovePickupTeleopCommand extends CommandBase {
+public class MovePickupDirectionCommand extends CommandBase {
     
     private boolean mFinished = false;
     private int mDirection;
     
-    public MovePickupTeleopCommand() {
+    public MovePickupDirectionCommand(int direction) {
         requires(mPickupPivot);
         setInterruptible(true);
         
-        if(mPickupPivot.isAtPosition(mDirection)) {  //If we're at the position we want to go to, do nothing
+        mDirection = direction;
+        
+        //If we're already at the position we want to go to, do nothing
+        if(mPickupPivot.isAtPosition(mDirection)) {  
             mFinished = true;  //Notify that command is done
         }
         /*****************************************************
@@ -36,15 +40,7 @@ public class MovePickupTeleopCommand extends CommandBase {
     }
 
     protected void execute() {
-        /*
-         * Code that moves arm to position.  Add a condition which will trigger
-         * a return of "true" to the isFinished() method when this completes.
-         */
-        if(mPickupPivot.isAtPosition(mDirection)) {
-            mFinished = true;
-        } else {
-            
-        }
+        
     }
 
     protected boolean isFinished() {
@@ -52,7 +48,7 @@ public class MovePickupTeleopCommand extends CommandBase {
     }
 
     protected void end() {
-        
+        mPickupPivot.moveDirection(Constants.PICKUP_DIRECTION_STOPPED);
     }
 
     protected void interrupted() {

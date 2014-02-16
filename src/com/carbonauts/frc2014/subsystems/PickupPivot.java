@@ -68,6 +68,12 @@ public class PickupPivot extends Subsystem {
         return mLimitForward.get() || mLimitResting.get() || mLimitReverse.get();
     }
     
+    /**
+     * Checks whether the pickup arm is at 'position' based on readings from
+     * limit switches.
+     * @param position The position to check if we're at
+     * @return True if we're at 'position', false otherwise
+     */
     public boolean isAtPosition(int position) {
         switch(position) {
             case Constants.PICKUP_POSITION_FORWARD:
@@ -92,11 +98,15 @@ public class PickupPivot extends Subsystem {
     }
     
     /**
-     * Move the pivot motor
+     * Move the pivot motor based on speed
      * @param speed speed to move motor at
-     * @return true if the motor is set properly, false if limit is hit
+     * @return true if the motor is successfully set, false if limit is hit
      */
     public boolean moveSpeed(double speed) {
+        /*
+         * Check if the limit switch for the direction of movement is hit, and
+         * stop the motor if it is.
+         */
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
                 mLimitForward.get()) {
             mPivotMotor.set(0.0);
@@ -120,6 +130,11 @@ public class PickupPivot extends Subsystem {
         return true;
     }
     
+    /**
+     * Sets motor to full forward or full reverse based on parameter
+     * @param direction The direction to spin the motor.
+     * @return True for successful completion, false for incomplete.
+     */
     public boolean moveDirection(int direction) {
         switch(direction) {
             case Constants.PICKUP_DIRECTION_FORWARD:
@@ -134,6 +149,18 @@ public class PickupPivot extends Subsystem {
         }
     }
     
+    /**
+     * Sets the motor speed to 0
+     */
+    public void stopPivot() {
+        moveSpeed(0.0);
+    }
+    
+    /**
+     * Determines the direction of movement based on a number value.
+     * @param speed The number value which will be analyzed for direction.
+     * @return The direction of movement, in terms of constants in Constants.java
+     */
     private int directionFromSpeed(double speed) {
         if(speed > 0) {
             return Constants.PICKUP_DIRECTION_FORWARD;
