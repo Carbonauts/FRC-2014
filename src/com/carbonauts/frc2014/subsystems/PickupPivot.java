@@ -33,7 +33,7 @@ public class PickupPivot extends Subsystem {
      * State-keeping variables (may replace with methods)
      */
     private int position;
-    private int rollerDirection = 0;
+    private String pickupStatus;
     
     /**
      * Construct the subsystem; define hardware
@@ -50,13 +50,16 @@ public class PickupPivot extends Subsystem {
          */
         limitForward = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_FORWARD,
-                Constants.DIO1_INVERTED);
+                Constants.PICKUP_LIMIT_FORWARD_INVERTED);
         limitResting = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_RESTING,
-                Constants.DIO2_INVERTED);
+                Constants.PICKUP_LIMIT_RESTING_INVERTED);
         limitReverse = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_REVERSE,
-                Constants.DIO3_INVERTED);
+                Constants.PICKUP_LIMIT_REVERSE_INVERTED);
+        
+        updatePosition();
+        pickupStatus = "";
     }
     
     /**
@@ -103,12 +106,14 @@ public class PickupPivot extends Subsystem {
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
                 limitForward.get()) {
             pivotMotor.set(0.0);
+            setPickupStatus("FW Limit!");
             return false;
         }
         
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_REVERSE &&
                 limitReverse.get()) {
             pivotMotor.set(0.0);
+            setPickupStatus("RV Limit!");
             return false;
         }
         
@@ -120,6 +125,7 @@ public class PickupPivot extends Subsystem {
         }
         
         pivotMotor.set(speed);
+        setPickupStatus("Speed: " + speed);
         return true;
     }
     
@@ -172,5 +178,25 @@ public class PickupPivot extends Subsystem {
      */
     public int getPosition() {
         return position;
+    }
+    
+    public void setPickupStatus(String status) {
+        pickupStatus = status;
+    }
+    
+    public String getPickupStatus() {
+        return pickupStatus;
+    }
+    
+    public boolean getForwardLimitState() {
+        return limitForward.get();
+    }
+    
+    public boolean getRestingLimitState() {
+        return limitResting.get();
+    }
+    
+    public boolean getReverseLimitState() {
+        return limitReverse.get();
     }
 }

@@ -25,6 +25,8 @@ public class Drive extends Subsystem {
     private boolean driveEnabled;
     private int driveDirection;
     
+    private String driveStatus;
+    
     /**
      * Primary constructor for Drive
      */
@@ -40,8 +42,8 @@ public class Drive extends Subsystem {
             rightFrontDrive, 
             rightRearDrive);
         
-        driveEnabled = true;
         driveDirection = 1;
+        driveStatus = "";
     }
     
     /**
@@ -51,11 +53,10 @@ public class Drive extends Subsystem {
      * @param rotationalPower The power to turn with (-1 - 1).
      */
     public void driveArcade(double lateralPower, double rotationalPower) {
-        if(driveEnabled) {
-            robotDrive.arcadeDrive(getDirection() * lateralPower, rotationalPower);
-        } else {
-            robotDrive.arcadeDrive(0,0);
-        }
+        robotDrive.arcadeDrive(getDirection() * lateralPower, rotationalPower);
+        setDriveStatus("AR- T:" + lateralPower +
+                " R:" + rotationalPower);
+        //setDriveStatus("ARCADE DRIVE");
     }
     
     /**
@@ -65,11 +66,8 @@ public class Drive extends Subsystem {
      * @param rightPower Speed to drive robot-right at.
      */
     public void driveTank(double leftPower, double rightPower) {
-        if(driveEnabled) {
-            robotDrive.tankDrive(getDirection() * leftPower, getDirection() * rightPower);
-        } else {
-            robotDrive.tankDrive(0,0);
-        }
+        robotDrive.tankDrive(getDirection() * leftPower, getDirection() * rightPower);
+        setDriveStatus("Tank Drive - Left: " + leftPower + " Right: " + rightPower);
     }
     
     public void setDriveDirection(int direction) {
@@ -104,5 +102,13 @@ public class Drive extends Subsystem {
     
     public int getDirection() {
         return driveDirection;
+    }
+    
+    public void setDriveStatus(String condition) {
+        this.driveStatus = condition;
+    }
+    
+    public String getDriveStatus() {
+        return driveStatus;
     }
 }

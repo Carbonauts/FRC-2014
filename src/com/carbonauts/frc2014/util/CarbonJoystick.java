@@ -49,14 +49,6 @@ public class CarbonJoystick extends Joystick {
         return new JoystickButton(this, Constants.BUTTON_INVERT_DRIVE);
     }
     
-    public boolean getPassButtonState() {
-        return this.getRawButton(Constants.BUTTON_PASS);
-    }
-    
-    public JoystickButton getPassButton() {
-        return new JoystickButton(this, Constants.BUTTON_PASS);
-    }
-    
     public boolean getRollerButtonState() {
         return this.getRawButton(Constants.BUTTON_ROLLERS_ON);
     }

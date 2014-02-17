@@ -56,7 +56,6 @@ public class Constants {
     public static final int JOYSTICK = 1;               //USB for Joystick
     
     public static final int BUTTON_THROW = 1;           //Button ID
-    public static final int BUTTON_PASS = 1;            //Button ID
     public static final int BUTTON_ARM_FORWARD = 2;     //Button ID
     public static final int BUTTON_ARM_RESTING = 3;     //Button ID
     public static final int BUTTON_ARM_REVERSE = 4;     //Button ID
@@ -67,9 +66,9 @@ public class Constants {
     /***************************************************************************
      * All INVERSION constants
      **************************************************************************/
-    public static final boolean DIO1_INVERTED = false;
-    public static final boolean DIO2_INVERTED = false;
-    public static final boolean DIO3_INVERTED = false;
+    public static final boolean PICKUP_LIMIT_FORWARD_INVERTED = true;
+    public static final boolean PICKUP_LIMIT_RESTING_INVERTED = true;
+    public static final boolean PICKUP_LIMIT_REVERSE_INVERTED = true;
     public static final boolean DIO4_INVERTED = false;
     public static final boolean DIO5_INVERTED = false;
     public static final boolean DIO6_INVERTED = false;

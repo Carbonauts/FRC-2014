@@ -21,6 +21,7 @@ public class MovePickupDirectionCommand extends CommandBase {
         setInterruptible(true);
         
         this.direction = direction;
+        System.out.println("New MovePickupDirectionCommand: " + direction);
         
         if(this.direction == Constants.PICKUP_DIRECTION_FORWARD) {
             endPosition = Constants.PICKUP_POSITION_FORWARD;
@@ -35,10 +36,16 @@ public class MovePickupDirectionCommand extends CommandBase {
     }
     
     protected void initialize() {
-        
+        System.out.println("Button Press");
     }
 
     protected void execute() {
+        
+        System.out.println("FL:" + CommandBase.pickupPivot.getForwardLimitState() +
+                " MD:" + CommandBase.pickupPivot.getRestingLimitState() +
+                " RE:" + CommandBase.pickupPivot.getReverseLimitState());
+        
+        System.out.println("IsAtPosition:" + pickupPivot.isAtPosition(endPosition));
         if(pickupPivot.isAtPosition(endPosition)) {
             pickupPivot.stopPivot();
             finished = true;
