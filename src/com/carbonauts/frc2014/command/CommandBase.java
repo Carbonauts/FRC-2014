@@ -20,10 +20,10 @@ public abstract class CommandBase extends Command {
     /*
      * Instantiate all subsystems as static objects
      */
-    public static Drive mDrive = new Drive();
-    public static DriveShifter mShifter = new DriveShifter();
-    public static PickupPivot mPickupPivot = new PickupPivot();
-    public static PickupIntake mPickupIntake = new PickupIntake();
+    public static Drive drive = new Drive();
+    public static DriveShifter shifter = new DriveShifter();
+    public static PickupPivot pickupPivot = new PickupPivot();
+    public static PickupIntake pickupIntake = new PickupIntake();
     
     /**
      * This method exists to ensure that CommandBase has been constructed

@@ -9,6 +9,7 @@ package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
+import com.carbonauts.frc2014.command.MovePickupDirectionCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class BaseProject extends IterativeRobot {
     
     Command autonomousCommand; //Example autonomous command
-    Command mOperatorDriveCommand;
+    Command operatorDriveCommand;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -33,7 +34,7 @@ public class BaseProject extends IterativeRobot {
     public void robotInit() {
         CommandBase.init();
         autonomousCommand = new ExampleAutonomousCommand();
-        mOperatorDriveCommand = new OperatorDriveCommand();
+        operatorDriveCommand = new OperatorDriveCommand();
     }
 
     public void autonomousInit() {
@@ -56,8 +57,16 @@ public class BaseProject extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        Console.updateLCD();
         
+        Console.getButton2().whenPressed(new MovePickupDirectionCommand(
+                Constants.PICKUP_DIRECTION_FORWARD));
         
+        Console.getButton4().whenPressed(new MovePickupDirectionCommand(
+                Constants.PICKUP_DIRECTION_REVERSE));
+        
+        Console.getButton3().whenPressed(new MovePickupDirectionCommand(
+                Constants.PICKUP_DIRECTION_STOPPED));
     }
     
     /**

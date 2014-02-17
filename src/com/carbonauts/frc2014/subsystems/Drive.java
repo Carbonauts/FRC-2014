@@ -16,19 +16,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drive extends Subsystem {
 
-    private Talon mLeftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
-    private Talon mLeftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
-    private Talon mRightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
-    private Talon mRightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
+    private Talon leftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
+    private Talon leftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
+    private Talon rightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
+    private Talon rightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
     
-    private RobotDrive mRobotDrive = new RobotDrive(
-            mLeftFrontDrive,
-            mLeftRearDrive, 
-            mRightFrontDrive, 
-            mRightRearDrive);
+    private RobotDrive robotDrive = new RobotDrive(
+            leftFrontDrive,
+            leftRearDrive, 
+            rightFrontDrive, 
+            rightRearDrive);
     
-    private boolean isDriveMode = true;
-    private int mDriveDirection = 1;
+    private boolean driveEnabled = true;
+    private int driveDirection = 1;
     
     /**
      * Method for driving the robot by specifying lateral motion (forward and
@@ -37,10 +37,10 @@ public class Drive extends Subsystem {
      * @param rotationalPower The power to turn with (-1 - 1).
      */
     public void driveArcade(double lateralPower, double rotationalPower) {
-        if(isDriveMode) {
-            mRobotDrive.arcadeDrive(getDirection() * lateralPower, rotationalPower);
+        if(driveEnabled) {
+            robotDrive.arcadeDrive(getDirection() * lateralPower, rotationalPower);
         } else {
-            mRobotDrive.arcadeDrive(0,0);
+            robotDrive.arcadeDrive(0,0);
         }
     }
     
@@ -51,19 +51,19 @@ public class Drive extends Subsystem {
      * @param rightPower Speed to drive robot-right at.
      */
     public void driveTank(double leftPower, double rightPower) {
-        if(isDriveMode) {
-            mRobotDrive.tankDrive(getDirection() * leftPower, getDirection() * rightPower);
+        if(driveEnabled) {
+            robotDrive.tankDrive(getDirection() * leftPower, getDirection() * rightPower);
         } else {
-            mRobotDrive.tankDrive(0,0);
+            robotDrive.tankDrive(0,0);
         }
     }
     
     public void setDriveDirection(int direction) {
-        mDriveDirection = direction;
+        driveDirection = direction;
     }
     
     public void toggleDirection() {
-        mDriveDirection = -mDriveDirection;
+        driveDirection = -driveDirection;
     }
     
     /**
@@ -73,15 +73,15 @@ public class Drive extends Subsystem {
      * @param enabled
      */
     public void setDriveEnabled(boolean enabled) {
-        isDriveMode = enabled;
+        driveEnabled = enabled;
     }
     
     public void toggleEnabled() {
-        isDriveMode = !isDriveMode;
+        driveEnabled = !driveEnabled;
     }
     
-    public boolean getEnabled() {
-        return isDriveMode;
+    public boolean isEnabled() {
+        return driveEnabled;
     }
     
     protected void initDefaultCommand() {
@@ -89,6 +89,6 @@ public class Drive extends Subsystem {
     }
     
     public int getDirection() {
-        return mDriveDirection;
+        return driveDirection;
     }
 }

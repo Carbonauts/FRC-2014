@@ -4,7 +4,6 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
 
 /**
@@ -13,26 +12,26 @@ import com.carbonauts.frc2014.Constants;
  */
 public class MovePickupDirectionCommand extends CommandBase {
     
-    private boolean mFinished = false;
-    private int mDirection;
+    private boolean finished = false;
+    private int direction;
+    private int endPosition;
     
     public MovePickupDirectionCommand(int direction) {
-        requires(mPickupPivot);
+        requires(pickupPivot);
         setInterruptible(true);
         
-        mDirection = direction;
+        this.direction = direction;
+        
+        if(this.direction == Constants.PICKUP_DIRECTION_FORWARD) {
+            endPosition = Constants.PICKUP_POSITION_FORWARD;
+        } else if (this.direction == Constants.PICKUP_DIRECTION_REVERSE) {
+            endPosition = Constants.PICKUP_POSITION_REVERSE;
+        }
         
         //If we're already at the position we want to go to, do nothing
-        if(mPickupPivot.isAtPosition(mDirection)) {  
-            mFinished = true;  //Notify that command is done
+        if(pickupPivot.isAtPosition(endPosition)) {  
+            finished = true;  //Notify that command is done
         }
-        /*****************************************************
-         * Comment by Greg:
-         * all this needs is this line (assuming we add the getPosition method to pickupPivot)
-         * IMPORTANT: The following line must be BEFORE the isFinished check otherwise the motor
-         * may not turn off when the goal is reached
-         * mPickupPivot.mPivotMotor.set(Java.signum(position - mPickupPivot.getPosition());
-         */
     }
     
     protected void initialize() {
@@ -40,18 +39,23 @@ public class MovePickupDirectionCommand extends CommandBase {
     }
 
     protected void execute() {
-        
+        if(pickupPivot.isAtPosition(endPosition)) {
+            pickupPivot.stopPivot();
+            finished = true;
+        } else {
+            pickupPivot.moveDirection(direction);
+        }
     }
 
     protected boolean isFinished() {
-        return mFinished;
+        return finished;
     }
 
     protected void end() {
-        mPickupPivot.moveDirection(Constants.PICKUP_DIRECTION_STOPPED);
+        pickupPivot.stopPivot();
     }
 
     protected void interrupted() {
-        
+        pickupPivot.stopPivot();
     }
 }

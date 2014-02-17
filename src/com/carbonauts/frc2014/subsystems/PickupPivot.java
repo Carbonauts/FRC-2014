@@ -20,20 +20,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class PickupPivot extends Subsystem {
 
     //Declare Talon
-    private Talon mPivotMotor;
+    private Talon pivotMotor;
     
     /*
      * Declare Limit switch objects
      */
-    private DigitalInput mLimitForward;
-    private DigitalInput mLimitResting;
-    private DigitalInput mLimitReverse;
+    private DigitalInput limitForward;
+    private DigitalInput limitResting;
+    private DigitalInput limitReverse;
     
     /*
      * State-keeping variables (may replace with methods)
      */
-    private int mPosition;
-    private int mRollerDirection = 0;
+    private int position;
+    private int rollerDirection = 0;
     
     /**
      * Construct the subsystem; define hardware
@@ -41,20 +41,20 @@ public class PickupPivot extends Subsystem {
     public PickupPivot() {
         
         //Define Talon
-        mPivotMotor = new Talon(Constants.PICKUP_PIVOT);
+        pivotMotor = new Talon(Constants.PICKUP_PIVOT);
         
         /*
          * Using custom DigitalInput class (CarbonDigitalInput) in order to control
          * the inversion of the get() statement.  Each inversion is declared at
          * construction and is controlled from constants
          */
-        mLimitForward = new CarbonDigitalInput(
+        limitForward = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_FORWARD,
                 Constants.DIO1_INVERTED);
-        mLimitResting = new CarbonDigitalInput(
+        limitResting = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_RESTING,
                 Constants.DIO2_INVERTED);
-        mLimitReverse = new CarbonDigitalInput(
+        limitReverse = new CarbonDigitalInput(
                 Constants.PICKUP_LIMIT_REVERSE,
                 Constants.DIO3_INVERTED);
     }
@@ -65,7 +65,7 @@ public class PickupPivot extends Subsystem {
      * @return True if the arm is at preset, false otherwise
      */
     public boolean isAtLimit() {
-        return mLimitForward.get() || mLimitResting.get() || mLimitReverse.get();
+        return limitForward.get() || limitResting.get() || limitReverse.get();
     }
     
     /**
@@ -75,25 +75,18 @@ public class PickupPivot extends Subsystem {
      * @return True if we're at 'position', false otherwise
      */
     public boolean isAtPosition(int position) {
-        switch(position) {
-            case Constants.PICKUP_POSITION_FORWARD:
-                if(mLimitForward.get()) {
-                    mPosition = Constants.PICKUP_POSITION_FORWARD;
-                    return true;
-                }
-            case Constants.PICKUP_POSITION_REVERSE:
-                if(mLimitReverse.get()) {
-                    mPosition = Constants.PICKUP_POSITION_REVERSE;
-                    return true;
-                }
-            case Constants.PICKUP_POSITION_RESTING:
-                if(mLimitResting.get()) {
-                    mPosition = Constants.PICKUP_POSITION_RESTING;
-                    return true;
-                }
-            default:
-                mPosition = Constants.PICKUP_POSITION_UNKNOWN;
-                return false;
+        return this.position == position;
+    }
+    
+    public void updatePosition() {
+        if(limitForward.get()) {
+            position = Constants.PICKUP_POSITION_FORWARD;
+        } else if(limitResting.get()) {
+            position = Constants.PICKUP_POSITION_RESTING;
+        } else if(limitReverse.get()) {
+            position = Constants.PICKUP_POSITION_REVERSE;
+        } else {
+            position = Constants.PICKUP_POSITION_UNKNOWN;
         }
     }
     
@@ -108,14 +101,14 @@ public class PickupPivot extends Subsystem {
          * stop the motor if it is.
          */
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
-                mLimitForward.get()) {
-            mPivotMotor.set(0.0);
+                limitForward.get()) {
+            pivotMotor.set(0.0);
             return false;
         }
         
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_REVERSE &&
-                mLimitReverse.get()) {
-            mPivotMotor.set(0.0);
+                limitReverse.get()) {
+            pivotMotor.set(0.0);
             return false;
         }
         
@@ -126,7 +119,7 @@ public class PickupPivot extends Subsystem {
             speed = -1.0;
         }
         
-        mPivotMotor.set(speed);
+        pivotMotor.set(speed);
         return true;
     }
     
@@ -172,5 +165,12 @@ public class PickupPivot extends Subsystem {
     
     protected void initDefaultCommand() {
         //No default command, leave blank
+    }
+
+    /**
+     * @return the position
+     */
+    public int getPosition() {
+        return position;
     }
 }
