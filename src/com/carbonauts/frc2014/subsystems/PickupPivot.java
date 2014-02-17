@@ -6,6 +6,7 @@ package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
+import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class PickupPivot extends Subsystem {
 
     //Declare Talon
-    private Talon pivotMotor;
+    private CarbonTalon pivotMotor;
     
     /*
      * Declare Limit switch objects
@@ -41,7 +42,7 @@ public class PickupPivot extends Subsystem {
     public PickupPivot() {
         
         //Define Talon
-        pivotMotor = new Talon(Constants.PICKUP_PIVOT);
+        pivotMotor = new CarbonTalon(Constants.PICKUP_PIVOT);
         
         /*
          * Using custom DigitalInput class (CarbonDigitalInput) in order to control
@@ -105,14 +106,14 @@ public class PickupPivot extends Subsystem {
          */
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
                 limitForward.get()) {
-            pivotMotor.set(0.0);
+            pivotMotor.setRamp(0.0);
             setPickupStatus("FW Limit!");
             return false;
         }
         
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_REVERSE &&
                 limitReverse.get()) {
-            pivotMotor.set(0.0);
+            pivotMotor.setRamp(0.0);
             setPickupStatus("RV Limit!");
             return false;
         }
@@ -124,7 +125,7 @@ public class PickupPivot extends Subsystem {
             speed = -1.0;
         }
         
-        pivotMotor.set(speed);
+        pivotMotor.setRamp(speed);
         setPickupStatus("Speed: " + speed);
         return true;
     }
@@ -153,6 +154,13 @@ public class PickupPivot extends Subsystem {
      */
     public void stopPivot() {
         moveSpeed(0.0);
+    }
+    
+    /**
+     * Sets the motor speed to 0 without using a ramp (instant speed change)
+     */
+    public void emergencyStopPivot() {
+        pivotMotor.setNoRamp(0.0);
     }
     
     /**
