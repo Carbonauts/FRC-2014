@@ -16,19 +16,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drive extends Subsystem {
 
-    private Talon leftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
-    private Talon leftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
-    private Talon rightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
-    private Talon rightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
+    private Talon leftFrontDrive;
+    private Talon leftRearDrive;
+    private Talon rightFrontDrive;
+    private Talon rightRearDrive;
+    private RobotDrive robotDrive;
     
-    private RobotDrive robotDrive = new RobotDrive(
+    private boolean driveEnabled;
+    private int driveDirection;
+    
+    /**
+     * Primary constructor for Drive
+     */
+    public Drive() {
+        leftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
+        leftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
+        rightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
+        rightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
+        
+        robotDrive = new RobotDrive(
             leftFrontDrive,
             leftRearDrive, 
             rightFrontDrive, 
             rightRearDrive);
-    
-    private boolean driveEnabled = true;
-    private int driveDirection = 1;
+        
+        driveEnabled = true;
+        driveDirection = 1;
+    }
     
     /**
      * Method for driving the robot by specifying lateral motion (forward and
