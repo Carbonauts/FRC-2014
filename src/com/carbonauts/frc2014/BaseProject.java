@@ -9,7 +9,6 @@ package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
-import com.carbonauts.frc2014.command.MovePickupDirectionCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,8 +32,10 @@ public class BaseProject extends IterativeRobot {
      */
     public void robotInit() {
         CommandBase.init();
+        Console.init();
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
+        
     }
 
     public void autonomousInit() {
@@ -59,14 +60,20 @@ public class BaseProject extends IterativeRobot {
         Scheduler.getInstance().run();
         Console.updateLCD();
         
-        Console.getButton2().whenPressed(new MovePickupDirectionCommand(
-                Constants.PICKUP_DIRECTION_FORWARD));
+        if(Console.getJoystick().getArmForwardButtonState()) {
+            CommandBase.pickupPivot.moveDirection(Constants.PICKUP_DIRECTION_FORWARD);
+        } else if(Console.getJoystick().getArmReverseButtonState()) {
+            CommandBase.pickupPivot.moveDirection(Constants.PICKUP_DIRECTION_REVERSE);
+        } else {
+            CommandBase.pickupPivot.stopPivot();
+        }
         
-        Console.getButton4().whenPressed(new MovePickupDirectionCommand(
-                Constants.PICKUP_DIRECTION_REVERSE));
-        
-        Console.getButton3().whenPressed(new MovePickupDirectionCommand(
-                Constants.PICKUP_DIRECTION_STOPPED));
+        /*
+         * TODO add logic to reverse direction based on position
+         */
+        if(Console.getJoystick().getRollerButtonState()) {
+            CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_FORWARD);
+        }
     }
     
     /**
