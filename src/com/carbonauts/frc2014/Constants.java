@@ -16,6 +16,12 @@ package com.carbonauts.frc2014;
  * @author Nick
  */
 public class Constants {
+    /***************************************************************************
+     * All RAMP constants
+     **************************************************************************/
+    public static final double DEFAULT_RAMP_STEP = 0.1; 
+    public static final int DEFAULT_RAMP_TIME = 1000;
+    
     
     /***************************************************************************
      * All DRIVE constants
