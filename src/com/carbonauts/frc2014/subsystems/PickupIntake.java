@@ -18,7 +18,7 @@ public class PickupIntake extends Subsystem {
     private CarbonTalon intakeMotor;
     
     public PickupIntake() {
-        intakeMotor = new CarbonTalon(Constants.PICKUP_ROLLERS);
+        intakeMotor = new CarbonTalon(Constants.INTAKE_ROLLERS);
     }
     
     public void moveSpeed(double speed) {
@@ -26,9 +26,9 @@ public class PickupIntake extends Subsystem {
     }
     
     public void moveDirection(int direction) {
-        if(direction == Constants.PICKUP_DIRECTION_FORWARD) {
+        if(direction == Constants.PIVOT_DIRECTION_FORWARD) {
             moveSpeed(1.0);
-        } else if(direction == Constants.PICKUP_DIRECTION_REVERSE) {
+        } else if(direction == Constants.PIVOT_DIRECTION_REVERSE) {
             moveSpeed(-1.0);
         } else {
             moveSpeed(0.0);

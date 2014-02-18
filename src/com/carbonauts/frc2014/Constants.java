@@ -35,25 +35,25 @@ public class Constants {
     public static final int DRIVE_DIRECTION_REVERSE = -1;   //State constant
     
     /***************************************************************************
-     * All PICKUP PIVOT constants
+     * All PIVOT constants
      **************************************************************************/
-    public static final int PICKUP_PIVOT = 5;           //PWM for Pivot Talon
-    public static final int PICKUP_LIMIT_FORWARD = 1;   //PWM for Forward Limit
-    public static final int PICKUP_LIMIT_RESTING = 2;   //PWM for Resting Limit
-    public static final int PICKUP_LIMIT_REVERSE = 3;   //PWM for Reverse Limit
+    public static final int PIVOT = 5;           //PWM for Pivot Talon
+    public static final int PIVOT_LIMIT_FORWARD = 1;   //PWM for Forward Limit
+    public static final int PIVOT_LIMIT_RESTING = 2;   //PWM for Resting Limit
+    public static final int PIVOT_LIMIT_REVERSE = 3;   //PWM for Reverse Limit
     
-    public static final int PICKUP_DIRECTION_FORWARD = 1;   //State constant
-    public static final int PICKUP_DIRECTION_STOPPED = 0;   //State constant
-    public static final int PICKUP_DIRECTION_REVERSE = -1;  //State constant
-    public static final int PICKUP_POSITION_FORWARD = 0;    //State constant
-    public static final int PICKUP_POSITION_RESTING = 1;    //State constant
-    public static final int PICKUP_POSITION_REVERSE = 2;    //State constant
-    public static final int PICKUP_POSITION_UNKNOWN = 3;    //State constant
+    public static final int PIVOT_DIRECTION_FORWARD = 1;   //State constant
+    public static final int PIVOT_DIRECTION_STOPPED = 0;   //State constant
+    public static final int PIVOT_DIRECTION_REVERSE = -1;  //State constant
+    public static final int PIVOT_POSITION_FORWARD = 0;    //State constant
+    public static final int PIVOT_POSITION_RESTING = 1;    //State constant
+    public static final int PIVOT_POSITION_REVERSE = 2;    //State constant
+    public static final int PIVOT_POSITION_UNKNOWN = 3;    //State constant
     
     /***************************************************************************
-     * All PICKUP INTAKE constants
+     * All INTAKE constants
      **************************************************************************/
-    public static final int PICKUP_ROLLERS = 6; //PWM for Roller Talon
+    public static final int INTAKE_ROLLERS = 6; //PWM for Roller Talon
     
     /***************************************************************************
      * All JOYSTICK constants
@@ -71,13 +71,25 @@ public class Constants {
     /***************************************************************************
      * All INVERSION constants
      **************************************************************************/
-    public static final boolean PICKUP_LIMIT_FORWARD_INVERTED = true;
-    public static final boolean PICKUP_LIMIT_RESTING_INVERTED = true;
-    public static final boolean PICKUP_LIMIT_REVERSE_INVERTED = true;
+    public static final boolean PIVOT_LIMIT_FORWARD_INVERTED = true;
+    public static final boolean PIVOT_LIMIT_RESTING_INVERTED = true;
+    public static final boolean PIVOT_LIMIT_REVERSE_INVERTED = true;
     public static final boolean DIO4_INVERTED = false;
     public static final boolean DIO5_INVERTED = false;
     public static final boolean DIO6_INVERTED = false;
     public static final boolean DIO7_INVERTED = false;
     public static final boolean DIO8_INVERTED = false;
     public static final boolean DIO9_INVERTED = false;
+    
+    /***************************************************************************
+     * All CONSOLE constants
+     **************************************************************************/
+    
+    //Status selector constants
+    public static final int STATUS_DRIVEMODE_ARCADE = 0;
+    public static final int STATUS_DRIVEMODE_TANK = 1;
+    
+    public static final int STATUS_PIVOTMODE_HOLDDOWN = 0;
+    public static final int STATUS_PIVOTMODE_TOGGLE = 1;
+    public static final int STATUS_PIVOTMODE_AUTO = 2;
 }

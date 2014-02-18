@@ -23,10 +23,10 @@ public class MovePickupDirectionCommand extends CommandBase {
         this.direction = direction;
         System.out.println("New MovePickupDirectionCommand: " + direction);
         
-        if(this.direction == Constants.PICKUP_DIRECTION_FORWARD) {
-            endPosition = Constants.PICKUP_POSITION_FORWARD;
-        } else if (this.direction == Constants.PICKUP_DIRECTION_REVERSE) {
-            endPosition = Constants.PICKUP_POSITION_REVERSE;
+        if(this.direction == Constants.PIVOT_DIRECTION_FORWARD) {
+            endPosition = Constants.PIVOT_POSITION_FORWARD;
+        } else if (this.direction == Constants.PIVOT_DIRECTION_REVERSE) {
+            endPosition = Constants.PIVOT_POSITION_REVERSE;
         }
         
         //If we're already at the position we want to go to, do nothing

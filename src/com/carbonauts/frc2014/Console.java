@@ -21,20 +21,27 @@ public class Console {
      */
     private DriverStation mDriverStation;
     
+    private LCDManager lcdManager;
+    
     /*
      * TODO rename controls and use constants
      */
-    private static final CarbonJoystick joystick = new CarbonJoystick(Constants.JOYSTICK);
+    private CarbonJoystick joystick;
 
-    public static void init() {
-        
+    public Console() {
+        lcdManager = new LCDManager();
+        joystick = new CarbonJoystick(Constants.JOYSTICK);
     }
     
     /**
      * @return the joystick
      */
-    public static CarbonJoystick getJoystick() {
+    public CarbonJoystick getJoystick() {
         return joystick;
+    }
+    
+    public LCDManager getLCDManager() {
+        return lcdManager;
     }
     
     /**
@@ -53,8 +60,87 @@ public class Console {
         */
         private DriverStationLCD lcd;
         
+        private String driveStatus;
+        private String pivotStatus;
+        private String pickupIntakeStatus;
+        private String throwerStatus;
+        
+        private String driveMotorSpeeds;
+        private String driveMode;
+        
+        private String pivotPosition;
+        private String pivotSpeed;
+        private String pivotMode;
+        
         public LCDManager() {
             lcd = DriverStationLCD.getInstance();
+            
+            driveStatus = null;
+            pivotStatus = null;
+            pickupIntakeStatus = null;
+            throwerStatus = null;
+            
+            driveMotorSpeeds = null;
+            driveMode = null;
+        }
+        
+        public void setDriveMotorSpeeds(double fl, double fr, double rl, double rr) {
+            driveMotorSpeeds = "FL:" + fl + " FR:" + fr + " RL:" + rl + " RR:" + rr;
+            updateDriveStatus();
+        }
+        
+        public void setDriveMode(int mode) {
+            if(mode == Constants.STATUS_DRIVEMODE_ARCADE) {
+                driveMode = "[DRIVE:ARCADE]";
+            } else if (mode == Constants.STATUS_DRIVEMODE_TANK) {
+                driveMode = "[DRIVE:TANK]";
+            }
+            updateDriveStatus();
+        }
+        
+        public void updateDriveStatus() {
+            driveStatus = driveMode + " " + driveMotorSpeeds;
+            updateLCD();
+        }
+        
+        public void setPivotPosition(int position) {
+            if(position == Constants.PIVOT_POSITION_FORWARD) {
+                pivotPosition = "Position:FORWARD";
+            } else if (position == Constants.PIVOT_POSITION_RESTING) {
+                pivotPosition = "Position:RESTING";
+            } else if (position == Constants.PIVOT_POSITION_REVERSE) {
+                pivotPosition = "Position:REVERSE";
+            } else {
+                pivotPosition = "Position:UNKNOWN";
+            }
+            updatePivotStatus();
+        }
+        
+        public void setPivotMotorSpeed(double speed) {
+            pivotSpeed = "Speed: " + speed;
+            updatePivotStatus();
+        }
+        
+        public void setPivotMode(int mode) {
+            if(mode == Constants.STATUS_PIVOTMODE_HOLDDOWN) {
+                pivotMode = "[PIVOT:HOLD]";
+            } else if (mode == Constants.STATUS_PIVOTMODE_TOGGLE) {
+                pivotMode = "[PIVOT:TOGGLE]";
+            } else if (mode == Constants.STATUS_PIVOTMODE_AUTO) {
+                pivotMode = "[PIVOT:AUTO]";
+            }
+            updatePivotStatus();
+        }
+        
+        public void updatePivotStatus() {
+            pivotStatus = pivotMode + " " + pivotSpeed + " " + pivotPosition;
+            updateLCD();
+        }
+        
+        public void updateLCD() {
+            lcd.println(DriverStationLCD.Line.kUser1, 0, driveStatus);
+            lcd.println(DriverStationLCD.Line.kUser2, 0, pivotStatus);
+            lcd.updateLCD();
         }
     }
 }

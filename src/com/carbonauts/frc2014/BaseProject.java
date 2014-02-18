@@ -26,13 +26,15 @@ public class BaseProject extends IterativeRobot {
     Command autonomousCommand; //Example autonomous command
     Command operatorDriveCommand;
     
+    Console console;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         CommandBase.init();
-        Console.init();
+        console = new Console();
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
         
@@ -59,10 +61,10 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        if(Console.getJoystick().getArmForwardButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Constants.PICKUP_DIRECTION_FORWARD);
-        } else if(Console.getJoystick().getArmReverseButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Constants.PICKUP_DIRECTION_REVERSE);
+        if(console.getJoystick().getArmForwardButtonState()) {
+            CommandBase.pickupPivot.moveDirection(Constants.PIVOT_DIRECTION_FORWARD);
+        } else if(console.getJoystick().getArmReverseButtonState()) {
+            CommandBase.pickupPivot.moveDirection(Constants.PIVOT_DIRECTION_REVERSE);
         } else {
             CommandBase.pickupPivot.stopPivot();
         }
@@ -70,15 +72,15 @@ public class BaseProject extends IterativeRobot {
         /*
          * TODO sanity check on logic
          */
-        if(Console.getJoystick().getRollerButtonState()) {
-            if(CommandBase.pickupPivot.getPosition() != Constants.PICKUP_POSITION_UNKNOWN ||
-                    CommandBase.pickupPivot.getPositionTarget() != Constants.PICKUP_POSITION_UNKNOWN) { //If the current position or target position is not unknown
-                if(CommandBase.pickupPivot.getPosition() == Constants.PICKUP_POSITION_FORWARD ||
-                        CommandBase.pickupPivot.getPositionTarget() == Constants.PICKUP_POSITION_FORWARD) { //Position (or target) must be forward
-                    CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_FORWARD); //Spin rollers correct direction for 'forward'
-                } else if(CommandBase.pickupPivot.getPosition() == Constants.PICKUP_POSITION_REVERSE ||
-                        CommandBase.pickupPivot.getPositionTarget() == Constants.PICKUP_POSITION_REVERSE) { //Position (or target) must be reverse
-                    CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_REVERSE); //Spin rollers correct direction for 'reverse'
+        if(console.getJoystick().getRollerButtonState()) {
+            if(CommandBase.pickupPivot.getPosition() != Constants.PIVOT_POSITION_UNKNOWN ||
+                    CommandBase.pickupPivot.getPositionTarget() != Constants.PIVOT_POSITION_UNKNOWN) { //If the current position or target position is not unknown
+                if(CommandBase.pickupPivot.getPosition() == Constants.PIVOT_POSITION_FORWARD ||
+                        CommandBase.pickupPivot.getPositionTarget() == Constants.PIVOT_POSITION_FORWARD) { //Position (or target) must be forward
+                    CommandBase.pickupIntake.moveDirection(Constants.PIVOT_DIRECTION_FORWARD); //Spin rollers correct direction for 'forward'
+                } else if(CommandBase.pickupPivot.getPosition() == Constants.PIVOT_POSITION_REVERSE ||
+                        CommandBase.pickupPivot.getPositionTarget() == Constants.PIVOT_POSITION_REVERSE) { //Position (or target) must be reverse
+                    CommandBase.pickupIntake.moveDirection(Constants.PIVOT_DIRECTION_REVERSE); //Spin rollers correct direction for 'reverse'
                 } else {
                     //Position must be resting, no direction
                 }

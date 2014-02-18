@@ -7,7 +7,7 @@ package com.carbonauts.frc2014.command;
 import com.carbonauts.frc2014.subsystems.Drive;
 import com.carbonauts.frc2014.subsystems.DriveShifter;
 import com.carbonauts.frc2014.subsystems.PickupIntake;
-import com.carbonauts.frc2014.subsystems.PickupPivot;
+import com.carbonauts.frc2014.subsystems.Pivot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -22,7 +22,7 @@ public abstract class CommandBase extends Command {
      */
     public static Drive drive = new Drive();
     public static DriveShifter shifter = new DriveShifter();
-    public static PickupPivot pickupPivot = new PickupPivot();
+    public static Pivot pickupPivot = new Pivot();
     public static PickupIntake pickupIntake = new PickupIntake();
     
     /**
