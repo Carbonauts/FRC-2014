@@ -9,19 +9,26 @@ package com.carbonauts.frc2014.command;
 import com.carbonauts.frc2014.util.CarbonTalon;
 
 /**
- *
+ * Takes a setpoint to ramp the output of a Talon to
  * @author Greg Armstrong
+ * @author Nick
  */
-public class StartRamp extends CommandBase{
+public class TalonRampCommand extends CommandBase{
     private boolean finished = false;
-    private CarbonTalon target;
+    private CarbonTalon talon;
     private double wantSpeed;
     private double currentSpeed;
- 
-    public StartRamp(CarbonTalon target, double setPoint) {
+    
+    /**
+     * Takes a Talon and a setpoint for parameters, and ramps the output of the
+     * Talon until the setpoint is reached
+     * @param talon The talon whose speed to ramp
+     * @param speedTarget The point which needs to be reached
+     */
+    public TalonRampCommand(CarbonTalon talon, double speedTarget) {
         setInterruptible(true);
-        this.target = target;
-        this.wantSpeed = setPoint;
+        this.talon = talon;
+        this.wantSpeed = speedTarget;
     }
     
     protected void initialize() {
@@ -29,19 +36,19 @@ public class StartRamp extends CommandBase{
 
     protected void execute() {
         try {
-            currentSpeed = target.get();
+            currentSpeed = talon.get();
             boolean isUp = (currentSpeed < wantSpeed);
-            double step = isUp ? target.getStepSize():-target.getStepSize();
+            double step = isUp ? talon.getStepSize():-talon.getStepSize();
 
             if ((isUp && (currentSpeed+step > wantSpeed)) 
                     || (!isUp && (currentSpeed+step < wantSpeed)) 
                     || (currentSpeed == wantSpeed)) {
-                target.set(wantSpeed);
+                talon.set(wantSpeed);
                 finished = true;
             } else {
-                target.set(currentSpeed + step);
+                talon.set(currentSpeed + step);
             }
-            Thread.sleep(target.getStepTime()); //Check to make sure this doesn't pause the whole program
+            Thread.sleep(talon.getStepTime()); //Check to make sure this doesn't pause the whole program
             //wait(target.getStepTime());       //This might make the whole program pause
         } catch (Exception ex) {
             //Do something

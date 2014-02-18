@@ -7,7 +7,7 @@
 package com.carbonauts.frc2014.util;
 
 import com.carbonauts.frc2014.Constants;
-import com.carbonauts.frc2014.command.StartRamp;
+import com.carbonauts.frc2014.command.TalonRampCommand;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -55,7 +55,7 @@ public class CarbonTalon extends Talon {
     }
     
     public void setRamp(double setPoint) {
-        Scheduler.getInstance().add(new StartRamp(this, setPoint));
+        Scheduler.getInstance().add(new TalonRampCommand(this, setPoint));
     }
     
     public void setNoRamp(double setPoint) {
