@@ -7,6 +7,7 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.util.CarbonTalon;
+import com.carbonauts.frc2014.util.CarbonTimer;
 
 /**
  *
@@ -17,6 +18,7 @@ public class StartRamp extends CommandBase{
     private CarbonTalon target;
     private double wantSpeed;
     private double currentSpeed;
+    private CarbonTimer rampTimer;
  
     public StartRamp(CarbonTalon target, double setPoint) {
         setInterruptible(true);
@@ -25,10 +27,11 @@ public class StartRamp extends CommandBase{
     }
     
     protected void initialize() {
+        rampTimer = new CarbonTimer(target.getStepTime());
     }
 
     protected void execute() {
-        try {
+        if (rampTimer.isDone()) {
             currentSpeed = target.get();
             boolean isUp = (currentSpeed < wantSpeed);
             double step = isUp ? target.getStepSize():-target.getStepSize();
@@ -41,10 +44,7 @@ public class StartRamp extends CommandBase{
             } else {
                 target.set(currentSpeed + step);
             }
-            Thread.sleep(target.getStepTime()); //Check to make sure this doesn't pause the whole program
-            //wait(target.getStepTime());       //This might make the whole program pause
-        } catch (Exception ex) {
-            //Do something
+            rampTimer.reset(target.getStepTime());
         }
     }
 
