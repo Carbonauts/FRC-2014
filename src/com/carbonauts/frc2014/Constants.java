@@ -19,9 +19,8 @@ public class Constants {
     /***************************************************************************
      * All RAMP constants
      **************************************************************************/
-    public static final double DEFAULT_RAMP_STEP = 0.1; 
-    public static final int DEFAULT_RAMP_TIME = 1000;
-    
+    public static final double DEFAULT_RAMP_STEP = 0.05; 
+    public static final int DEFAULT_RAMP_TIME = 30;
     
     /***************************************************************************
      * All DRIVE constants

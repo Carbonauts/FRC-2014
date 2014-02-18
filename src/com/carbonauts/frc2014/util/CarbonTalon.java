@@ -7,7 +7,7 @@
 package com.carbonauts.frc2014.util;
 
 import com.carbonauts.frc2014.Constants;
-import com.carbonauts.frc2014.command.StartRamp;
+import com.carbonauts.frc2014.command.TalonRampCommand;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -18,16 +18,32 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class CarbonTalon extends Talon {
 
     private double stepSize;
-    private int stepTime;
+    private long stepTime;
+    
+    private double targetSpeed = 0;
     
     public CarbonTalon(int slot, int channel) {
         super(slot, channel);
         stepSize = Constants.DEFAULT_RAMP_STEP;
+        stepTime = Constants.DEFAULT_RAMP_TIME;
     }
 
     public CarbonTalon(int channel) {
         super(channel);
+        stepSize = Constants.DEFAULT_RAMP_STEP;
         stepTime = Constants.DEFAULT_RAMP_TIME;
+    }
+    
+    public CarbonTalon(int slot, int channel, double stepSize, long stepTime) {
+        super(slot, channel);
+        this.stepSize = stepSize;
+        this.stepTime = stepTime;
+    }
+    
+    public CarbonTalon(int channel, double stepSize, long stepTime) {
+        super(channel);
+        this.stepSize = stepSize;
+        this.stepTime = stepTime;
     }
 
     /**
@@ -41,7 +57,7 @@ public class CarbonTalon extends Talon {
      * 
      * @return the time between steps in ms
      */
-    public int getStepTime() {
+    public long getStepTime() {
         return stepTime;
     }
 
@@ -55,10 +71,17 @@ public class CarbonTalon extends Talon {
     }
     
     public void setRamp(double setPoint) {
-        Scheduler.getInstance().add(new StartRamp(this, setPoint));
+        if(targetSpeed != setPoint) {
+            targetSpeed = setPoint;
+            Scheduler.getInstance().add(new TalonRampCommand(this));
+        }
     }
     
     public void setNoRamp(double setPoint) {
         super.set(setPoint);
+    }
+    
+    public double getTargetSpeed() {
+        return targetSpeed;
     }
 }

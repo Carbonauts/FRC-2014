@@ -8,7 +8,6 @@ import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
