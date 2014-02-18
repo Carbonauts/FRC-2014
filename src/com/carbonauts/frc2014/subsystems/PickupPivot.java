@@ -159,7 +159,7 @@ public class PickupPivot extends Subsystem {
      * Sets the motor speed to 0 without using a ramp (instant speed change)
      */
     public void emergencyStopPivot() {
-        pivotMotor.setNoRamp(0.0);
+        pivotMotor.stopMotor();
     }
     
     /**

@@ -5,9 +5,11 @@
 package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.command.CarbonRampCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.util.CarbonRamp;
+import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -16,11 +18,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drive extends Subsystem {
 
-    private Talon leftFrontDrive;
-    private Talon leftRearDrive;
-    private Talon rightFrontDrive;
-    private Talon rightRearDrive;
+    private CarbonTalon leftFrontDrive;
+    private CarbonTalon leftRearDrive;
+    private CarbonTalon rightFrontDrive;
+    private CarbonTalon rightRearDrive;
     private RobotDrive robotDrive;
+    
+    private CarbonRamp arcadeLateralRamp;
+    private CarbonRamp arcadeRotationalRamp;
+    private CarbonRamp tankLeftRamp;
+    private CarbonRamp tankRightRamp;
     
     private boolean driveEnabled;
     private int driveDirection;
@@ -31,10 +38,10 @@ public class Drive extends Subsystem {
      * Primary constructor for Drive
      */
     public Drive() {
-        leftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
-        leftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
-        rightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
-        rightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
+        leftFrontDrive = new CarbonTalon(Constants.DRIVE_LEFT_FRONT);
+        leftRearDrive = new CarbonTalon(Constants.DRIVE_LEFT_REAR);
+        rightFrontDrive = new CarbonTalon(Constants.DRIVE_RIGHT_FRONT);
+        rightRearDrive = new CarbonTalon(Constants.DRIVE_RIGHT_REAR);
         
         robotDrive = new RobotDrive(
             leftFrontDrive,
@@ -44,6 +51,11 @@ public class Drive extends Subsystem {
         
         driveDirection = 1;
         driveStatus = "";
+        
+        arcadeLateralRamp = new CarbonRamp();
+        arcadeRotationalRamp = new CarbonRamp();
+        tankLeftRamp = new CarbonRamp();
+        tankRightRamp = new CarbonRamp();
     }
     
     /**
@@ -53,7 +65,26 @@ public class Drive extends Subsystem {
      * @param rotationalPower The power to turn with (-1 - 1).
      */
     public void driveArcade(double lateralPower, double rotationalPower) {
-        robotDrive.arcadeDrive(getDirection() * lateralPower, rotationalPower);
+        if(lateralPower > 1.0) {
+            lateralPower = 1.0;
+        } else if(lateralPower < -1.0) {
+            lateralPower = -1.0;
+        }
+        
+        if(rotationalPower > 1.0) {
+            rotationalPower = 1.0;
+        } else if(rotationalPower < -1.0) {
+            rotationalPower = -1.0;
+        }
+        
+        arcadeLateralRamp.setTarget(lateralPower);
+        arcadeRotationalRamp.setTarget(rotationalPower);
+        
+        arcadeLateralRamp.tick();
+        arcadeRotationalRamp.tick();
+        
+        robotDrive.arcadeDrive(getDirection() * arcadeLateralRamp.getOutput(),
+                arcadeRotationalRamp.getOutput());
         setDriveStatus("AR- T:" + lateralPower +
                 " R:" + rotationalPower);
         //setDriveStatus("ARCADE DRIVE");
@@ -66,7 +97,26 @@ public class Drive extends Subsystem {
      * @param rightPower Speed to drive robot-right at.
      */
     public void driveTank(double leftPower, double rightPower) {
-        robotDrive.tankDrive(getDirection() * leftPower, getDirection() * rightPower);
+        if(leftPower > 1.0) {
+            leftPower = 1.0;
+        } else if(leftPower < -1.0) {
+            leftPower = -1.0;
+        }
+        
+        if(rightPower > 1.0) {
+            rightPower = 1.0;
+        } else if(rightPower < -1.0) {
+            rightPower = -1.0;
+        }
+        
+        tankLeftRamp.setTarget(leftPower);
+        tankRightRamp.setTarget(rightPower);
+        
+        tankLeftRamp.tick();
+        tankRightRamp.tick();
+        
+        robotDrive.tankDrive(getDirection() * tankLeftRamp.getOutput(),
+                getDirection() * tankRightRamp.getOutput());
         setDriveStatus("Tank Drive - Left: " + leftPower + " Right: " + rightPower);
     }
     
