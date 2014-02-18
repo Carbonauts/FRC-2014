@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
- * 
+ * Our own implementation of the Talon supports the use of a CarbonRamp so that
+ * a set() call can alternately use setRamp() so that the Talon will slowly
+ * approach the set value rather than abruptly jump to it.
  * @author Greg Armstrong
  * @author Nick
  */

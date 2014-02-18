@@ -5,7 +5,7 @@
 package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Constants;
-import edu.wpi.first.wpilibj.Talon;
+import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class PickupIntake extends Subsystem {
 
-    private Talon intakeMotor;
+    private CarbonTalon intakeMotor;
     
     public PickupIntake() {
-        intakeMotor = new Talon(Constants.PICKUP_ROLLERS);
+        intakeMotor = new CarbonTalon(Constants.PICKUP_ROLLERS);
     }
     
     public void moveSpeed(double speed) {
-        intakeMotor.set(speed);
+        intakeMotor.setRamp(speed);
     }
     
     public void moveDirection(int direction) {
@@ -35,7 +35,7 @@ public class PickupIntake extends Subsystem {
         }
     }
     
-    public Talon getMotor() {
+    public CarbonTalon getMotor() {
         return intakeMotor;
     }
     

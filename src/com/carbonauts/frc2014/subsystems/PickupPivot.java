@@ -8,6 +8,7 @@ import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,18 +23,17 @@ public class PickupPivot extends Subsystem {
     //Declare Talon
     private CarbonTalon pivotMotor;
     
-    /*
-     * Declare Limit switch objects
-     */
+    //Declare Limit switch objects
     private DigitalInput limitForward;
     private DigitalInput limitResting;
     private DigitalInput limitReverse;
     
-    /*
-     * State-keeping variables (may replace with methods)
-     */
-    private int position;
-    private String pickupStatus;
+    //Declare pivot encoder
+    private Encoder encoder;
+    
+    //State-keeping variables (may replace with methods)
+    private int position = -1;
+    private int positionTarget = -1;
     
     /**
      * Construct the subsystem; define hardware
@@ -59,7 +59,6 @@ public class PickupPivot extends Subsystem {
                 Constants.PICKUP_LIMIT_REVERSE_INVERTED);
         
         updatePosition();
-        pickupStatus = "";
     }
     
     /**
@@ -106,14 +105,12 @@ public class PickupPivot extends Subsystem {
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_FORWARD &&
                 limitForward.get()) {
             pivotMotor.setRamp(0.0);
-            setPickupStatus("FW Limit!");
             return false;
         }
         
         if(directionFromSpeed(speed) == Constants.PICKUP_DIRECTION_REVERSE &&
                 limitReverse.get()) {
             pivotMotor.setRamp(0.0);
-            setPickupStatus("RV Limit!");
             return false;
         }
         
@@ -125,7 +122,6 @@ public class PickupPivot extends Subsystem {
         }
         
         pivotMotor.setRamp(speed);
-        setPickupStatus("Speed: " + speed);
         return true;
     }
     
@@ -137,10 +133,13 @@ public class PickupPivot extends Subsystem {
     public boolean moveDirection(int direction) {
         switch(direction) {
             case Constants.PICKUP_DIRECTION_FORWARD:
+                positionTarget = Constants.PICKUP_DIRECTION_FORWARD;
                 return moveSpeed(1.0);
             case Constants.PICKUP_DIRECTION_REVERSE:
+                positionTarget = Constants.PICKUP_DIRECTION_REVERSE;
                 return moveSpeed(-1.0);
             case Constants.PICKUP_DIRECTION_STOPPED:
+                positionTarget = -1;
                 return moveSpeed(0.0);
             default:
                 moveSpeed(0.0);
@@ -180,19 +179,12 @@ public class PickupPivot extends Subsystem {
         //No default command, leave blank
     }
 
-    /**
-     * @return the position
-     */
     public int getPosition() {
         return position;
     }
     
-    public void setPickupStatus(String status) {
-        pickupStatus = status;
-    }
-    
-    public String getPickupStatus() {
-        return pickupStatus;
+    public int getPositionTarget() {
+        return positionTarget;
     }
     
     public boolean getForwardLimitState() {

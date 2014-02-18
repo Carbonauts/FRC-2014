@@ -7,7 +7,11 @@ package com.carbonauts.frc2014.command;
 import com.carbonauts.frc2014.util.CarbonRamp;
 
 /**
- *
+ * This class acts as an execution thread for a ramp.  In the case that a new
+ * value is set (for example, a new position is wanted for a subsystem) but the
+ * condition which set the new value is not part of a frequented loop (if the
+ * new value is only set once in a blue moon), then this class will take the
+ * ramp and use the Command lifecycle to keep the ramp's timing intact.
  * @author Nick
  */
 public class CarbonRampCommand extends CommandBase {

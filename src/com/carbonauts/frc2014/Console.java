@@ -4,7 +4,6 @@
  */
 package com.carbonauts.frc2014;
 
-import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.util.CarbonJoystick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -22,12 +21,6 @@ public class Console {
      */
     private DriverStation mDriverStation;
     
-    /**
-     * The object for writing data to the "User Messages" box on the Driver
-     * Station.  Can be used for debugging or state conditions.
-     */
-    private static DriverStationLCD lcd = DriverStationLCD.getInstance();
-    
     /*
      * TODO rename controls and use constants
      */
@@ -37,16 +30,31 @@ public class Console {
         
     }
     
-    public static void updateLCD() {
-        lcd.println(DriverStationLCD.Line.kUser1, 1, CommandBase.drive.getDriveStatus());
-        lcd.println(DriverStationLCD.Line.kUser2, 1, CommandBase.pickupPivot.getPickupStatus());
-        lcd.updateLCD();
-    }
-    
     /**
      * @return the joystick
      */
     public static CarbonJoystick getJoystick() {
         return joystick;
+    }
+    
+    /**
+     * Use this class to create preset data 'bins' for output to the screen.
+     * For example if a reading from a sensor needs to be displayed, create a
+     * variable for it in this class (including a setter and getter) and then
+     * set the values via calls from within subsystems and other parts of the
+     * code.  Then each bin can be correctly placed in an arrangement which can
+     * then be sent to the Driver Station.
+     */
+    public class LCDManager {
+        
+        /**
+        * The object for writing data to the "User Messages" box on the Driver
+        * Station.  Can be used for debugging or state conditions.
+        */
+        private DriverStationLCD lcd;
+        
+        public LCDManager() {
+            lcd = DriverStationLCD.getInstance();
+        }
     }
 }

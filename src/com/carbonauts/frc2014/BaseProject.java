@@ -58,7 +58,6 @@ public class BaseProject extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        Console.updateLCD();
         
         if(Console.getJoystick().getArmForwardButtonState()) {
             CommandBase.pickupPivot.moveDirection(Constants.PICKUP_DIRECTION_FORWARD);
@@ -69,10 +68,21 @@ public class BaseProject extends IterativeRobot {
         }
         
         /*
-         * TODO add logic to reverse direction based on position
+         * TODO sanity check on logic
          */
         if(Console.getJoystick().getRollerButtonState()) {
-            CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_FORWARD);
+            if(CommandBase.pickupPivot.getPosition() != Constants.PICKUP_POSITION_UNKNOWN ||
+                    CommandBase.pickupPivot.getPositionTarget() != Constants.PICKUP_POSITION_UNKNOWN) { //If the current position or target position is not unknown
+                if(CommandBase.pickupPivot.getPosition() == Constants.PICKUP_POSITION_FORWARD ||
+                        CommandBase.pickupPivot.getPositionTarget() == Constants.PICKUP_POSITION_FORWARD) { //Position (or target) must be forward
+                    CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_FORWARD); //Spin rollers correct direction for 'forward'
+                } else if(CommandBase.pickupPivot.getPosition() == Constants.PICKUP_POSITION_REVERSE ||
+                        CommandBase.pickupPivot.getPositionTarget() == Constants.PICKUP_POSITION_REVERSE) { //Position (or target) must be reverse
+                    CommandBase.pickupIntake.moveDirection(Constants.PICKUP_DIRECTION_REVERSE); //Spin rollers correct direction for 'reverse'
+                } else {
+                    //Position must be resting, no direction
+                }
+            }
         }
     }
     
