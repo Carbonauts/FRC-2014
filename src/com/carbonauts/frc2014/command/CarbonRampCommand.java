@@ -5,6 +5,7 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.util.CarbonRamp;
+import com.carbonauts.frc2014.util.CarbonTalon;
 
 /**
  * This class acts as an execution thread for a ramp.  In the case that a new
@@ -17,11 +18,17 @@ import com.carbonauts.frc2014.util.CarbonRamp;
 public class CarbonRampCommand extends CommandBase {
 
     private CarbonRamp ramp;
+    private CarbonTalon talon;
     
     private boolean finished = false;
     
     public CarbonRampCommand(CarbonRamp ramp) {
         this.ramp = ramp;
+    }
+    
+    public CarbonRampCommand(CarbonRamp ramp, CarbonTalon talon) {
+        this.ramp = ramp;
+        this.talon = talon;
     }
     
     protected void initialize() {
@@ -30,6 +37,9 @@ public class CarbonRampCommand extends CommandBase {
 
     protected void execute() {
         ramp.tick();
+        if(talon != null) {
+            talon.set(ramp.getOutput());
+        }
     }
 
     protected boolean isFinished() {

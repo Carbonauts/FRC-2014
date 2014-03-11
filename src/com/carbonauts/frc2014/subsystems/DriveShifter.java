@@ -14,18 +14,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveShifter extends Subsystem {
     
-    private Solenoid mShifterSolenoid;
+    private Solenoid shifterSolenoid;
+    private boolean isHigh = true;
     
     public DriveShifter() {
-        mShifterSolenoid = new Solenoid(Constants.SHIFTER_SOLENOID);
+        shifterSolenoid = new Solenoid(Constants.SHIFTER_SOLENOID);
     }
     
     public void setHighGear(boolean gear) {
-        mShifterSolenoid.set(gear);
+        isHigh = gear;
+        shifterSolenoid.set(isHigh);
+    }
+    
+    public void toggleHighGear() {
+        isHigh = !isHigh;
+        shifterSolenoid.set(isHigh);
     }
     
     public boolean isHighGear() {
-        return mShifterSolenoid.get();
+        return shifterSolenoid.get();
     }
     
     protected void initDefaultCommand() {

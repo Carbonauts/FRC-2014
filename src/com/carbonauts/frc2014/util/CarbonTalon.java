@@ -25,28 +25,28 @@ public class CarbonTalon extends Talon {
     public CarbonTalon(int channel) {
         super(channel);
         ramp = new CarbonRamp();
-        rampCommand = new CarbonRampCommand(ramp);
+        rampCommand = new CarbonRampCommand(ramp, this);
         Scheduler.getInstance().add(rampCommand);
     }
     
     public CarbonTalon(int slot, int channel) {
         super(slot, channel);
         ramp = new CarbonRamp();
-        rampCommand = new CarbonRampCommand(ramp);
+        rampCommand = new CarbonRampCommand(ramp, this);
         Scheduler.getInstance().add(rampCommand);
     }
     
     public CarbonTalon(int channel, double stepSize, long stepTime) {
         super(channel);
         ramp = new CarbonRamp(0, stepSize, stepTime);
-        rampCommand = new CarbonRampCommand(ramp);
+        rampCommand = new CarbonRampCommand(ramp, this);
         Scheduler.getInstance().add(rampCommand);
     }
     
     public CarbonTalon(int slot, int channel, double stepSize, long stepTime) {
         super(slot, channel);
         ramp = new CarbonRamp(0, stepSize, stepTime);
-        rampCommand = new CarbonRampCommand(ramp);
+        rampCommand = new CarbonRampCommand(ramp, this);
         Scheduler.getInstance().add(rampCommand);
     }
 

@@ -4,6 +4,7 @@
  */
 package com.carbonauts.frc2014;
 
+import com.carbonauts.frc2014.subsystems.Pivot;
 import com.carbonauts.frc2014.util.CarbonJoystick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -16,10 +17,12 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
  */
 public class Console {
 
+    private static Console console;
+    
     /**
      * Driver Station object to transfer data to and from the DS
      */
-    private DriverStation mDriverStation;
+    private DriverStation driverStation;
     
     private LCDManager lcdManager;
     
@@ -28,9 +31,18 @@ public class Console {
      */
     private CarbonJoystick joystick;
 
-    public Console() {
+    private Console() {
         lcdManager = new LCDManager();
         joystick = new CarbonJoystick(Constants.JOYSTICK);
+    }
+    
+    public static Console getConsole() {
+        if(console == null) {
+            console = new Console();
+            return console;
+        } else {
+            return console;
+        }
     }
     
     /**
@@ -104,11 +116,11 @@ public class Console {
         }
         
         public void setPivotPosition(int position) {
-            if(position == Constants.PIVOT_POSITION_FORWARD) {
+            if(position == Pivot.POSITION_FORWARD) {
                 pivotPosition = "Position:FORWARD";
-            } else if (position == Constants.PIVOT_POSITION_RESTING) {
+            } else if (position == Pivot.POSITION_RESTING) {
                 pivotPosition = "Position:RESTING";
-            } else if (position == Constants.PIVOT_POSITION_REVERSE) {
+            } else if (position == Pivot.POSITION_REVERSE) {
                 pivotPosition = "Position:REVERSE";
             } else {
                 pivotPosition = "Position:UNKNOWN";

@@ -10,6 +10,8 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.subsystems.Pivot;
+import com.carbonauts.frc2014.util.Latch;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,15 +30,18 @@ public class BaseProject extends IterativeRobot {
     
     Console console;
     
+    Latch shiftLatch;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         CommandBase.init();
-        console = new Console();
+        console = Console.getConsole();
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
+        shiftLatch = new Latch();
         
     }
 
@@ -62,9 +67,9 @@ public class BaseProject extends IterativeRobot {
         Scheduler.getInstance().run();
         
         if(console.getJoystick().getArmForwardButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Constants.PIVOT_DIRECTION_FORWARD);
+            CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_FORWARD);
         } else if(console.getJoystick().getArmReverseButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Constants.PIVOT_DIRECTION_REVERSE);
+            CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_REVERSE);
         } else {
             CommandBase.pickupPivot.stopPivot();
         }
@@ -73,6 +78,7 @@ public class BaseProject extends IterativeRobot {
          * TODO sanity check on logic
          */
         if(console.getJoystick().getRollerButtonState()) {
+            /*
             if(CommandBase.pickupPivot.getPosition() != Constants.PIVOT_POSITION_UNKNOWN ||
                     CommandBase.pickupPivot.getPositionTarget() != Constants.PIVOT_POSITION_UNKNOWN) { //If the current position or target position is not unknown
                 if(CommandBase.pickupPivot.getPosition() == Constants.PIVOT_POSITION_FORWARD ||
@@ -84,7 +90,14 @@ public class BaseProject extends IterativeRobot {
                 } else {
                     //Position must be resting, no direction
                 }
-            }
+            }*/
+            
+            CommandBase.pickupIntake.moveDirection(Pivot.DIRECTION_FORWARD);
+        }
+        
+        //If the shift button switched from off to on (button press)
+        if(shiftLatch.update(console.getJoystick().getShiftButtonState())) {
+            CommandBase.shifter.toggleHighGear();
         }
     }
     

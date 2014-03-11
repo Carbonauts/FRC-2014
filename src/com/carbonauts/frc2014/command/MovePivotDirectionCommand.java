@@ -5,28 +5,29 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.subsystems.Pivot;
 
 /**
  * Moves the PivotPickup subsystem in a direction given by a parameter
  * @author Nick
  */
-public class MovePickupDirectionCommand extends CommandBase {
+public class MovePivotDirectionCommand extends CommandBase {
     
     private boolean finished = false;
     private int direction;
     private int endPosition;
     
-    public MovePickupDirectionCommand(int direction) {
+    public MovePivotDirectionCommand(int direction) {
         requires(pickupPivot);
         setInterruptible(true);
         
         this.direction = direction;
         System.out.println("New MovePickupDirectionCommand: " + direction);
         
-        if(this.direction == Constants.PIVOT_DIRECTION_FORWARD) {
-            endPosition = Constants.PIVOT_POSITION_FORWARD;
-        } else if (this.direction == Constants.PIVOT_DIRECTION_REVERSE) {
-            endPosition = Constants.PIVOT_POSITION_REVERSE;
+        if(this.direction == Pivot.DIRECTION_FORWARD) {
+            endPosition = Pivot.POSITION_FORWARD;
+        } else if (this.direction == Pivot.DIRECTION_REVERSE) {
+            endPosition = Pivot.POSITION_REVERSE;
         }
         
         //If we're already at the position we want to go to, do nothing

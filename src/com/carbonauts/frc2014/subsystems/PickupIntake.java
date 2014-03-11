@@ -26,9 +26,9 @@ public class PickupIntake extends Subsystem {
     }
     
     public void moveDirection(int direction) {
-        if(direction == Constants.PIVOT_DIRECTION_FORWARD) {
+        if(direction == Pivot.DIRECTION_FORWARD) {
             moveSpeed(1.0);
-        } else if(direction == Constants.PIVOT_DIRECTION_REVERSE) {
+        } else if(direction == Pivot.DIRECTION_REVERSE) {
             moveSpeed(-1.0);
         } else {
             moveSpeed(0.0);

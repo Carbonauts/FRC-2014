@@ -12,9 +12,12 @@ import com.carbonauts.frc2014.Console;
  */
 public class OperatorDriveCommand extends CommandBase {
 
+    private Console console;
+    
     public OperatorDriveCommand() {
         requires(drive);
         setInterruptible(true);
+        console = Console.getConsole();
     }
     
     protected void initialize() {
@@ -22,7 +25,7 @@ public class OperatorDriveCommand extends CommandBase {
     }
 
     protected void execute() {
-        drive.driveArcade(Console.getJoystick().getY(), Console.getJoystick().getX());
+        drive.driveArcade(console.getJoystick().getY(), console.getJoystick().getZ());
     }
 
     protected boolean isFinished() {

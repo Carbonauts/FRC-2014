@@ -5,7 +5,6 @@
 package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Constants;
-import com.carbonauts.frc2014.command.CarbonRampCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.util.CarbonRamp;
 import com.carbonauts.frc2014.util.CarbonTalon;
@@ -18,6 +17,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drive extends Subsystem {
 
+    public static final int DIRECTION_FORWARD = 0;    //State constant
+    public static final int DIRECTION_REVERSE = 1;   //State constant
+    
     private CarbonTalon leftFrontDrive;
     private CarbonTalon leftRearDrive;
     private CarbonTalon rightFrontDrive;
@@ -50,7 +52,6 @@ public class Drive extends Subsystem {
             rightRearDrive);
         
         driveDirection = 1;
-        driveStatus = "";
         
         arcadeLateralRamp = new CarbonRamp();
         arcadeRotationalRamp = new CarbonRamp();
@@ -64,7 +65,7 @@ public class Drive extends Subsystem {
      * @param lateralPower The power to drive forward/backward (-1 - 1) at.
      * @param rotationalPower The power to turn with (-1 - 1).
      */
-    public void driveArcade(double lateralPower, double rotationalPower) {
+    public void driveArcadeRamp(double lateralPower, double rotationalPower) {
         if(lateralPower > 1.0) {
             lateralPower = 1.0;
         } else if(lateralPower < -1.0) {
@@ -87,7 +88,10 @@ public class Drive extends Subsystem {
                 arcadeRotationalRamp.getOutput());
         setDriveStatus("AR- T:" + lateralPower +
                 " R:" + rotationalPower);
-        //setDriveStatus("ARCADE DRIVE");
+    }
+    
+    public void driveArcade(double lateralPower, double rotationalPower) {
+        robotDrive.arcadeDrive(lateralPower, rotationalPower);
     }
     
     /**

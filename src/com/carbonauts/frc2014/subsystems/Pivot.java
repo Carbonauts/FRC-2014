@@ -21,6 +21,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Pivot extends Subsystem {
 
+    public static final int DIRECTION_FORWARD = 1;   //State constant
+    public static final int DIRECTION_STOPPED = 0;   //State constant
+    public static final int DIRECTION_REVERSE = -1;  //State constant
+    public static final int POSITION_FORWARD = 0;    //State constant
+    public static final int POSITION_RESTING = 1;    //State constant
+    public static final int POSITION_REVERSE = 2;    //State constant
+    public static final int POSITION_UNKNOWN = 3;    //State constant
+    
     //Declare Talon
     private CarbonTalon pivotMotor;
     
@@ -46,6 +54,8 @@ public class Pivot extends Subsystem {
         //Define Talon
         pivotMotor = new CarbonTalon(Constants.PIVOT);
         
+        pivotMotor.enableDeadbandElimination(true);
+        
         /*
          * Using custom DigitalInput class (CarbonDigitalInput) in order to control
          * the inversion of the get() statement.  Each inversion is declared at
@@ -61,7 +71,11 @@ public class Pivot extends Subsystem {
                 Constants.PIVOT_LIMIT_REVERSE,
                 Constants.PIVOT_LIMIT_REVERSE_INVERTED);
         
-        console = new Console();
+        console = Console.getConsole();
+        
+        encoder = new Encoder(Constants.PIVOT_ENCODER_PIN1, 
+                              Constants.PIVOT_ENCODER_PIN2, 
+                              Constants.PIVOT_ENCODER_INVERTED);
         
         updatePosition();
     }
@@ -87,13 +101,17 @@ public class Pivot extends Subsystem {
     
     public void updatePosition() {
         if(limitForward.get()) {
-            position = Constants.PIVOT_POSITION_FORWARD;
+            position = POSITION_FORWARD;
+            
         } else if(limitResting.get()) {
-            position = Constants.PIVOT_POSITION_RESTING;
+            position = POSITION_RESTING;
+            
         } else if(limitReverse.get()) {
-            position = Constants.PIVOT_POSITION_REVERSE;
+            position = POSITION_REVERSE;
+            
         } else {
-            position = Constants.PIVOT_POSITION_UNKNOWN;
+            position = POSITION_UNKNOWN;
+            
         }
     }
     
@@ -107,14 +125,14 @@ public class Pivot extends Subsystem {
          * Check if the limit switch for the direction of movement is hit, and
          * stop the motor if it is.
          */
-        if(directionFromSpeed(speed) == Constants.PIVOT_DIRECTION_FORWARD &&
-                limitForward.get()) {
+        if(directionFromSpeed(speed) == DIRECTION_FORWARD &&
+                                        limitForward.get()) {
             pivotMotor.setRamp(0.0);
             return false;
         }
         
-        if(directionFromSpeed(speed) == Constants.PIVOT_DIRECTION_REVERSE &&
-                limitReverse.get()) {
+        if(directionFromSpeed(speed) == DIRECTION_REVERSE &&
+                                        limitReverse.get()) {
             pivotMotor.setRamp(0.0);
             return false;
         }
@@ -137,15 +155,18 @@ public class Pivot extends Subsystem {
      */
     public boolean moveDirection(int direction) {
         switch(direction) {
-            case Constants.PIVOT_DIRECTION_FORWARD:
-                positionTarget = Constants.PIVOT_POSITION_FORWARD;
+            case DIRECTION_FORWARD:
+                positionTarget = POSITION_FORWARD;
                 return moveSpeed(1.0);
-            case Constants.PIVOT_DIRECTION_REVERSE:
-                positionTarget = Constants.PIVOT_POSITION_REVERSE;
+                
+            case DIRECTION_REVERSE:
+                positionTarget = POSITION_REVERSE;
                 return moveSpeed(-1.0);
-            case Constants.PIVOT_DIRECTION_STOPPED:
-                positionTarget = Constants.PIVOT_POSITION_UNKNOWN;
+                
+            case DIRECTION_STOPPED:
+                positionTarget = POSITION_UNKNOWN;
                 return moveSpeed(0.0);
+                
             default:
                 moveSpeed(0.0);
                 return false;
@@ -173,11 +194,11 @@ public class Pivot extends Subsystem {
      */
     private int directionFromSpeed(double speed) {
         if(speed > 0) {
-            return Constants.PIVOT_DIRECTION_FORWARD;
+            return DIRECTION_FORWARD;
         } else if (speed < 0) {
-            return Constants.PIVOT_DIRECTION_REVERSE;
+            return DIRECTION_REVERSE;
         }
-        return Constants.PIVOT_DIRECTION_STOPPED;
+        return DIRECTION_STOPPED;
     }
     
     protected void initDefaultCommand() {

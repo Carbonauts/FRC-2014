@@ -11,6 +11,10 @@ package com.carbonauts.frc2014.util;
 public class Latch {
     private boolean lastBool;
     
+    public Latch() {
+        lastBool = false;
+    }
+    
     public boolean update(boolean nowBool) {
         boolean result = nowBool && !lastBool;
         lastBool = nowBool;
