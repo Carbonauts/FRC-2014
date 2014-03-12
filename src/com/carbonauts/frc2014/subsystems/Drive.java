@@ -4,6 +4,7 @@
  */
 package com.carbonauts.frc2014.subsystems;
 
+import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.util.CarbonRamp;
@@ -31,10 +32,10 @@ public class Drive extends Subsystem {
     private CarbonRamp tankLeftRamp;
     private CarbonRamp tankRightRamp;
     
+    private Console console;
+    
     private boolean driveEnabled;
     private int driveDirection;
-    
-    private String driveStatus;
     
     /**
      * Primary constructor for Drive
@@ -57,6 +58,8 @@ public class Drive extends Subsystem {
         arcadeRotationalRamp = new CarbonRamp();
         tankLeftRamp = new CarbonRamp();
         tankRightRamp = new CarbonRamp();
+        
+        console = Console.getConsole();
     }
     
     /**
@@ -86,8 +89,8 @@ public class Drive extends Subsystem {
         
         robotDrive.arcadeDrive(getDirection() * arcadeLateralRamp.getOutput(),
                 arcadeRotationalRamp.getOutput());
-        setDriveStatus("AR- T:" + lateralPower +
-                " R:" + rotationalPower);
+        console.getLCDManager().setDriveMode(Console.LCDManager.DRIVEMODE_ARCADE);
+        //TODO set motor speeds in console
     }
     
     public void driveArcade(double lateralPower, double rotationalPower) {
@@ -121,7 +124,8 @@ public class Drive extends Subsystem {
         
         robotDrive.tankDrive(getDirection() * tankLeftRamp.getOutput(),
                 getDirection() * tankRightRamp.getOutput());
-        setDriveStatus("Tank Drive - Left: " + leftPower + " Right: " + rightPower);
+        console.getLCDManager().setDriveMode(Console.LCDManager.DRIVEMODE_TANK);
+        //TODO set motor speeds in console
     }
     
     public void setDriveDirection(int direction) {
@@ -156,13 +160,5 @@ public class Drive extends Subsystem {
     
     public int getDirection() {
         return driveDirection;
-    }
-    
-    public void setDriveStatus(String condition) {
-        this.driveStatus = condition;
-    }
-    
-    public String getDriveStatus() {
-        return driveStatus;
     }
 }

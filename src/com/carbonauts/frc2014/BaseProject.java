@@ -10,6 +10,7 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.command.ShootReloadCommand;
 import com.carbonauts.frc2014.subsystems.Pivot;
 import com.carbonauts.frc2014.util.Latch;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -31,6 +32,7 @@ public class BaseProject extends IterativeRobot {
     Console console;
     
     Latch shiftLatch;
+    Latch shootLatch;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -42,7 +44,7 @@ public class BaseProject extends IterativeRobot {
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
         shiftLatch = new Latch();
-        
+        shootLatch = new Latch();
     }
 
     public void autonomousInit() {
@@ -93,6 +95,10 @@ public class BaseProject extends IterativeRobot {
             }*/
             
             CommandBase.pickupIntake.moveDirection(Pivot.DIRECTION_FORWARD);
+        }
+        
+        if(shootLatch.update(console.getJoystick().getThrowButtonState())) {
+            Scheduler.getInstance().add(new ShootReloadCommand());
         }
         
         //If the shift button switched from off to on (button press)

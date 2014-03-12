@@ -43,6 +43,13 @@ public class Constants {
     public static final int INTAKE_ROLLERS = 5; //PWM for Roller Talon
     
     /***************************************************************************
+     * All THROWER constants
+     **************************************************************************/
+    public static final int THROWER = -1;
+    public static final int THROWER_LIMIT = -1; //PWM for Thrower Limit PUT A NUMBER HERE VERY IMPORTANT
+    public static final boolean THROWER_LIMIT_INVERTED = false;
+    
+    /***************************************************************************
      * All JOYSTICK constants
      **************************************************************************/
     public static final int JOYSTICK = 1;               //USB for Joystick
@@ -67,18 +74,6 @@ public class Constants {
     public static final boolean DIO7_INVERTED = false;
     public static final boolean DIO8_INVERTED = false;
     public static final boolean DIO9_INVERTED = false;
-    
-    /***************************************************************************
-     * All CONSOLE constants
-     **************************************************************************/
-    
-    //Status selector constants
-    public static final int STATUS_DRIVEMODE_ARCADE = 0;
-    public static final int STATUS_DRIVEMODE_TANK = 1;
-    
-    public static final int STATUS_PIVOTMODE_HOLDDOWN = 0;
-    public static final int STATUS_PIVOTMODE_TOGGLE = 1;
-    public static final int STATUS_PIVOTMODE_AUTO = 2;
     
     /***************************************************************************
      * All RAMP constants

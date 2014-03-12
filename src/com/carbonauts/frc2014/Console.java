@@ -72,6 +72,12 @@ public class Console {
         */
         private DriverStationLCD lcd;
         
+        public static final int DRIVEMODE_ARCADE = 0;
+        public static final int DRIVEMODE_TANK = 1;
+        public static final int PIVOTMODE_HOLDDOWN = 0;
+        public static final int PIVOTMODE_TOGGLE = 1;
+        public static final int PIVOTMODE_AUTO = 2;
+        
         private String driveStatus;
         private String pivotStatus;
         private String pickupIntakeStatus;
@@ -79,12 +85,13 @@ public class Console {
         
         private String driveMotorSpeeds;
         private String driveMode;
-        
         private String pivotPosition;
         private String pivotSpeed;
         private String pivotMode;
+        private String throwerReloaded;
+        private String throwerInterrupted;
         
-        public LCDManager() {
+        private LCDManager() {
             lcd = DriverStationLCD.getInstance();
             
             driveStatus = null;
@@ -102,15 +109,15 @@ public class Console {
         }
         
         public void setDriveMode(int mode) {
-            if(mode == Constants.STATUS_DRIVEMODE_ARCADE) {
+            if(mode == DRIVEMODE_ARCADE) {
                 driveMode = "[DRIVE:ARCADE]";
-            } else if (mode == Constants.STATUS_DRIVEMODE_TANK) {
+            } else if (mode == DRIVEMODE_TANK) {
                 driveMode = "[DRIVE:TANK]";
             }
             updateDriveStatus();
         }
         
-        public void updateDriveStatus() {
+        private void updateDriveStatus() {
             driveStatus = driveMode + " " + driveMotorSpeeds;
             updateLCD();
         }
@@ -134,24 +141,48 @@ public class Console {
         }
         
         public void setPivotMode(int mode) {
-            if(mode == Constants.STATUS_PIVOTMODE_HOLDDOWN) {
+            if(mode == PIVOTMODE_HOLDDOWN) {
                 pivotMode = "[PIVOT:HOLD]";
-            } else if (mode == Constants.STATUS_PIVOTMODE_TOGGLE) {
+            } else if (mode == PIVOTMODE_TOGGLE) {
                 pivotMode = "[PIVOT:TOGGLE]";
-            } else if (mode == Constants.STATUS_PIVOTMODE_AUTO) {
+            } else if (mode == PIVOTMODE_AUTO) {
                 pivotMode = "[PIVOT:AUTO]";
             }
             updatePivotStatus();
         }
         
-        public void updatePivotStatus() {
+        private void updatePivotStatus() {
             pivotStatus = pivotMode + " " + pivotSpeed + " " + pivotPosition;
             updateLCD();
         }
         
-        public void updateLCD() {
+        public void setThrowerReloaded(boolean reloaded) {
+            if(reloaded) {
+                throwerReloaded = "[THROWER:RELOADED]";
+            } else {
+                throwerReloaded = "[THROWER:RELOADING]";
+            }
+            updateThrowerStatus();
+        }
+        
+        public void setThrowerInterrupted(boolean interrupted) {
+            if(interrupted) {
+                throwerInterrupted = "INTERRUPTED!";
+            } else {
+                throwerInterrupted = "";
+            }
+            updateThrowerStatus();
+        }
+        
+        private void updateThrowerStatus() {
+            throwerStatus = throwerReloaded + " " + throwerInterrupted;
+            updateLCD();
+        }
+        
+        private void updateLCD() {
             lcd.println(DriverStationLCD.Line.kUser1, 0, driveStatus);
             lcd.println(DriverStationLCD.Line.kUser2, 0, pivotStatus);
+            lcd.println(DriverStationLCD.Line.kUser3, 0, throwerStatus);
             lcd.updateLCD();
         }
     }

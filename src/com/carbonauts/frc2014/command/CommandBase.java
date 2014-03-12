@@ -8,6 +8,7 @@ import com.carbonauts.frc2014.subsystems.Drive;
 import com.carbonauts.frc2014.subsystems.DriveShifter;
 import com.carbonauts.frc2014.subsystems.PickupIntake;
 import com.carbonauts.frc2014.subsystems.Pivot;
+import com.carbonauts.frc2014.subsystems.Thrower;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -24,6 +25,7 @@ public abstract class CommandBase extends Command {
     public static DriveShifter shifter = new DriveShifter();
     public static Pivot pickupPivot = new Pivot();
     public static PickupIntake pickupIntake = new PickupIntake();
+    public static Thrower thrower = new Thrower();
     
     /**
      * This method exists to ensure that CommandBase has been constructed
