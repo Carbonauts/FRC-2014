@@ -6,44 +6,41 @@ package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.util.CarbonTimer;
 
 /**
- * Command which both shoots and reloads the throwing mechanism by rotating
- * the 'Choo choo' mechanism one revolution
+ *
  * @author Nick
  */
-public class ShootReloadCommand extends CommandBase {
-    
+public class UnloadThrowerCommand extends CommandBase {
+
     private Console console;
+    private CarbonTimer timer;
     private boolean finished;
     
-    public ShootReloadCommand() {
+    public UnloadThrowerCommand() {
         requires(thrower);
-        setInterruptible(false); 
+        setInterruptible(true);
         console = Console.getConsole();
         finished = false;
     }
     
-    public void initialize() {
-        
+    protected void initialize() {
+        timer = new CarbonTimer(Constants.THROWER_UNLOAD_TIME);
     }
 
-    /**
-     * Runs the thrower motor at full speed unless the reload point has been reached
-     */
     protected void execute() {
-        if(!thrower.isReloaded()) {
-            thrower.spinThrowerForward();
-            //console.getLCDManager().setThrowerReloaded(false);
+        if(!timer.isDone()) {
+            thrower.spinThrowerReverse();
             if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower not reloaded; Thrower spin forward");
+                System.out.println("Thrower timer not done; Thrower spin forward");
             }
+            
         } else {
             thrower.stopThrower();
-            //console.getLCDManager().setThrowerReloaded(true);
             finished = true;
             if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower reloaded; Thrower stopped");
+                System.out.println("Thrower timer done; Thrower stopped");
             }
         }
     }
@@ -56,9 +53,6 @@ public class ShootReloadCommand extends CommandBase {
         thrower.stopThrower();
     }
 
-    /**
-     * Stop the thrower motor if interrupted
-     */
     protected void interrupted() {
         thrower.stopThrower();
     }

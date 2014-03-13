@@ -19,10 +19,7 @@ public class Console {
 
     private static Console console;
     
-    /**
-     * Driver Station object to transfer data to and from the DS
-     */
-    private DriverStation driverStation;
+    private DSManager dsManager;
     
     private LCDManager lcdManager;
     
@@ -32,11 +29,13 @@ public class Console {
     private CarbonJoystick joystick;
 
     private Console() {
+        System.out.println("Init Console");
         lcdManager = new LCDManager();
         joystick = new CarbonJoystick(Constants.JOYSTICK);
     }
     
     public static Console getConsole() {
+        System.out.println("getConsole()");
         if(console == null) {
             console = new Console();
             return console;
@@ -54,6 +53,55 @@ public class Console {
     
     public LCDManager getLCDManager() {
         return lcdManager;
+    }
+    
+    public DSManager getDriverStationManager() {
+        return dsManager;
+    }
+    
+    public void debugControls() {
+        
+    }
+    
+    public class DSManager {
+        
+        public static final int CHANNEL_DIGITAL1 = 1;
+        public static final int CHANNEL_DIGITAL2 = 2;
+        public static final int CHANNEL_DIGITAL3 = 3;
+        public static final int CHANNEL_DIGITAL4 = 4;
+        public static final int CHANNEL_DIGITAL5 = 5;
+        public static final int CHANNEL_DIGITAL6 = 6;
+        public static final int CHANNEL_DIGITAL7 = 7;
+        public static final int CHANNEL_DIGITAL8 = 8;
+        public static final int CHANNEL_ANALOG1 = 1;
+        public static final int CHANNEL_ANALOG2 = 2;
+        public static final int CHANNEL_ANALOG3 = 3;
+        public static final int CHANNEL_ANALOG4 = 4;
+        
+       /**
+        * Driver Station object to transfer data to and from the DS
+        */
+        private DriverStation driverStation;
+        
+        private DSManager() {
+            driverStation = DriverStation.getInstance();
+        }
+        
+        public void setDigitalOutput(int channel, boolean enabled) {
+            driverStation.setDigitalOut(channel, enabled);
+        }
+        
+        public boolean getDigitalOutput(int channel) {
+            return driverStation.getDigitalOut(channel);
+        }
+        
+        public boolean getDigitalInput(int channel) {
+            return driverStation.getDigitalIn(channel);
+        }
+        
+        public double getAnalogInput(int channel) {
+            return driverStation.getAnalogIn(channel);
+        }
     }
     
     /**
@@ -78,21 +126,22 @@ public class Console {
         public static final int PIVOTMODE_TOGGLE = 1;
         public static final int PIVOTMODE_AUTO = 2;
         
-        private String driveStatus;
-        private String pivotStatus;
-        private String pickupIntakeStatus;
-        private String throwerStatus;
+        private String driveStatus = "";
+        private String pivotStatus = "";
+        private String pickupIntakeStatus = "";
+        private String throwerStatus = "";
         
-        private String driveMotorSpeeds;
-        private String driveMode;
-        private String pivotPosition;
-        private String pivotSpeed;
-        private String pivotMode;
-        private String throwerReloaded;
-        private String throwerInterrupted;
+        private String driveMotorSpeeds = "";
+        private String driveMode = "";
+        private String pivotPosition = "";
+        private String pivotSpeed = "";
+        private String pivotMode = "";
+        private String throwerReloaded = "";
         
         private LCDManager() {
+            System.out.println("Init LCDManager");
             lcd = DriverStationLCD.getInstance();
+            System.out.println("LCD: " + lcd);
             
             driveStatus = null;
             pivotStatus = null;
@@ -165,24 +214,18 @@ public class Console {
             updateThrowerStatus();
         }
         
-        public void setThrowerInterrupted(boolean interrupted) {
-            if(interrupted) {
-                throwerInterrupted = "INTERRUPTED!";
-            } else {
-                throwerInterrupted = "";
-            }
-            updateThrowerStatus();
-        }
-        
         private void updateThrowerStatus() {
-            throwerStatus = throwerReloaded + " " + throwerInterrupted;
+            throwerStatus = throwerReloaded;
             updateLCD();
         }
         
         private void updateLCD() {
-            lcd.println(DriverStationLCD.Line.kUser1, 0, driveStatus);
-            lcd.println(DriverStationLCD.Line.kUser2, 0, pivotStatus);
-            lcd.println(DriverStationLCD.Line.kUser3, 0, throwerStatus);
+            lcd.println(
+                    DriverStationLCD.Line.kUser1,
+                    1, 
+                    driveStatus);
+            lcd.println(DriverStationLCD.Line.kUser2, 1, pivotStatus);
+            lcd.println(DriverStationLCD.Line.kUser3, 1, throwerStatus);
             lcd.updateLCD();
         }
     }

@@ -12,7 +12,7 @@ public class Latch {
     private boolean lastBool;
     
     public Latch() {
-        lastBool = false;
+        lastBool = true;
     }
     
     public boolean update(boolean nowBool) {

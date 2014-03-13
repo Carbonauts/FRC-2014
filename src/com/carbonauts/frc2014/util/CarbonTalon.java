@@ -6,6 +6,7 @@
 
 package com.carbonauts.frc2014.util;
 
+import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.CarbonRampCommand;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -66,11 +67,30 @@ public class CarbonTalon extends Talon {
         ramp.setStepTime(stepTime);
     }
     
+    public void setDefaultStep() {
+        ramp.setStepSize(Constants.RAMP_DEFAULT_STEPSIZE);
+        ramp.setStepTime(Constants.RAMP_DEFAULT_STEPTIME);
+    }
+    
     public void setRamp(double setPoint) {
+        if(rampCommand == null) {
+            rampCommand = new CarbonRampCommand(ramp, this);
+        }
         ramp.setTarget(setPoint);
     }
     
     public double getTargetSpeed() {
         return ramp.getTarget();
+    }
+    
+    public void stopMotor() {
+        ramp.setTarget(0.0);
+    }
+    
+    public void hardStopMotor() {
+        ramp.setTarget(0.0);
+        rampCommand.setFinished(true);
+        rampCommand = null;
+        super.stopMotor();
     }
 }

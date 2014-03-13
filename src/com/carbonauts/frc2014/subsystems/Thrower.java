@@ -18,18 +18,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Thrower extends Subsystem {
     
     private CarbonTalon chooChoo;
-    private CarbonDigitalInput reloadSwitch;
+    private CarbonDigitalInput throwerSwitch;
     private Latch reloadLatch;
+    private Latch unloadLatch;
     
     public Thrower() {
         chooChoo = new CarbonTalon(Constants.THROWER);
-        reloadSwitch = new CarbonDigitalInput(Constants.THROWER_LIMIT, 
+        throwerSwitch = new CarbonDigitalInput(Constants.THROWER_LIMIT, 
                                               Constants.THROWER_LIMIT_INVERTED);
         reloadLatch = new Latch();
+        unloadLatch = new Latch();
     }
     
     public void setThrowerSpeed(double speed) {
         chooChoo.setRamp(speed);
+    }
+    
+    public void spinThrowerForward() {
+        setThrowerSpeed(1.0);
+    }
+    
+    public void spinThrowerReverse() {
+        setThrowerSpeed(-1.0);
     }
     
     public double getThrowerSpeed() {
@@ -41,7 +51,7 @@ public class Thrower extends Subsystem {
     }
     
     public boolean isAtLimit() {
-        return reloadSwitch.get();
+        return throwerSwitch.get();
     }
     
     /**
@@ -49,7 +59,11 @@ public class Thrower extends Subsystem {
      * @return True if reloaded, false otherwise
      */
     public boolean isReloaded() {
-        return reloadLatch.update(reloadSwitch.get());
+        return reloadLatch.update(throwerSwitch.get());
+    }
+    
+    public boolean isUnloaded() {
+        return unloadLatch.update(throwerSwitch.get());
     }
     
     public void initDefaultCommand() {

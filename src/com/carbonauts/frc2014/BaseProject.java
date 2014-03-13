@@ -11,7 +11,7 @@ import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.command.ShootReloadCommand;
-import com.carbonauts.frc2014.subsystems.Pivot;
+import com.carbonauts.frc2014.command.UnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,6 +33,10 @@ public class BaseProject extends IterativeRobot {
     
     Latch shiftLatch;
     Latch shootLatch;
+    Latch debugEnabledLatch;
+    Latch unloadLatch;
+    
+    boolean debugMode = false;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -45,6 +49,8 @@ public class BaseProject extends IterativeRobot {
         operatorDriveCommand = new OperatorDriveCommand();
         shiftLatch = new Latch();
         shootLatch = new Latch();
+        debugEnabledLatch = new Latch();
+        unloadLatch = new Latch();
     }
 
     public void autonomousInit() {
@@ -68,43 +74,35 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        if(console.getJoystick().getArmForwardButtonState()) {
+        /*if(console.getJoystick().getArmForwardButtonState()) {
             CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_FORWARD);
         } else if(console.getJoystick().getArmReverseButtonState()) {
             CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_REVERSE);
         } else {
             CommandBase.pickupPivot.stopPivot();
-        }
-        
-        /*
-         * TODO sanity check on logic
-         */
-        if(console.getJoystick().getRollerButtonState()) {
-            /*
-            if(CommandBase.pickupPivot.getPosition() != Constants.PIVOT_POSITION_UNKNOWN ||
-                    CommandBase.pickupPivot.getPositionTarget() != Constants.PIVOT_POSITION_UNKNOWN) { //If the current position or target position is not unknown
-                if(CommandBase.pickupPivot.getPosition() == Constants.PIVOT_POSITION_FORWARD ||
-                        CommandBase.pickupPivot.getPositionTarget() == Constants.PIVOT_POSITION_FORWARD) { //Position (or target) must be forward
-                    CommandBase.pickupIntake.moveDirection(Constants.PIVOT_DIRECTION_FORWARD); //Spin rollers correct direction for 'forward'
-                } else if(CommandBase.pickupPivot.getPosition() == Constants.PIVOT_POSITION_REVERSE ||
-                        CommandBase.pickupPivot.getPositionTarget() == Constants.PIVOT_POSITION_REVERSE) { //Position (or target) must be reverse
-                    CommandBase.pickupIntake.moveDirection(Constants.PIVOT_DIRECTION_REVERSE); //Spin rollers correct direction for 'reverse'
-                } else {
-                    //Position must be resting, no direction
-                }
-            }*/
-            
-            CommandBase.pickupIntake.moveDirection(Pivot.DIRECTION_FORWARD);
-        }
-        
+        }*/
+
         if(shootLatch.update(console.getJoystick().getThrowButtonState())) {
             Scheduler.getInstance().add(new ShootReloadCommand());
         }
         
+        if(unloadLatch.update(console.getJoystick().getUnloadButtonState())) {
+            Scheduler.getInstance().add(new UnloadReloadCommand());
+        }
+        
+        System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
+                           " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
+                           " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
+                           " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
+                           " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
+                           " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
+                           " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));
+
+        /*
         //If the shift button switched from off to on (button press)
         if(shiftLatch.update(console.getJoystick().getShiftButtonState())) {
             CommandBase.shifter.toggleHighGear();
-        }
+        }*/
     }
     
     /**

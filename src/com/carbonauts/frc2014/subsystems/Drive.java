@@ -155,7 +155,7 @@ public class Drive extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        setDefaultCommand(new OperatorDriveCommand());
+        //setDefaultCommand(new OperatorDriveCommand());
     }
     
     public int getDirection() {

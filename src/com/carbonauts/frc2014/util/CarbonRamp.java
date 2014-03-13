@@ -27,7 +27,7 @@ public class CarbonRamp {
     }
     
     public CarbonRamp(double target) {
-        this(target, Constants.DEFAULT_RAMP_STEP, Constants.DEFAULT_RAMP_TIME);
+        this(target, Constants.RAMP_DEFAULT_STEPSIZE, Constants.RAMP_DEFAULT_STEPTIME);
     }
     
     public CarbonRamp(double target, double stepSize, long stepTime) {
@@ -54,6 +54,7 @@ public class CarbonRamp {
             if((isUp && (currentOutput + step >= target)) || 
                     (!isUp && (currentOutput + step <= target))) {
                 currentOutput = target;
+                System.out.println("Current output = target");
             } else {
                 currentOutput += step;
             }

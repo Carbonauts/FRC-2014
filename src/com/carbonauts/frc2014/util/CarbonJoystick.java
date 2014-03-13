@@ -72,4 +72,12 @@ public class CarbonJoystick extends Joystick {
     public JoystickButton getThrowButton() {
         return new JoystickButton(this, Constants.BUTTON_THROW);
     }
+    
+    public boolean getUnloadButtonState() {
+        return this.getRawButton(Constants.BUTTON_UNLOAD);
+    }
+    
+    public JoystickButton getUnloadButton() {
+        return new JoystickButton(this, Constants.BUTTON_UNLOAD);
+    }
 }
