@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * @author Greg Armstrong
  * @author Nick
  */
-public class CarbonTalon extends Talon {
+public class CarbonTalon extends Talon implements CarbonRampable {
     
     private CarbonRamp ramp;
     private CarbonRampCommand rampCommand;
@@ -85,6 +85,10 @@ public class CarbonTalon extends Talon {
     
     public void stopMotor() {
         ramp.setTarget(0.0);
+    }
+    
+    public void hardSet(double setpoint) {
+        super.set(setpoint);
     }
     
     public void hardStopMotor() {

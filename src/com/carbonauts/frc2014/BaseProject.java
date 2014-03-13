@@ -90,13 +90,15 @@ public class BaseProject extends IterativeRobot {
             Scheduler.getInstance().add(new UnloadReloadCommand());
         }
         
-        System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
-                           " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
-                           " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
-                           " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
-                           " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
-                           " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
-                           " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));
+        if(Constants.DEBUG_MODE) {
+            System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
+                               " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
+                               " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
+                               " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
+                               " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
+                               " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
+                               " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));
+        }
 
         /*
         //If the shift button switched from off to on (button press)

@@ -99,7 +99,7 @@ public class Pivot extends Subsystem {
         return this.position == position;
     }
     
-    public void updatePosition() {
+    public final void updatePosition() {
         if(limitForward.get()) {
             position = POSITION_FORWARD;
             
@@ -111,7 +111,6 @@ public class Pivot extends Subsystem {
             
         } else {
             position = POSITION_UNKNOWN;
-            
         }
     }
     
