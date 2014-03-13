@@ -22,16 +22,14 @@ public class Constants {
     public static final int DRIVE_LEFT_FRONT = 2;   //PWM for LF Talon
     public static final int DRIVE_RIGHT_REAR = 3;   //PWM for RR Talon
     public static final int DRIVE_LEFT_REAR = 4;    //PWM for LR Talon
-    public static final int INTAKE_ROLLERS = 5;     //PWM for Roller Talon
+    public static final int INTAKE = 5;             //PWM for Roller Talon
     public static final int THROWER = 6;            //PWM for Thrower Talon
     public static final int PIVOT = 7;              //PWM for Pivot Talon
     
     //LIMIT SWITCHES
     public static final int THROWER_LIMIT = 1;         //PWM for Thrower Limit
     public static final int PIVOT_LIMIT_FORWARD = 2;   //PWM for Forward Limit
-    public static final int PIVOT_LIMIT_RESTING = 3;   //PWM for Resting Limit
-    public static final int PIVOT_LIMIT_REVERSE = 4;   //PWM for Reverse Limit
-    
+    public static final int PIVOT_LIMIT_REVERSE = 3;   //PWM for Reverse Limit
     
     //ENCODERS
     public static final int PIVOT_ENCODER_PIN1 = 13;   //PUT A NUMBER HERE VERY IMPORTANT
@@ -42,7 +40,6 @@ public class Constants {
     
     //HARDWARE INVERSIONS
     public static final boolean PIVOT_LIMIT_FORWARD_INVERTED = true;
-    public static final boolean PIVOT_LIMIT_RESTING_INVERTED = true;
     public static final boolean PIVOT_LIMIT_REVERSE_INVERTED = true;
     public static final boolean THROWER_LIMIT_INVERTED = true;
     public static final boolean PIVOT_ENCODER_INVERTED = false;

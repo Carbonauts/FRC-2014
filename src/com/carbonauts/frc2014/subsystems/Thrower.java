@@ -20,14 +20,12 @@ public class Thrower extends Subsystem {
     private CarbonTalon chooChoo;
     private CarbonDigitalInput throwerSwitch;
     private Latch reloadLatch;
-    private Latch unloadLatch;
     
     public Thrower() {
         chooChoo = new CarbonTalon(Constants.THROWER);
         throwerSwitch = new CarbonDigitalInput(Constants.THROWER_LIMIT, 
-                                              Constants.THROWER_LIMIT_INVERTED);
+                                               Constants.THROWER_LIMIT_INVERTED);
         reloadLatch = new Latch();
-        unloadLatch = new Latch();
     }
     
     public void setThrowerSpeed(double speed) {
@@ -50,6 +48,10 @@ public class Thrower extends Subsystem {
         chooChoo.stopMotor();
     }
     
+    public void hardStopThrower() {
+        chooChoo.hardStopMotor();
+    }
+    
     public boolean isAtLimit() {
         return throwerSwitch.get();
     }
@@ -60,10 +62,6 @@ public class Thrower extends Subsystem {
      */
     public boolean isReloaded() {
         return reloadLatch.update(throwerSwitch.get());
-    }
-    
-    public boolean isUnloaded() {
-        return unloadLatch.update(throwerSwitch.get());
     }
     
     public void initDefaultCommand() {

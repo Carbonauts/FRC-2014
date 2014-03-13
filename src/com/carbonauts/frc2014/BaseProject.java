@@ -47,6 +47,7 @@ public class BaseProject extends IterativeRobot {
         console = Console.getConsole();
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
+        
         shiftLatch = new Latch();
         shootLatch = new Latch();
         debugEnabledLatch = new Latch();
@@ -54,7 +55,7 @@ public class BaseProject extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        autonomousCommand.start();
+        Scheduler.getInstance().add(autonomousCommand);
     }
     
     /**
@@ -73,14 +74,6 @@ public class BaseProject extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
-        /*if(console.getJoystick().getArmForwardButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_FORWARD);
-        } else if(console.getJoystick().getArmReverseButtonState()) {
-            CommandBase.pickupPivot.moveDirection(Pivot.DIRECTION_REVERSE);
-        } else {
-            CommandBase.pickupPivot.stopPivot();
-        }*/
 
         if(shootLatch.update(console.getJoystick().getThrowButtonState())) {
             Scheduler.getInstance().add(new ShootReloadCommand());
@@ -99,18 +92,5 @@ public class BaseProject extends IterativeRobot {
                                " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
                                " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));
         }
-
-        /*
-        //If the shift button switched from off to on (button press)
-        if(shiftLatch.update(console.getJoystick().getShiftButtonState())) {
-            CommandBase.shifter.toggleHighGear();
-        }*/
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-    
     }
 }

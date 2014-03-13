@@ -6,7 +6,7 @@ package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.subsystems.Drive;
 import com.carbonauts.frc2014.subsystems.DriveShifter;
-import com.carbonauts.frc2014.subsystems.PickupIntake;
+import com.carbonauts.frc2014.subsystems.Intake;
 import com.carbonauts.frc2014.subsystems.Pivot;
 import com.carbonauts.frc2014.subsystems.Thrower;
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,14 +18,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class CommandBase extends Command {
     
-    /*
-     * Instantiate all subsystems as static objects
-     */
-    //public static Drive drive = new Drive();
-    public static DriveShifter shifter = new DriveShifter();
-    public static Pivot pickupPivot = new Pivot();
-    public static PickupIntake pickupIntake = new PickupIntake();
-    public static Thrower thrower = new Thrower();
+    public static DriveShifter shifter;
+    public static Pivot pivot;
+    public static Intake intake;
+    public static Thrower thrower;
     
     /**
      * This method exists to ensure that CommandBase has been constructed
@@ -34,5 +30,13 @@ public abstract class CommandBase extends Command {
      */
     public static void init() {
         
+        /*
+         * Instantiate all subsystems as static objects
+        */
+        //public static Drive drive = new Drive();
+        shifter = new DriveShifter();
+        pivot = new Pivot();
+        intake = new Intake();
+        thrower = new Thrower();
     }
 }
