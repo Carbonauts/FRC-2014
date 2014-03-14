@@ -6,6 +6,7 @@ package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.command.OperatorPivotCommand;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -30,6 +31,7 @@ public class Pivot extends Subsystem {
     
     //Declare Talon
     private CarbonTalon pivotMotor;
+    private OperatorPivotCommand defaultPivotCommand;
     
     private Console console;
     
@@ -47,8 +49,6 @@ public class Pivot extends Subsystem {
         
         //Define Talon
         pivotMotor = new CarbonTalon(Constants.PIVOT);
-        
-        pivotMotor.enableDeadbandElimination(true);
         
         /*
          * Using custom DigitalInput class (CarbonDigitalInput) in order to control
@@ -69,48 +69,16 @@ public class Pivot extends Subsystem {
                               Constants.PIVOT_ENCODER_INVERTED);
     }
     
-    /**
-     * Move the pivot motor based on speed
-     * @param speed speed to move motor at
-     * @return true if the motor is successfully set, false if limit is hit
-     */
-    public boolean moveSpeed(double speed) {
-        /*
-         * Check if the limit switch for the direction of movement is hit, and
-         * stop the motor if it is.
-         */
-        if(getDirection() == DIRECTION_FORWARD && limitForward.get()) {
-            pivotMotor.hardStopMotor();
-            return false;
-        }
-        
-        if(getDirection() == DIRECTION_REVERSE && limitReverse.get()) {
-            pivotMotor.hardStopMotor();
-            return false;
-        }
-        
-        //Scale the output if the range is too wide.
-        if(speed > 1.0) {
-            speed = 1.0;
-        } else if (speed < -1.0) {
-            speed = -1.0;
-        }
-        
+    public void setPivotSpeed(double speed) {
         pivotMotor.setRamp(speed);
-        return true;
     }
     
-    /**
-     * Sets motor to full forward or full reverse based on parameter
-     * @param direction The direction to spin the motor.
-     * @return True for successful completion, false for incomplete.
-     */
-    public boolean moveDirection(boolean direction) {
-        if(direction == DIRECTION_FORWARD) {
-            return moveSpeed(1.0);
-        } else {
-            return moveSpeed(-1.0);
-        }
+    public void setPivotForward() {
+        setPivotSpeed(1.0);
+    }
+    
+    public void setPivotReverse() {
+        setPivotSpeed(-1.0);
     }
     
     public void stopPivot() {
@@ -122,7 +90,8 @@ public class Pivot extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        //No default command, leave blank
+        defaultPivotCommand = new OperatorPivotCommand();
+        setDefaultCommand(defaultPivotCommand);
     }
     
     public boolean getForwardLimitState() {
@@ -135,5 +104,13 @@ public class Pivot extends Subsystem {
     
     public boolean getDirection() {
         return encoder.getDirection();
+    }
+    
+    public double getDistance() {
+        return encoder.getDistance();
+    }
+    
+    public void resetDistance() {
+        encoder.reset();
     }
 }

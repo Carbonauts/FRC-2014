@@ -12,8 +12,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class UnloadReloadCommand extends CommandGroup {
     
+    ShootReloadCommand shootReloadCommand;
+    
     public UnloadReloadCommand() {
+        
+        shootReloadCommand = new ShootReloadCommand();
+        
         addSequential(new UnloadThrowerCommand());
-        addSequential(new ShootReloadCommand());
+        addSequential(shootReloadCommand);
+    }
+    
+    public boolean isFinished() {
+        return shootReloadCommand.isFinished();
     }
 }

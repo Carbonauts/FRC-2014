@@ -29,13 +29,11 @@ public class Console {
     private CarbonJoystick joystick;
 
     private Console() {
-        System.out.println("Init Console");
         lcdManager = new LCDManager();
         joystick = new CarbonJoystick(Constants.JOYSTICK);
     }
     
     public static Console getConsole() {
-        System.out.println("getConsole()");
         if(console == null) {
             console = new Console();
             return console;

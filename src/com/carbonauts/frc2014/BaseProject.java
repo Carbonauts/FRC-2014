@@ -10,6 +10,7 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.command.OperatorPivotCommand;
 import com.carbonauts.frc2014.command.ShootReloadCommand;
 import com.carbonauts.frc2014.command.UnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
@@ -28,6 +29,8 @@ public class BaseProject extends IterativeRobot {
     
     Command autonomousCommand; //Example autonomous command
     Command operatorDriveCommand;
+    ShootReloadCommand shootReloadCommand;
+    UnloadReloadCommand unloadReloadCommand;
     
     Console console;
     
@@ -35,6 +38,8 @@ public class BaseProject extends IterativeRobot {
     Latch shootLatch;
     Latch debugEnabledLatch;
     Latch unloadLatch;
+    Latch pivotForwardLatch;
+    Latch pivotReverseLatch;
     
     boolean debugMode = false;
     
@@ -47,11 +52,15 @@ public class BaseProject extends IterativeRobot {
         console = Console.getConsole();
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
+        shootReloadCommand = null;
+        unloadReloadCommand = null;
         
         shiftLatch = new Latch();
         shootLatch = new Latch();
         debugEnabledLatch = new Latch();
         unloadLatch = new Latch();
+        pivotForwardLatch = new Latch();
+        pivotReverseLatch = new Latch();
     }
 
     public void autonomousInit() {
@@ -75,22 +84,41 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        if(shootLatch.update(console.getJoystick().getThrowButtonState())) {
-            Scheduler.getInstance().add(new ShootReloadCommand());
+        if(shootLatch.onTrue(console.getJoystick().getThrowButtonState())) {
+            
+            if(shootReloadCommand == null) {
+                shootReloadCommand = new ShootReloadCommand();
+                Scheduler.getInstance().add(shootReloadCommand);
+                
+            } else if(shootReloadCommand.isFinished()) {
+                shootReloadCommand = new ShootReloadCommand();
+                Scheduler.getInstance().add(shootReloadCommand);
+            }
+            
+            System.out.println("Throw Button Pressed");
         }
         
-        if(unloadLatch.update(console.getJoystick().getUnloadButtonState())) {
-            Scheduler.getInstance().add(new UnloadReloadCommand());
+        if(unloadLatch.onTrue(console.getJoystick().getUnloadButtonState())) {
+            
+            if(unloadReloadCommand == null) {
+                unloadReloadCommand = new UnloadReloadCommand();
+                Scheduler.getInstance().add(new UnloadReloadCommand());
+                
+            } else if(unloadReloadCommand.isFinished()) {
+                unloadReloadCommand = new UnloadReloadCommand();
+                Scheduler.getInstance().add(unloadReloadCommand);
+                
+            }
+            
+            System.out.println("Unload Button Pressed");
         }
         
-        if(Constants.DEBUG_MODE) {
-            System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
-                               " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
-                               " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
-                               " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
-                               " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
-                               " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
-                               " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));
-        }
+        /*System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
+                           " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
+                           " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
+                           " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
+                           " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
+                           " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
+                           " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
     }
 }

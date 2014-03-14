@@ -61,7 +61,7 @@ public class Thrower extends Subsystem {
      * @return True if reloaded, false otherwise
      */
     public boolean isReloaded() {
-        return reloadLatch.update(throwerSwitch.get());
+        return reloadLatch.onTrue(throwerSwitch.get());
     }
     
     public void initDefaultCommand() {

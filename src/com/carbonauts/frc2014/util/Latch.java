@@ -15,9 +15,17 @@ public class Latch {
         lastBool = true;
     }
     
-    public boolean update(boolean nowBool) {
+    public boolean onTrue(boolean nowBool) {
         boolean result = nowBool && !lastBool;
         lastBool = nowBool;
         return result;
+    }
+    
+    public boolean onFalse(boolean nowBool) {
+        return onTrue(!nowBool);
+    }
+    
+    public boolean onChange(boolean nowBool) {
+        return onTrue(nowBool) || onFalse(nowBool);
     }
 }

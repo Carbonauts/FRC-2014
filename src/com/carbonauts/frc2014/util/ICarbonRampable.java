@@ -10,7 +10,7 @@ package com.carbonauts.frc2014.util;
  * compatibility beyond just the CarbonTalon.
  * @author Nick
  */
-public interface CarbonRampable {
+public interface ICarbonRampable {
     
     public void hardSet(double setpoint);
 }

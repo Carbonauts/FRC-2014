@@ -46,18 +46,21 @@ public class CarbonRamp {
      * by the stepSize, reset the timer, and continue.
      */
     public void tick() {
-        if(delayTimer.isDone()) {
-            delayTimer.reset(stepTime);
-            boolean isUp = (currentOutput < target);
-            double step = isUp ? stepSize : -stepSize;
-            
-            if((isUp && (currentOutput + step >= target)) || 
-                    (!isUp && (currentOutput + step <= target))) {
-                currentOutput = target;
-                System.out.println("Current output = target");
-            } else {
-                currentOutput += step;
+        if(Constants.RAMPS_ENABLED) {
+            if(delayTimer.isDone()) {
+                delayTimer.reset(stepTime);
+                boolean isUp = (currentOutput < target);
+                double step = isUp ? stepSize : -stepSize;
+
+                if((isUp && (currentOutput + step >= target)) || 
+                        (!isUp && (currentOutput + step <= target))) {
+                    currentOutput = target;
+                } else {
+                    currentOutput += step;
+                }
             }
+        } else { //Ramps not enabled
+            currentOutput = target;
         }
     }
     

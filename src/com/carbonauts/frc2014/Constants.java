@@ -22,7 +22,7 @@ public class Constants {
     public static final int DRIVE_LEFT_FRONT = 2;   //PWM for LF Talon
     public static final int DRIVE_RIGHT_REAR = 3;   //PWM for RR Talon
     public static final int DRIVE_LEFT_REAR = 4;    //PWM for LR Talon
-    public static final int INTAKE = 5;             //PWM for Roller Talon
+    public static final int INTAKE = 5;              //PWM for Roller Talon
     public static final int THROWER = 6;            //PWM for Thrower Talon
     public static final int PIVOT = 7;              //PWM for Pivot Talon
     
@@ -32,8 +32,8 @@ public class Constants {
     public static final int PIVOT_LIMIT_REVERSE = 3;   //PWM for Reverse Limit
     
     //ENCODERS
-    public static final int PIVOT_ENCODER_PIN1 = 13;   //PUT A NUMBER HERE VERY IMPORTANT
-    public static final int PIVOT_ENCODER_PIN2 = 14;   //ALSO PUT A NUMBER HERE VERY IMPORTANT
+    public static final int PIVOT_ENCODER_PIN1 = 13;   //DIO for Encoder
+    public static final int PIVOT_ENCODER_PIN2 = 14;   //DIO for Encoder
     
     //SOLENOIDS
     public static final int SHIFTER_SOLENOID = 1;   //DIO for Shifter Solenoid
@@ -56,7 +56,7 @@ public class Constants {
     public static final int BUTTON_SHIFT = 8;           //Button ID
     
     //VALUES
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean RAMPS_ENABLED = true;
     public static final double RAMP_DEFAULT_STEPSIZE = 0.05; 
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
     public static final long THROWER_UNLOAD_TIME = 1000;

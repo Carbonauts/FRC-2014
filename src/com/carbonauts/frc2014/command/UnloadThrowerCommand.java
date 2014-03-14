@@ -32,16 +32,11 @@ public class UnloadThrowerCommand extends CommandBase {
     protected void execute() {
         if(!timer.isDone()) {
             thrower.spinThrowerReverse();
-            if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower timer not done; Thrower spin forward");
-            }
             
         } else {
             thrower.stopThrower();
             finished = true;
-            if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower timer done; Thrower stopped");
-            }
+            
         }
     }
 

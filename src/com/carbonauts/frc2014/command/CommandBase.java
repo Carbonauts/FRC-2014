@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class CommandBase extends Command {
     
-    public static DriveShifter shifter;
-    public static Pivot pivot;
-    public static Intake intake;
-    public static Thrower thrower;
+    public static DriveShifter shifter = new DriveShifter();
+    public static Pivot pivot = new Pivot();
+    public static Intake intake = new Intake();
+    public static Thrower thrower = new Thrower();
     
     /**
      * This method exists to ensure that CommandBase has been constructed
@@ -30,13 +30,5 @@ public abstract class CommandBase extends Command {
      */
     public static void init() {
         
-        /*
-         * Instantiate all subsystems as static objects
-        */
-        //public static Drive drive = new Drive();
-        shifter = new DriveShifter();
-        pivot = new Pivot();
-        intake = new Intake();
-        thrower = new Thrower();
     }
 }

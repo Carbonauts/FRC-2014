@@ -5,7 +5,6 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
-import com.carbonauts.frc2014.Constants;
 
 /**
  * Command which both shoots and reloads the throwing mechanism by rotating
@@ -35,20 +34,15 @@ public class ShootReloadCommand extends CommandBase {
         if(!thrower.isReloaded()) {
             thrower.spinThrowerForward();
             //console.getLCDManager().setThrowerReloaded(false);
-            if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower not reloaded; Thrower spin forward");
-            }
         } else {
             thrower.stopThrower();
             //console.getLCDManager().setThrowerReloaded(true);
             finished = true;
-            if(Constants.DEBUG_MODE) {
-                System.out.println("Thrower reloaded; Thrower stopped");
-            }
+            
         }
     }
 
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return finished;
     }
 

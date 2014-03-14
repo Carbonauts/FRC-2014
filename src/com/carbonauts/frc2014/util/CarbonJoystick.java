@@ -25,14 +25,6 @@ public class CarbonJoystick extends Joystick {
         return new JoystickButton(this, Constants.BUTTON_ARM_FORWARD);
     }
     
-    public boolean getArmRestingButtonState() {
-        return this.getRawButton(Constants.BUTTON_ARM_RESTING);
-    }
-    
-    public JoystickButton getArmRestingButton() {
-        return new JoystickButton(this, Constants.BUTTON_ARM_RESTING);
-    }
-    
     public boolean getArmReverseButtonState() {
         return this.getRawButton(Constants.BUTTON_ARM_REVERSE);
     }
