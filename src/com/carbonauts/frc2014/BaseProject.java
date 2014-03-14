@@ -84,7 +84,7 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        if(shootLatch.onTrue(console.getJoystick().getThrowButtonState())) {
+        if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
             
             if(shootReloadCommand == null) {
                 shootReloadCommand = new ShootReloadCommand();
@@ -98,7 +98,7 @@ public class BaseProject extends IterativeRobot {
             System.out.println("Throw Button Pressed");
         }
         
-        if(unloadLatch.onTrue(console.getJoystick().getUnloadButtonState())) {
+        if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
             
             if(unloadReloadCommand == null) {
                 unloadReloadCommand = new UnloadReloadCommand();

@@ -34,12 +34,12 @@ public class OperatorPivotCommand extends CommandBase {
             
         }
         
-        if(console.getJoystick().getArmForwardButtonState() &&
-                console.getJoystick().getArmReverseButtonState()) {
+        if(console.getUI().getArmForwardButtonState() &&
+                console.getUI().getArmReverseButtonState()) {
             
             pivot.stopPivot();
             
-        } else if(console.getJoystick().getArmForwardButtonState()) {
+        } else if(console.getUI().getArmForwardButtonState()) {
             
             if(!pivot.getForwardLimitState()) {
                 pivot.setPivotForward();
@@ -47,15 +47,15 @@ public class OperatorPivotCommand extends CommandBase {
                 pivot.hardStopPivot();
             }
             
-        } else if(console.getJoystick().getArmReverseButtonState()) {
+        } else if(console.getUI().getArmReverseButtonState()) {
             
             if(!pivot.getReverseLimitState()) {
                 pivot.setPivotReverse();
             } else {
                 pivot.hardStopPivot();
             }
-        } else if(!console.getJoystick().getArmForwardButtonState() &&
-                !console.getJoystick().getArmReverseButtonState()) {
+        } else if(!console.getUI().getArmForwardButtonState() &&
+                !console.getUI().getArmReverseButtonState()) {
             
             
         }

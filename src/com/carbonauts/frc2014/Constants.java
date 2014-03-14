@@ -46,14 +46,13 @@ public class Constants {
     
     //JOYSTICK
     public static final int JOYSTICK = 1;               //USB for Joystick
-    public static final int BUTTON_THROW = 1;           //Button ID
-    public static final int BUTTON_UNLOAD = 2;          //Button ID
-    public static final int BUTTON_ARM_FORWARD = 3;     //Button ID
-    public static final int BUTTON_ARM_RESTING = 4;     //Button ID
-    public static final int BUTTON_ARM_REVERSE = 5;     //Button ID
-    public static final int BUTTON_ROLLERS_ON = 6;      //Button ID
-    public static final int BUTTON_INVERT_DRIVE = 7;    //Button ID
-    public static final int BUTTON_SHIFT = 8;           //Button ID
+    public static final int BUTTON_DEFAULT_THROW = 1;           //Button ID
+    public static final int BUTTON_DEFAULT_UNLOAD = 2;          //Button ID
+    public static final int BUTTON_DEFAULT_PIVOT_FORWARD = 3;     //Button ID
+    public static final int BUTTON_DEFAULT_PIVOT_REVERSE = 5;     //Button ID
+    public static final int BUTTON_DEFAULT_INTAKE = 6;      //Button ID
+    public static final int BUTTON_DEFAULT_INVERT_DRIVE = 7;    //Button ID
+    public static final int BUTTON_DEFAULT_SHIFT = 8;           //Button ID
     
     //VALUES
     public static final boolean RAMPS_ENABLED = true;

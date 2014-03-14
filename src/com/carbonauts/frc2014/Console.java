@@ -5,7 +5,7 @@
 package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.subsystems.Pivot;
-import com.carbonauts.frc2014.util.CarbonJoystick;
+import com.carbonauts.frc2014.util.CarbonUI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 
@@ -26,11 +26,11 @@ public class Console {
     /*
      * TODO rename controls and use constants
      */
-    private CarbonJoystick joystick;
+    private CarbonUI ui;
 
     private Console() {
         lcdManager = new LCDManager();
-        joystick = new CarbonJoystick(Constants.JOYSTICK);
+        ui = new CarbonUI();
     }
     
     public static Console getConsole() {
@@ -41,12 +41,9 @@ public class Console {
             return console;
         }
     }
-    
-    /**
-     * @return the joystick
-     */
-    public CarbonJoystick getJoystick() {
-        return joystick;
+
+    public CarbonUI getUI() {
+        return ui;
     }
     
     public LCDManager getLCDManager() {
