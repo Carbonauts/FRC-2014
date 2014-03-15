@@ -43,6 +43,7 @@ public class ShootReloadCommand extends CommandBase {
     }
 
     public boolean isFinished() {
+        System.out.println("ShootReloadCommand.isFinished()" + finished);
         return finished;
     }
 

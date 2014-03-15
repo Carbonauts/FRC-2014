@@ -5,7 +5,6 @@
 package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.subsystems.Pivot;
-import com.carbonauts.frc2014.util.CarbonUI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 
@@ -18,19 +17,12 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 public class Console {
 
     private static Console console;
-    
     private DSManager dsManager;
-    
     private LCDManager lcdManager;
-    
-    /*
-     * TODO rename controls and use constants
-     */
     private CarbonUI ui;
 
     private Console() {
         lcdManager = new LCDManager();
-        ui = new CarbonUI();
     }
     
     public static Console getConsole() {
@@ -40,6 +32,11 @@ public class Console {
         } else {
             return console;
         }
+    }
+    
+    public CarbonUI initUI() {
+        ui = new CarbonUI();
+        return ui;
     }
 
     public CarbonUI getUI() {
@@ -52,10 +49,6 @@ public class Console {
     
     public DSManager getDriverStationManager() {
         return dsManager;
-    }
-    
-    public void debugControls() {
-        
     }
     
     public class DSManager {

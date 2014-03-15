@@ -45,7 +45,10 @@ public class Constants {
     public static final boolean PIVOT_ENCODER_INVERTED = false;
     
     //JOYSTICK
-    public static final int JOYSTICK = 1;               //USB for Joystick
+    public static final int JOYSTICK1 = 1;               //USB for Joystick
+    public static final int JOYSTICK2 = 2;               //USB for Joystick
+    public static final int JOYSTICK3 = 3;               //USB for Joystick
+    public static final int JOYSTICK4 = 4;               //USB for Joystick
     public static final int BUTTON_DEFAULT_THROW = 1;           //Button ID
     public static final int BUTTON_DEFAULT_UNLOAD = 2;          //Button ID
     public static final int BUTTON_DEFAULT_PIVOT_FORWARD = 3;     //Button ID
@@ -56,7 +59,9 @@ public class Constants {
     
     //VALUES
     public static final boolean RAMPS_ENABLED = true;
-    public static final double RAMP_DEFAULT_STEPSIZE = 0.05; 
+    public static final double RAMP_DEFAULT_STEPSIZE = 0.05;
+    public static final double PIVOT_POSITION_CENTER = 100;
+    public static final double PIVOT_POSITION_TOLERANCE = 10.0;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
     public static final long THROWER_UNLOAD_TIME = 1000;
 }

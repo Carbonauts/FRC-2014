@@ -27,12 +27,9 @@ public class Pivot extends Subsystem {
     public static final int POSITION_FORWARD = 0;    //State constant
     public static final int POSITION_RESTING = 1;    //State constant
     public static final int POSITION_REVERSE = 2;    //State constant
-    public static final int POSITION_UNKNOWN = 3;    //State constant
     
-    //Declare Talon
     private CarbonTalon pivotMotor;
     private OperatorPivotCommand defaultPivotCommand;
-    
     private Console console;
     
     //Declare Limit switch objects
@@ -67,6 +64,7 @@ public class Pivot extends Subsystem {
         encoder = new Encoder(Constants.PIVOT_ENCODER_PIN1, 
                               Constants.PIVOT_ENCODER_PIN2, 
                               Constants.PIVOT_ENCODER_INVERTED);
+        encoder.start();
     }
     
     public void setPivotSpeed(double speed) {
@@ -74,11 +72,19 @@ public class Pivot extends Subsystem {
     }
     
     public void setPivotForward() {
-        setPivotSpeed(1.0);
+        if(!limitForward.get()) {
+            setPivotSpeed(1.0);
+        } else {
+            hardStopPivot();
+        }
     }
     
     public void setPivotReverse() {
-        setPivotSpeed(-1.0);
+        if(!limitReverse.get()) {
+            setPivotSpeed(-1.0);
+        } else {
+            hardStopPivot();
+        }
     }
     
     public void stopPivot() {

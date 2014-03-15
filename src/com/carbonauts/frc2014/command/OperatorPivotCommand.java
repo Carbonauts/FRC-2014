@@ -5,6 +5,7 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.Constants;
 
 /**
  * Moves the PivotPickup subsystem in a direction given by a parameter
@@ -30,34 +31,32 @@ public class OperatorPivotCommand extends CommandBase {
         //Zero encoder when limits are hit
         if(pivot.getForwardLimitState()) {
             
+            
         } else if(pivot.getReverseLimitState()) {
+            pivot.resetDistance();
             
         }
         
-        if(console.getUI().getArmForwardButtonState() &&
-                console.getUI().getArmReverseButtonState()) {
-            
+        if(console.getUI().getArmForwardButtonState() && console.getUI().getArmReverseButtonState()) {
             pivot.stopPivot();
             
         } else if(console.getUI().getArmForwardButtonState()) {
-            
-            if(!pivot.getForwardLimitState()) {
-                pivot.setPivotForward();
-            } else {
-                pivot.hardStopPivot();
-            }
-            
+            pivot.setPivotForward();
+                
         } else if(console.getUI().getArmReverseButtonState()) {
+            pivot.setPivotReverse();
             
-            if(!pivot.getReverseLimitState()) {
+        } else if(!console.getUI().getArmForwardButtonState() && !console.getUI().getArmReverseButtonState()) {
+            
+            if(pivot.getDistance() > (Constants.PIVOT_POSITION_CENTER + Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotReverse();
+                
+            } else if(pivot.getDistance() < (Constants.PIVOT_POSITION_CENTER - Constants.PIVOT_POSITION_TOLERANCE)) {
+                pivot.setPivotForward();
+                
             } else {
-                pivot.hardStopPivot();
+                pivot.stopPivot();
             }
-        } else if(!console.getUI().getArmForwardButtonState() &&
-                !console.getUI().getArmReverseButtonState()) {
-            
-            
         }
         
         System.out.println("Pivot Encoder Distance: " + pivot.getDistance() + " Direction: " + pivot.getDirection());

@@ -64,6 +64,10 @@ public class CarbonRamp {
         }
     }
     
+    public void setOutput(double output) {
+        this.currentOutput = output;
+    }
+    
     /**
      * Returns the current value of this ramp.
      * @return The value of the ramp.

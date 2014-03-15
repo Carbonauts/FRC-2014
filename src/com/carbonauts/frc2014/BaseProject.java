@@ -10,7 +10,6 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
-import com.carbonauts.frc2014.command.OperatorPivotCommand;
 import com.carbonauts.frc2014.command.ShootReloadCommand;
 import com.carbonauts.frc2014.command.UnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
@@ -33,6 +32,7 @@ public class BaseProject extends IterativeRobot {
     UnloadReloadCommand unloadReloadCommand;
     
     Console console;
+    UIConfig nickConfig;
     
     Latch shiftLatch;
     Latch shootLatch;
@@ -50,10 +50,14 @@ public class BaseProject extends IterativeRobot {
     public void robotInit() {
         CommandBase.init();
         console = Console.getConsole();
+        
+        initNickConfig();
+        console.initUI().setConfig(nickConfig);
+        
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
-        shootReloadCommand = null;
-        unloadReloadCommand = null;
+        shootReloadCommand = new ShootReloadCommand();
+        unloadReloadCommand = new UnloadReloadCommand();
         
         shiftLatch = new Latch();
         shootLatch = new Latch();
@@ -86,11 +90,7 @@ public class BaseProject extends IterativeRobot {
 
         if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
             
-            if(shootReloadCommand == null) {
-                shootReloadCommand = new ShootReloadCommand();
-                Scheduler.getInstance().add(shootReloadCommand);
-                
-            } else if(shootReloadCommand.isFinished()) {
+            if(!shootReloadCommand.isRunning()) {
                 shootReloadCommand = new ShootReloadCommand();
                 Scheduler.getInstance().add(shootReloadCommand);
             }
@@ -100,14 +100,10 @@ public class BaseProject extends IterativeRobot {
         
         if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
             
-            if(unloadReloadCommand == null) {
-                unloadReloadCommand = new UnloadReloadCommand();
-                Scheduler.getInstance().add(new UnloadReloadCommand());
-                
-            } else if(unloadReloadCommand.isFinished()) {
+            if(!unloadReloadCommand.isRunning()) {
                 unloadReloadCommand = new UnloadReloadCommand();
                 Scheduler.getInstance().add(unloadReloadCommand);
-                
+                System.out.println("unloadReloadCommand == null");
             }
             
             System.out.println("Unload Button Pressed");
@@ -120,5 +116,17 @@ public class BaseProject extends IterativeRobot {
                            " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
                            " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
                            " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
+    }
+    
+    public void initNickConfig() {
+        nickConfig = new UIConfig();
+        nickConfig.setThrowButtonID(1);
+        nickConfig.setThrowButtonPort(1);
+        nickConfig.setUnloadButtonID(2);
+        nickConfig.setUnloadButtonPort(1);
+        nickConfig.setForwardButtonID(8);
+        nickConfig.setForwardButtonPort(1);
+        nickConfig.setReverseButtonID(7);
+        nickConfig.setReverseButtonPort(1);
     }
 }

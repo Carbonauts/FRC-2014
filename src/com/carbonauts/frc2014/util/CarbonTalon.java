@@ -73,8 +73,9 @@ public class CarbonTalon extends Talon implements ICarbonRampable {
     }
     
     public void setRamp(double setPoint) {
-        if(rampCommand == null) {
+        if(!rampCommand.isRunning()) {
             rampCommand = new CarbonRampCommand(ramp, this);
+            Scheduler.getInstance().add(rampCommand);
         }
         ramp.setTarget(setPoint);
     }
@@ -95,8 +96,8 @@ public class CarbonTalon extends Talon implements ICarbonRampable {
     
     public void hardStopMotor() {
         ramp.setTarget(0.0);
+        ramp.setOutput(0.0);
         rampCommand.setFinished(true);
-        rampCommand = null;
         super.stopMotor();
     }
 }
