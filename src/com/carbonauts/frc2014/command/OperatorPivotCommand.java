@@ -18,6 +18,7 @@ public class OperatorPivotCommand extends CommandBase {
     
     public OperatorPivotCommand() {
         requires(pivot);
+        requires(intake);
         setInterruptible(true);
         console = Console.getConsole();
     }
@@ -42,9 +43,11 @@ public class OperatorPivotCommand extends CommandBase {
             
         } else if(console.getUI().getArmForwardButtonState()) {
             pivot.setPivotForward();
+            intake.setPivotForward();
                 
         } else if(console.getUI().getArmReverseButtonState()) {
             pivot.setPivotReverse();
+            intake.setPivotReverse();
             
         } else if(!console.getUI().getArmForwardButtonState() && !console.getUI().getArmReverseButtonState()) {
             
@@ -56,6 +59,7 @@ public class OperatorPivotCommand extends CommandBase {
                 
             } else {
                 pivot.stopPivot();
+                intake.stopIntake();
             }
         }
         

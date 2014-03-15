@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class CommandBase extends Command {
     
+    public static Drive drive = new Drive();
     public static DriveShifter shifter = new DriveShifter();
     public static Pivot pivot = new Pivot();
     public static Intake intake = new Intake();

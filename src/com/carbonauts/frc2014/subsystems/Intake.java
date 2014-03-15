@@ -21,6 +21,26 @@ public class Intake extends Subsystem {
         intakeMotor = new CarbonTalon(Constants.INTAKE);
     }
     
+    public void setIntakeSpeed(double speed) {
+        intakeMotor.setRamp(speed);
+    }
+    
+    public void stopIntake() {
+        intakeMotor.stopMotor();
+    }
+    
+    public void hardStopIntake() {
+        intakeMotor.hardStopMotor();
+    }
+    
+    public void setPivotForward() {
+        setIntakeSpeed(1.0);
+    }
+    
+    public void setPivotReverse() {
+        setIntakeSpeed(-1.0);
+    }
+    
     protected void initDefaultCommand() {
         
     }

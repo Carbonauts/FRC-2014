@@ -22,9 +22,9 @@ public class Constants {
     public static final int DRIVE_LEFT_FRONT = 2;   //PWM for LF Talon
     public static final int DRIVE_RIGHT_REAR = 3;   //PWM for RR Talon
     public static final int DRIVE_LEFT_REAR = 4;    //PWM for LR Talon
-    public static final int INTAKE = 5;              //PWM for Roller Talon
+    public static final int PIVOT = 5;              //PWM for Pivot Talon
     public static final int THROWER = 6;            //PWM for Thrower Talon
-    public static final int PIVOT = 7;              //PWM for Pivot Talon
+    public static final int INTAKE = 7;              //PWM for Roller Talon
     
     //LIMIT SWITCHES
     public static final int THROWER_LIMIT = 1;         //PWM for Thrower Limit

@@ -32,7 +32,6 @@ public class BaseProject extends IterativeRobot {
     UnloadReloadCommand unloadReloadCommand;
     
     Console console;
-    UIConfig nickConfig;
     
     Latch shiftLatch;
     Latch shootLatch;
@@ -51,8 +50,7 @@ public class BaseProject extends IterativeRobot {
         CommandBase.init();
         console = Console.getConsole();
         
-        initNickConfig();
-        console.initUI().setConfig(nickConfig);
+        console.initUI().setConfig(console.nickConfig);
         
         autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
@@ -116,17 +114,5 @@ public class BaseProject extends IterativeRobot {
                            " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
                            " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
                            " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
-    }
-    
-    public void initNickConfig() {
-        nickConfig = new UIConfig();
-        nickConfig.setThrowButtonID(1);
-        nickConfig.setThrowButtonPort(1);
-        nickConfig.setUnloadButtonID(2);
-        nickConfig.setUnloadButtonPort(1);
-        nickConfig.setForwardButtonID(8);
-        nickConfig.setForwardButtonPort(1);
-        nickConfig.setReverseButtonID(7);
-        nickConfig.setReverseButtonPort(1);
     }
 }

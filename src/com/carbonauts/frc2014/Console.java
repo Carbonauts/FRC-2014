@@ -20,6 +20,8 @@ public class Console {
     private DSManager dsManager;
     private LCDManager lcdManager;
     private CarbonUI ui;
+    
+    public UIConfig nickConfig;
 
     private Console() {
         lcdManager = new LCDManager();
@@ -41,6 +43,18 @@ public class Console {
 
     public CarbonUI getUI() {
         return ui;
+    }
+    
+    public void initNickUI() {
+        nickConfig = new UIConfig();
+        nickConfig.setThrowButtonID(1);
+        nickConfig.setThrowButtonPort(1);
+        nickConfig.setUnloadButtonID(2);
+        nickConfig.setUnloadButtonPort(1);
+        nickConfig.setForwardButtonID(8);
+        nickConfig.setForwardButtonPort(1);
+        nickConfig.setReverseButtonID(7);
+        nickConfig.setReverseButtonPort(1);
     }
     
     public LCDManager getLCDManager() {

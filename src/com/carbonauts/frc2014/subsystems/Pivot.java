@@ -72,7 +72,7 @@ public class Pivot extends Subsystem {
     }
     
     public void setPivotForward() {
-        if(!limitForward.get()) {
+        if(!getForwardLimitState()) {
             setPivotSpeed(1.0);
         } else {
             hardStopPivot();
@@ -80,7 +80,7 @@ public class Pivot extends Subsystem {
     }
     
     public void setPivotReverse() {
-        if(!limitReverse.get()) {
+        if(!getReverseLimitState()) {
             setPivotSpeed(-1.0);
         } else {
             hardStopPivot();
