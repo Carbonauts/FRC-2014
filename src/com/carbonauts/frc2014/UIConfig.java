@@ -11,7 +11,13 @@ package com.carbonauts.frc2014;
  * @author Nick
  */
 public class UIConfig {
-
+    
+    /*public static final int AXIS_X = 0;
+    public static final int AXIS_Y = 1;
+    public static final int AXIS_Z = 2;
+    public static final int AXIS_THROTTLE = 3;
+    */
+    
     private int forwardButtonID;
     private int forwardButtonPort;
     private int reverseButtonID;
@@ -26,6 +32,17 @@ public class UIConfig {
     private int throwButtonPort;
     private int unloadButtonID;
     private int unloadButtonPort;
+    
+    private int driveArcadeXAxisID;
+    private int driveArcadeXPort;
+    private int driveArcadeYAxisID;
+    private int driveArcadeYPort;
+    private int driveTankLeftAxisID;
+    private int driveTankLeftPort;
+    private int driveTankRightAxisID;
+    private int driveTankRightPort;
+    private int driveSensitivityAxisID;
+    private int driveSensitivityPort;
 
     /**
      * Default configuration; Intended to be overridden and new values
@@ -162,5 +179,85 @@ public class UIConfig {
 
     public void setUnloadButtonPort(int unloadButtonPort) {
         this.unloadButtonPort = unloadButtonPort;
+    }
+
+    public int getDriveArcadeXAxisID() {
+        return driveArcadeXAxisID;
+    }
+
+    public void setDriveArcadeXAxisID(int driveArcadeXAxisID) {
+        this.driveArcadeXAxisID = driveArcadeXAxisID;
+    }
+
+    public int getDriveArcadeXAxisPort() {
+        return driveArcadeXPort;
+    }
+
+    public void setDriveArcadeXAxisPort(int driveArcadeXPort) {
+        this.driveArcadeXPort = driveArcadeXPort;
+    }
+
+    public int getDriveArcadeYAxisID() {
+        return driveArcadeYAxisID;
+    }
+
+    public void setDriveArcadeYAxisID(int driveArcadeYAxisID) {
+        this.driveArcadeYAxisID = driveArcadeYAxisID;
+    }
+
+    public int getDriveArcadeYAxisPort() {
+        return driveArcadeYPort;
+    }
+
+    public void setDriveArcadeYAxisPort(int driveArcadeYPort) {
+        this.driveArcadeYPort = driveArcadeYPort;
+    }
+
+    public int getDriveTankLeftAxisID() {
+        return driveTankLeftAxisID;
+    }
+
+    public void setDriveTankLeftAxisID(int driveTankLeftAxisID) {
+        this.driveTankLeftAxisID = driveTankLeftAxisID;
+    }
+
+    public int getDriveTankLeftAxisPort() {
+        return driveTankLeftPort;
+    }
+
+    public void setDriveTankLeftAxisPort(int driveTankLeftPort) {
+        this.driveTankLeftPort = driveTankLeftPort;
+    }
+
+    public int getDriveTankRightAxisID() {
+        return driveTankRightAxisID;
+    }
+
+    public void setDriveTankRightAxisID(int driveTankRightAxisID) {
+        this.driveTankRightAxisID = driveTankRightAxisID;
+    }
+
+    public int getDriveTankRightAxisPort() {
+        return driveTankRightPort;
+    }
+
+    public void setDriveTankRightPort(int driveTankRightPort) {
+        this.driveTankRightPort = driveTankRightPort;
+    }
+
+    public int getDriveSensitivityAxisID() {
+        return driveSensitivityAxisID;
+    }
+
+    public void setDriveSensitivityAxisID(int driveSensitivityAxisID) {
+        this.driveSensitivityAxisID = driveSensitivityAxisID;
+    }
+
+    public int getDriveSensitivityPort() {
+        return driveSensitivityPort;
+    }
+
+    public void setDriveSensitivityPort(int driveSensitivityPort) {
+        this.driveSensitivityPort = driveSensitivityPort;
     }
 }

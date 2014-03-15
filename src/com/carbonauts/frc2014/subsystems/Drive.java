@@ -32,6 +32,8 @@ public class Drive extends Subsystem {
     private CarbonRamp tankLeftRamp;
     private CarbonRamp tankRightRamp;
     
+    private OperatorDriveCommand defaultDriveCommand;
+    
     private Console console;
     
     private boolean driveEnabled;
@@ -155,7 +157,10 @@ public class Drive extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        //setDefaultCommand(new OperatorDriveCommand());
+        if(defaultDriveCommand == null) {
+            defaultDriveCommand = new OperatorDriveCommand();
+        }
+        setDefaultCommand(defaultDriveCommand);
     }
     
     public int getDirection() {

@@ -50,6 +50,7 @@ public class BaseProject extends IterativeRobot {
         CommandBase.init();
         console = Console.getConsole();
         
+        console.initNickUI();
         console.initUI().setConfig(console.nickConfig);
         
         autonomousCommand = new ExampleAutonomousCommand();

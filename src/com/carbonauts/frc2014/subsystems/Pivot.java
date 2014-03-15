@@ -96,7 +96,9 @@ public class Pivot extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        defaultPivotCommand = new OperatorPivotCommand();
+        if(defaultPivotCommand == null) {
+            defaultPivotCommand = new OperatorPivotCommand();
+        }
         setDefaultCommand(defaultPivotCommand);
     }
     

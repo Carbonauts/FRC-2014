@@ -56,6 +56,10 @@ public class Constants {
     public static final int BUTTON_DEFAULT_INTAKE = 6;      //Button ID
     public static final int BUTTON_DEFAULT_INVERT_DRIVE = 7;    //Button ID
     public static final int BUTTON_DEFAULT_SHIFT = 8;           //Button ID
+    public static final boolean AXIS_ARCADEX_INVERTED = false;
+    public static final boolean AXIS_ARCADEY_INVERTED = false;
+    public static final boolean AXIS_TANKLEFT_INVERTED = false;
+    public static final boolean AXIS_TANKRIGHT_INVERTED = false;
     
     //VALUES
     public static final boolean RAMPS_ENABLED = true;

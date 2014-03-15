@@ -121,4 +121,30 @@ public class CarbonUI {
     public JoystickButton getUnloadButton() {
         return new JoystickButton(getJoystick(getConfig().getUnloadButtonPort()), getConfig().getUnloadButtonID());
     }
+    
+    public double getDriveArcadeXAxis() {        
+        return (Constants.AXIS_ARCADEX_INVERTED ? -1.0 : 1.0) * 
+                getJoystick(getConfig().getDriveArcadeXAxisPort())
+                .getRawAxis(getConfig().getDriveArcadeXAxisID());
+    }
+    
+    public double getDriveArcadeYAxis() {
+        return (Constants.AXIS_ARCADEY_INVERTED ? -1.0 : 1.0) * 
+                getJoystick(getConfig().getDriveArcadeYAxisPort())
+                .getRawAxis(getConfig().getDriveArcadeYAxisID());
+    }
+    
+    public double getDriveTankLeftAxis() {
+        return (Constants.AXIS_TANKLEFT_INVERTED ? -1.0 : 1.0) * 
+                getJoystick(getConfig().getDriveTankLeftAxisPort())
+                .getRawAxis(getConfig().getDriveTankLeftAxisID());
+    }
+    
+    public double getDriveTankRightAxis() {
+        return (Constants.AXIS_TANKRIGHT_INVERTED ? -1.0 : 1.0) * 
+                getJoystick(getConfig().getDriveTankRightAxisPort())
+                .getRawAxis(getConfig().getDriveTankRightAxisID());
+    }
+    
+    
 }

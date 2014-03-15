@@ -15,7 +15,7 @@ public class OperatorDriveCommand extends CommandBase {
     private Console console;
     
     public OperatorDriveCommand() {
-        //requires(drive);
+        requires(drive);
         setInterruptible(true);
         console = Console.getConsole();
     }
@@ -26,6 +26,10 @@ public class OperatorDriveCommand extends CommandBase {
 
     protected void execute() {
         //drive.driveArcade(console.getJoystick().getY(), console.getJoystick().getZ());
+        System.out.println("ArcadeX:" + console.getUI().getDriveArcadeXAxis() +
+                           " ArcadeY:" + console.getUI().getDriveArcadeYAxis() +
+                           " TankL:" + console.getUI().getDriveTankLeftAxis() + 
+                           " TankR:" + console.getUI().getDriveTankRightAxis());
     }
 
     protected boolean isFinished() {

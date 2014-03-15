@@ -25,6 +25,7 @@ public class Console {
 
     private Console() {
         lcdManager = new LCDManager();
+        initNickUI();
     }
     
     public static Console getConsole() {
@@ -45,7 +46,7 @@ public class Console {
         return ui;
     }
     
-    public void initNickUI() {
+    public final void initNickUI() {
         nickConfig = new UIConfig();
         nickConfig.setThrowButtonID(1);
         nickConfig.setThrowButtonPort(1);
@@ -55,6 +56,15 @@ public class Console {
         nickConfig.setForwardButtonPort(1);
         nickConfig.setReverseButtonID(7);
         nickConfig.setReverseButtonPort(1);
+        
+        nickConfig.setDriveArcadeXAxisID(1);
+        nickConfig.setDriveArcadeXAxisPort(1);
+        nickConfig.setDriveArcadeYAxisID(2);
+        nickConfig.setDriveArcadeYAxisPort(1);
+        nickConfig.setDriveTankLeftAxisID(3);
+        nickConfig.setDriveTankLeftAxisPort(1);
+        nickConfig.setDriveTankRightAxisID(4);
+        nickConfig.setDriveTankRightPort(1);
     }
     
     public LCDManager getLCDManager() {
