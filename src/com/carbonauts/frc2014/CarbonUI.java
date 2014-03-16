@@ -4,9 +4,7 @@
  */
 package com.carbonauts.frc2014;
 
-import com.carbonauts.frc2014.Constants;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * Custom Joystick class with adjustable configuration
@@ -66,81 +64,130 @@ public class CarbonUI {
         }
     }
     
-    public boolean getArmForwardButtonState() {
-        return getJoystick(getConfig().getForwardButtonPort()).getRawButton(getConfig().getForwardButtonID());
+    public boolean getPivotForwardButtonState() {
+        if(getConfig().getPivotForwardButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot Forward Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getPivotForwardButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot Forward Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getPivotForwardButtonPort()).getRawButton(getConfig().getPivotForwardButtonID());
     }
     
-    public JoystickButton getArmForwardButton() {
-        return new JoystickButton(getJoystick(getConfig().getForwardButtonPort()), getConfig().getForwardButtonID());
-    }
-    
-    public boolean getArmReverseButtonState() {
-        return getJoystick(getConfig().getReverseButtonPort()).getRawButton(getConfig().getReverseButtonID());
-    }
-    
-    public JoystickButton getArmReverseButton() {
-        return new JoystickButton(getJoystick(getConfig().getReverseButtonPort()), getConfig().getReverseButtonID());
+    public boolean getPivotReverseButtonState() {
+        if(getConfig().getPivotReverseButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot Reverse Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getPivotReverseButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot Reverse Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getPivotReverseButtonPort()).getRawButton(getConfig().getPivotReverseButtonID());
     }
     
     public boolean getInvertDriveButtonState() {
+        if(getConfig().getInvertDriveButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] InvertDrive Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getInvertDriveButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] InvertDrive Button ID not defined for current config!");
+            return false;
+        }
         return getJoystick(getConfig().getInvertDriveButtonID()).getRawButton(getConfig().getInvertDriveButtonID());
     }
     
-    public JoystickButton getInvertDriveButton() {
-        return new JoystickButton(getJoystick(getConfig().getInvertDriveButtonPort()), getConfig().getInvertDriveButtonID());
-    }
-    
     public boolean getIntakeButtonState() {
+        if(getConfig().getIntakeButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getIntakeButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Button ID not defined for current config!");
+            return false;
+        }
         return getJoystick(getConfig().getIntakeButtonPort()).getRawButton(getConfig().getIntakeButtonID());
     }
     
-    public JoystickButton getIntakeButton() {
-        return new JoystickButton(getJoystick(getConfig().getIntakeButtonPort()), getConfig().getIntakeButtonID());
-    }
-    
     public boolean getShiftButtonState() {
+        if(getConfig().getShiftButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Shift Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getShiftButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Shift Button ID not defined for current config!");
+            return false;
+        }
         return getJoystick(getConfig().getShiftButtonPort()).getRawButton(getConfig().getShiftButtonID());
     }
     
-    public JoystickButton getShiftButton() {
-        return new JoystickButton(getJoystick(getConfig().getShiftButtonPort()), getConfig().getShiftButtonID());
-    }
-    
     public boolean getThrowButtonState() {
+        if(getConfig().getThrowButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Throw Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getThrowButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Throw Button ID not defined for current config!");
+            return false;
+        }
         return getJoystick(getConfig().getThrowButtonPort()).getRawButton(getConfig().getThrowButtonID());
     }
     
-    public JoystickButton getThrowButton() {
-        return new JoystickButton(getJoystick(getConfig().getThrowButtonPort()), getConfig().getThrowButtonID());
-    }
-    
     public boolean getUnloadButtonState() {
+        if(getConfig().getUnloadButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Unload Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getUnloadButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Unload Button ID not defined for current config!");
+            return false;
+        }
         return getJoystick(getConfig().getUnloadButtonPort()).getRawButton(getConfig().getUnloadButtonID());
     }
     
-    public JoystickButton getUnloadButton() {
-        return new JoystickButton(getJoystick(getConfig().getUnloadButtonPort()), getConfig().getUnloadButtonID());
-    }
-    
-    public double getDriveArcadeXAxis() {        
+    public double getDriveArcadeXAxis() {
+        if(getConfig().getDriveArcadeXAxisPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Arcade X Axis Port not defined for current config!");
+            return 0.0;
+        } else if(getConfig().getDriveArcadeXAxisID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Arcade X Axis ID not defined for current config!");
+            return 0.0;
+        }
         return (Constants.AXIS_ARCADEX_INVERTED ? -1.0 : 1.0) * 
                 getJoystick(getConfig().getDriveArcadeXAxisPort())
                 .getRawAxis(getConfig().getDriveArcadeXAxisID());
     }
     
     public double getDriveArcadeYAxis() {
+        if(getConfig().getDriveArcadeYAxisPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Arcade Y Axis Port not defined for current config!");
+            return 0.0;
+        } else if(getConfig().getDriveArcadeYAxisID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Arcade Y Axis ID not defined for current config!");
+            return 0.0;
+        }
         return (Constants.AXIS_ARCADEY_INVERTED ? -1.0 : 1.0) * 
                 getJoystick(getConfig().getDriveArcadeYAxisPort())
                 .getRawAxis(getConfig().getDriveArcadeYAxisID());
     }
     
     public double getDriveTankLeftAxis() {
+        if(getConfig().getDriveTankLeftAxisPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Tank Left Axis Port not defined for current config!");
+            return 0.0;
+        } else if(getConfig().getDriveTankLeftAxisID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Tank Left Axis ID not defined for current config!");
+            return 0.0;
+        }
         return (Constants.AXIS_TANKLEFT_INVERTED ? -1.0 : 1.0) * 
                 getJoystick(getConfig().getDriveTankLeftAxisPort())
                 .getRawAxis(getConfig().getDriveTankLeftAxisID());
     }
     
     public double getDriveTankRightAxis() {
+        if(getConfig().getDriveTankRightAxisPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Tank Right Axis Port not defined for current config!");
+            return 0.0;
+        } else if(getConfig().getDriveTankRightAxisID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Drive Tank Right Axis ID not defined for current config!");
+            return 0.0;
+        }
         return (Constants.AXIS_TANKRIGHT_INVERTED ? -1.0 : 1.0) * 
                 getJoystick(getConfig().getDriveTankRightAxisPort())
                 .getRawAxis(getConfig().getDriveTankRightAxisID());

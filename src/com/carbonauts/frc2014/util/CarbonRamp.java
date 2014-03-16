@@ -113,4 +113,9 @@ public class CarbonRamp {
     public double getTarget() {
         return this.target;
     }
+    
+    public void reset() {
+        this.target = 0;
+        this.currentOutput = 0;
+    }
 }

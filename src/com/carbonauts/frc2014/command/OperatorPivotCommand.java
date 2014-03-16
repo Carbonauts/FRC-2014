@@ -38,18 +38,18 @@ public class OperatorPivotCommand extends CommandBase {
             
         }
         
-        if(console.getUI().getArmForwardButtonState() && console.getUI().getArmReverseButtonState()) {
+        if(console.getUI().getPivotForwardButtonState() && console.getUI().getPivotReverseButtonState()) {
             pivot.stopPivot();
             
-        } else if(console.getUI().getArmForwardButtonState()) {
+        } else if(console.getUI().getPivotForwardButtonState()) {
             pivot.setPivotForward();
             intake.setIntakeForward();
                 
-        } else if(console.getUI().getArmReverseButtonState()) {
+        } else if(console.getUI().getPivotReverseButtonState()) {
             pivot.setPivotReverse();
             intake.setIntakeReverse();
             
-        } else if(!console.getUI().getArmForwardButtonState() && !console.getUI().getArmReverseButtonState()) {
+        } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
             
             if(pivot.getDistance() > (Constants.PIVOT_POSITION_CENTER + Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotReverse();

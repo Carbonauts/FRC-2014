@@ -41,6 +41,10 @@ public class Intake extends Subsystem {
         setIntakeSpeed(-1.0);
     }
     
+    public void reset() {
+        intakeMotor.reset();
+    }
+    
     protected void initDefaultCommand() {
         
     }

@@ -52,10 +52,10 @@ public class Console {
         nickConfig.setThrowButtonPort(1);
         nickConfig.setUnloadButtonID(2);
         nickConfig.setUnloadButtonPort(1);
-        nickConfig.setForwardButtonID(8);
-        nickConfig.setForwardButtonPort(1);
-        nickConfig.setReverseButtonID(7);
-        nickConfig.setReverseButtonPort(1);
+        //nickConfig.setPivotForwardButtonID(8);
+        //nickConfig.setPivotForwardButtonPort(1);
+        nickConfig.setPivotReverseButtonID(7);
+        nickConfig.setPivotReverseButtonPort(1);
         
         nickConfig.setDriveArcadeXAxisID(1);
         nickConfig.setDriveArcadeXAxisPort(1);

@@ -14,17 +14,16 @@ import com.carbonauts.frc2014.Console;
 public class ThrowerShootReloadCommand extends CommandBase {
     
     private Console console;
-    private boolean finished;
+    private boolean finished = false;
     
     public ThrowerShootReloadCommand() {
         requires(thrower);
         setInterruptible(false); 
         console = Console.getConsole();
-        finished = false;
     }
     
     public void initialize() {
-        
+        finished = false;
     }
 
     /**
@@ -38,7 +37,6 @@ public class ThrowerShootReloadCommand extends CommandBase {
             thrower.stopThrower();
             //console.getLCDManager().setThrowerReloaded(true);
             finished = true;
-            
         }
     }
 
@@ -56,5 +54,6 @@ public class ThrowerShootReloadCommand extends CommandBase {
      */
     protected void interrupted() {
         thrower.stopThrower();
+        finished = true;
     }
 }

@@ -17,19 +17,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Thrower extends Subsystem {
     
-    private CarbonTalon chooChoo;
+    private CarbonTalon throwerMotor;
     private CarbonDigitalInput throwerSwitch;
     private Latch reloadLatch;
     
     public Thrower() {
-        chooChoo = new CarbonTalon(Constants.THROWER);
+        throwerMotor = new CarbonTalon(Constants.THROWER);
         throwerSwitch = new CarbonDigitalInput(Constants.THROWER_LIMIT, 
                                                Constants.THROWER_LIMIT_INVERTED);
         reloadLatch = new Latch();
     }
     
     public void setThrowerSpeed(double speed) {
-        chooChoo.setRamp(speed);
+        throwerMotor.setRamp(speed);
     }
     
     public void spinThrowerForward() {
@@ -41,19 +41,23 @@ public class Thrower extends Subsystem {
     }
     
     public double getThrowerSpeed() {
-        return chooChoo.getSpeed();
+        return throwerMotor.getSpeed();
     }
     
     public void stopThrower() {
-        chooChoo.stopMotor();
+        throwerMotor.stopMotor();
     }
     
     public void hardStopThrower() {
-        chooChoo.hardStopMotor();
+        throwerMotor.hardStopMotor();
     }
     
     public boolean isAtLimit() {
         return throwerSwitch.get();
+    }
+    
+    public void reset() {
+        throwerMotor.reset();
     }
     
     /**

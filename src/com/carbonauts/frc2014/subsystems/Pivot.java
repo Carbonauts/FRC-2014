@@ -121,4 +121,8 @@ public class Pivot extends Subsystem {
     public void resetDistance() {
         encoder.reset();
     }
+    
+    public void reset() {
+        pivotMotor.reset();
+    }
 }

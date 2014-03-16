@@ -88,6 +88,10 @@ public class CarbonTalon extends Talon implements ICarbonRampable {
         ramp.setTarget(0.0);
     }
     
+    public void reset() {
+        ramp.reset();
+    }
+    
     public void hardSet(double setpoint) {
         //rampCommand.setFinished(true);
         //rampCommand = null;

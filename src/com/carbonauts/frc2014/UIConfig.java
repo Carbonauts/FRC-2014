@@ -12,37 +12,31 @@ package com.carbonauts.frc2014;
  */
 public class UIConfig {
     
-    /*public static final int AXIS_X = 0;
-    public static final int AXIS_Y = 1;
-    public static final int AXIS_Z = 2;
-    public static final int AXIS_THROTTLE = 3;
-    */
+    private int pivotForwardButtonID = -1;
+    private int pivotForwardButtonPort = -1;
+    private int pivotReverseButtonID = -1;
+    private int pivotReverseButtonPort = -1;
+    private int invertDriveButtonID = -1;
+    private int invertDriveButtonPort = -1;
+    private int intakeButtonID = -1;
+    private int intakeButtonPort = -1;
+    private int shiftButtonID = -1;
+    private int shiftButtonPort = -1;
+    private int throwButtonID = -1;
+    private int throwButtonPort = -1;
+    private int unloadButtonID = -1;
+    private int unloadButtonPort = -1;
     
-    private int forwardButtonID;
-    private int forwardButtonPort;
-    private int reverseButtonID;
-    private int reverseButtonPort;
-    private int invertDriveButtonID;
-    private int invertDriveButtonPort;
-    private int intakeButtonID;
-    private int intakeButtonPort;
-    private int shiftButtonID;
-    private int shiftButtonPort;
-    private int throwButtonID;
-    private int throwButtonPort;
-    private int unloadButtonID;
-    private int unloadButtonPort;
-    
-    private int driveArcadeXAxisID;
-    private int driveArcadeXPort;
-    private int driveArcadeYAxisID;
-    private int driveArcadeYPort;
-    private int driveTankLeftAxisID;
-    private int driveTankLeftPort;
-    private int driveTankRightAxisID;
-    private int driveTankRightPort;
-    private int driveSensitivityAxisID;
-    private int driveSensitivityPort;
+    private int driveArcadeXAxisID = -1;
+    private int driveArcadeXPort = -1;
+    private int driveArcadeYAxisID = -1;
+    private int driveArcadeYPort = -1;
+    private int driveTankLeftAxisID = -1;
+    private int driveTankLeftPort = -1;
+    private int driveTankRightAxisID = -1;
+    private int driveTankRightPort = -1;
+    private int driveSensitivityAxisID = -1;
+    private int driveSensitivityPort = -1;
 
     /**
      * Default configuration; Intended to be overridden and new values
@@ -53,10 +47,10 @@ public class UIConfig {
     }
     
     public void setDefaultUI() {
-        forwardButtonID = Constants.BUTTON_DEFAULT_PIVOT_FORWARD;
-        forwardButtonPort = 1;
-        reverseButtonID = Constants.BUTTON_DEFAULT_PIVOT_REVERSE;
-        reverseButtonPort = 1;
+        pivotForwardButtonID = Constants.BUTTON_DEFAULT_PIVOT_FORWARD;
+        pivotForwardButtonPort = 1;
+        pivotReverseButtonID = Constants.BUTTON_DEFAULT_PIVOT_REVERSE;
+        pivotReverseButtonPort = 1;
         invertDriveButtonID = Constants.BUTTON_DEFAULT_INVERT_DRIVE;
         invertDriveButtonPort = 1;
         intakeButtonID = Constants.BUTTON_DEFAULT_INTAKE;
@@ -69,36 +63,36 @@ public class UIConfig {
         unloadButtonPort = 1;
     }
 
-    public int getForwardButtonID() {
-        return forwardButtonID;
+    public int getPivotForwardButtonID() {
+        return pivotForwardButtonID;
     }
 
-    public void setForwardButtonID(int forwardButtonID) {
-        this.forwardButtonID = forwardButtonID;
+    public void setPivotForwardButtonID(int pivotForwardButtonID) {
+        this.pivotForwardButtonID = pivotForwardButtonID;
     }
 
-    public int getForwardButtonPort() {
-        return forwardButtonPort;
+    public int getPivotForwardButtonPort() {
+        return pivotForwardButtonPort;
     }
 
-    public void setForwardButtonPort(int forwardButtonPort) {
-        this.forwardButtonPort = forwardButtonPort;
+    public void setPivotForwardButtonPort(int forwardButtonPort) {
+        this.pivotForwardButtonPort = forwardButtonPort;
     }
 
-    public int getReverseButtonID() {
-        return reverseButtonID;
+    public int getPivotReverseButtonID() {
+        return pivotReverseButtonID;
     }
 
-    public void setReverseButtonID(int reverseButtonID) {
-        this.reverseButtonID = reverseButtonID;
+    public void setPivotReverseButtonID(int reverseButtonID) {
+        this.pivotReverseButtonID = reverseButtonID;
     }
 
-    public int getReverseButtonPort() {
-        return reverseButtonPort;
+    public int getPivotReverseButtonPort() {
+        return pivotReverseButtonPort;
     }
 
-    public void setReverseButtonPort(int reverseButtonPort) {
-        this.reverseButtonPort = reverseButtonPort;
+    public void setPivotReverseButtonPort(int reverseButtonPort) {
+        this.pivotReverseButtonPort = reverseButtonPort;
     }
 
     public int getInvertDriveButtonID() {

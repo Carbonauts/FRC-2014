@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class BaseProject extends IterativeRobot {
     
-    Command operatorDriveCommand;
+    OperatorDriveCommand operatorDriveCommand;
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
@@ -85,8 +85,7 @@ public class BaseProject extends IterativeRobot {
         if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
             
             if(!shootReloadCommand.isRunning()) {
-                shootReloadCommand = new ThrowerShootReloadCommand();
-                Scheduler.getInstance().add(shootReloadCommand);
+                shootReloadCommand.start();
             }
             
             System.out.println("Throw Button Pressed");
