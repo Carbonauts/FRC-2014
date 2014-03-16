@@ -33,11 +33,11 @@ public class Intake extends Subsystem {
         intakeMotor.hardStopMotor();
     }
     
-    public void setPivotForward() {
+    public void setIntakeForward() {
         setIntakeSpeed(1.0);
     }
     
-    public void setPivotReverse() {
+    public void setIntakeReverse() {
         setIntakeSpeed(-1.0);
     }
     

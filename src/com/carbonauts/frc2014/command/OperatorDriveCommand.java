@@ -25,7 +25,7 @@ public class OperatorDriveCommand extends CommandBase {
     }
 
     protected void execute() {
-        //drive.driveArcade(console.getJoystick().getY(), console.getJoystick().getZ());
+        drive.driveArcadeRamp(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
         System.out.println("ArcadeX:" + console.getUI().getDriveArcadeXAxis() +
                            " ArcadeY:" + console.getUI().getDriveArcadeYAxis() +
                            " TankL:" + console.getUI().getDriveTankLeftAxis() + 

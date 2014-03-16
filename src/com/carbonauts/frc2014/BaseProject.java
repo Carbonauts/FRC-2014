@@ -8,10 +8,9 @@
 package com.carbonauts.frc2014;
 
 import com.carbonauts.frc2014.command.CommandBase;
-import com.carbonauts.frc2014.command.ExampleAutonomousCommand;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
-import com.carbonauts.frc2014.command.ShootReloadCommand;
-import com.carbonauts.frc2014.command.UnloadReloadCommand;
+import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
+import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,10 +25,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class BaseProject extends IterativeRobot {
     
-    Command autonomousCommand; //Example autonomous command
     Command operatorDriveCommand;
-    ShootReloadCommand shootReloadCommand;
-    UnloadReloadCommand unloadReloadCommand;
+    ThrowerShootReloadCommand shootReloadCommand;
+    ThrowerUnloadReloadCommand unloadReloadCommand;
     
     Console console;
     
@@ -39,8 +37,6 @@ public class BaseProject extends IterativeRobot {
     Latch unloadLatch;
     Latch pivotForwardLatch;
     Latch pivotReverseLatch;
-    
-    boolean debugMode = false;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -53,10 +49,9 @@ public class BaseProject extends IterativeRobot {
         console.initNickUI();
         console.initUI().setConfig(console.nickConfig);
         
-        autonomousCommand = new ExampleAutonomousCommand();
         operatorDriveCommand = new OperatorDriveCommand();
-        shootReloadCommand = new ShootReloadCommand();
-        unloadReloadCommand = new UnloadReloadCommand();
+        shootReloadCommand = new ThrowerShootReloadCommand();
+        unloadReloadCommand = new ThrowerUnloadReloadCommand();
         
         shiftLatch = new Latch();
         shootLatch = new Latch();
@@ -67,7 +62,7 @@ public class BaseProject extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        Scheduler.getInstance().add(autonomousCommand);
+        
     }
     
     /**
@@ -90,7 +85,7 @@ public class BaseProject extends IterativeRobot {
         if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
             
             if(!shootReloadCommand.isRunning()) {
-                shootReloadCommand = new ShootReloadCommand();
+                shootReloadCommand = new ThrowerShootReloadCommand();
                 Scheduler.getInstance().add(shootReloadCommand);
             }
             
@@ -100,7 +95,7 @@ public class BaseProject extends IterativeRobot {
         if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
             
             if(!unloadReloadCommand.isRunning()) {
-                unloadReloadCommand = new UnloadReloadCommand();
+                unloadReloadCommand = new ThrowerUnloadReloadCommand();
                 Scheduler.getInstance().add(unloadReloadCommand);
                 System.out.println("unloadReloadCommand == null");
             }
@@ -115,5 +110,13 @@ public class BaseProject extends IterativeRobot {
                            " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
                            " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
                            " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
+    }
+    
+    public void disabledInit() {
+        
+    }
+    
+    public void disabledPeriodic() {
+        
     }
 }

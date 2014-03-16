@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * Runs Unload then reload commands
  * @author Nick
  */
-public class UnloadReloadCommand extends CommandGroup {
+public class ThrowerUnloadReloadCommand extends CommandGroup {
     
-    public UnloadReloadCommand() {
+    public ThrowerUnloadReloadCommand() {
         requires(CommandBase.thrower);
         setInterruptible(false);
         
-        addSequential(new UnloadThrowerCommand());
-        addSequential(new ShootReloadCommand());
+        addSequential(new ThrowerUnloadCommand());
+        addSequential(new ThrowerShootReloadCommand());
     }
 }

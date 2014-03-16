@@ -11,12 +11,12 @@ import com.carbonauts.frc2014.Console;
  * the 'Choo choo' mechanism one revolution
  * @author Nick
  */
-public class ShootReloadCommand extends CommandBase {
+public class ThrowerShootReloadCommand extends CommandBase {
     
     private Console console;
     private boolean finished;
     
-    public ShootReloadCommand() {
+    public ThrowerShootReloadCommand() {
         requires(thrower);
         setInterruptible(false); 
         console = Console.getConsole();

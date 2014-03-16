@@ -43,11 +43,11 @@ public class OperatorPivotCommand extends CommandBase {
             
         } else if(console.getUI().getArmForwardButtonState()) {
             pivot.setPivotForward();
-            intake.setPivotForward();
+            intake.setIntakeForward();
                 
         } else if(console.getUI().getArmReverseButtonState()) {
             pivot.setPivotReverse();
-            intake.setPivotReverse();
+            intake.setIntakeReverse();
             
         } else if(!console.getUI().getArmForwardButtonState() && !console.getUI().getArmReverseButtonState()) {
             

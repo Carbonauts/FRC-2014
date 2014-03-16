@@ -10,6 +10,7 @@ import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.util.CarbonRamp;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,10 +22,10 @@ public class Drive extends Subsystem {
     public static final int DIRECTION_FORWARD = 0;    //State constant
     public static final int DIRECTION_REVERSE = 1;   //State constant
     
-    private CarbonTalon leftFrontDrive;
-    private CarbonTalon leftRearDrive;
-    private CarbonTalon rightFrontDrive;
-    private CarbonTalon rightRearDrive;
+    private Talon leftFrontDrive;
+    private Talon leftRearDrive;
+    private Talon rightFrontDrive;
+    private Talon rightRearDrive;
     private RobotDrive robotDrive;
     
     private CarbonRamp arcadeLateralRamp;
@@ -43,10 +44,10 @@ public class Drive extends Subsystem {
      * Primary constructor for Drive
      */
     public Drive() {
-        leftFrontDrive = new CarbonTalon(Constants.DRIVE_LEFT_FRONT);
-        leftRearDrive = new CarbonTalon(Constants.DRIVE_LEFT_REAR);
-        rightFrontDrive = new CarbonTalon(Constants.DRIVE_RIGHT_FRONT);
-        rightRearDrive = new CarbonTalon(Constants.DRIVE_RIGHT_REAR);
+        leftFrontDrive = new Talon(Constants.DRIVE_LEFT_FRONT);
+        leftRearDrive = new Talon(Constants.DRIVE_LEFT_REAR);
+        rightFrontDrive = new Talon(Constants.DRIVE_RIGHT_FRONT);
+        rightRearDrive = new Talon(Constants.DRIVE_RIGHT_REAR);
         
         robotDrive = new RobotDrive(
             leftFrontDrive,
@@ -91,7 +92,6 @@ public class Drive extends Subsystem {
         
         robotDrive.arcadeDrive(getDirection() * arcadeLateralRamp.getOutput(),
                 arcadeRotationalRamp.getOutput());
-        console.getLCDManager().setDriveMode(Console.LCDManager.DRIVEMODE_ARCADE);
         //TODO set motor speeds in console
     }
     

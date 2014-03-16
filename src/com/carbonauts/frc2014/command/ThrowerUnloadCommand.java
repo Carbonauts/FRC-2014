@@ -12,13 +12,13 @@ import com.carbonauts.frc2014.util.CarbonTimer;
  *
  * @author Nick
  */
-public class UnloadThrowerCommand extends CommandBase {
+public class ThrowerUnloadCommand extends CommandBase {
 
     private Console console;
     private CarbonTimer timer;
     private boolean finished;
     
-    public UnloadThrowerCommand() {
+    public ThrowerUnloadCommand() {
         requires(thrower);
         setInterruptible(true);
         console = Console.getConsole();

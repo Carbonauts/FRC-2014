@@ -145,6 +145,4 @@ public class CarbonUI {
                 getJoystick(getConfig().getDriveTankRightAxisPort())
                 .getRawAxis(getConfig().getDriveTankRightAxisID());
     }
-    
-    
 }
