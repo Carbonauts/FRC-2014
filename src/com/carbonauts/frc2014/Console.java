@@ -21,11 +21,12 @@ public class Console {
     private LCDManager lcdManager;
     private CarbonUI ui;
     
-    public UIConfig nickConfig;
+    public UIConfig nickJoystickConfig;
+    public UIConfig nickGamepadConfig;
 
     private Console() {
         lcdManager = new LCDManager();
-        initNickUI();
+        initNickJoystickUI();
     }
     
     public static Console getConsole() {
@@ -46,25 +47,48 @@ public class Console {
         return ui;
     }
     
-    public final void initNickUI() {
-        nickConfig = new UIConfig();
-        nickConfig.setThrowButtonID(1);
-        nickConfig.setThrowButtonPort(1);
-        nickConfig.setUnloadButtonID(2);
-        nickConfig.setUnloadButtonPort(1);
-        //nickConfig.setPivotForwardButtonID(8);
-        //nickConfig.setPivotForwardButtonPort(1);
-        nickConfig.setPivotReverseButtonID(7);
-        nickConfig.setPivotReverseButtonPort(1);
-        
-        nickConfig.setDriveArcadeXAxisID(1);
-        nickConfig.setDriveArcadeXAxisPort(1);
-        nickConfig.setDriveArcadeYAxisID(2);
-        nickConfig.setDriveArcadeYAxisPort(1);
-        nickConfig.setDriveTankLeftAxisID(3);
-        nickConfig.setDriveTankLeftAxisPort(1);
-        nickConfig.setDriveTankRightAxisID(4);
-        nickConfig.setDriveTankRightPort(1);
+    public final void initNickJoystickUI() {
+        nickJoystickConfig = new UIConfig();
+        //Button IDs
+        nickJoystickConfig.setThrowButtonID(1);
+        nickJoystickConfig.setUnloadButtonID(2);
+        nickJoystickConfig.setPivotForwardButtonID(8);
+        nickJoystickConfig.setPivotReverseButtonID(7);
+        //Button Ports
+        nickJoystickConfig.setThrowButtonPort(1);
+        nickJoystickConfig.setUnloadButtonPort(1);
+        nickJoystickConfig.setPivotForwardButtonPort(1);
+        nickJoystickConfig.setPivotReverseButtonPort(1);
+        //Axis IDs
+        nickJoystickConfig.setDriveArcadeXAxisID(1);
+        nickJoystickConfig.setDriveArcadeYAxisID(2);
+        nickJoystickConfig.setDriveTankLeftAxisID(3);
+        nickJoystickConfig.setDriveTankRightAxisID(4);
+        //Axis Ports
+        nickJoystickConfig.setDriveArcadeXAxisPort(1);
+        nickJoystickConfig.setDriveArcadeYAxisPort(1);
+        nickJoystickConfig.setDriveTankLeftAxisPort(1);
+        nickJoystickConfig.setDriveTankRightPort(1);
+    }
+    
+    public final void initNickGamepadUI() {
+        nickGamepadConfig = new UIConfig();
+        //Button IDs
+        nickGamepadConfig.setThrowButtonID(6);
+        nickGamepadConfig.setUnloadButtonID(8);
+        nickGamepadConfig.setPivotForwardButtonID(5);
+        nickGamepadConfig.setPivotReverseButtonID(7);
+        //Button Ports
+        nickGamepadConfig.setThrowButtonPort(1);
+        nickGamepadConfig.setUnloadButtonPort(1);
+        nickGamepadConfig.setPivotForwardButtonPort(1);
+        nickGamepadConfig.setPivotReverseButtonPort(1);
+        //Axis IDs
+        nickGamepadConfig.setDriveArcadeXAxisID(3);
+        nickGamepadConfig.setDriveArcadeYAxisID(2);
+        //Axis Ports
+        nickGamepadConfig.setDriveArcadeXAxisPort(1);
+        nickGamepadConfig.setDriveArcadeYAxisPort(1);
     }
     
     public LCDManager getLCDManager() {

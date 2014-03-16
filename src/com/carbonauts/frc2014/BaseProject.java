@@ -46,8 +46,9 @@ public class BaseProject extends IterativeRobot {
         CommandBase.init();
         console = Console.getConsole();
         
-        console.initNickUI();
-        console.initUI().setConfig(console.nickConfig);
+        console.initNickJoystickUI();
+        console.initNickGamepadUI();
+        console.initUI().setConfig(console.nickGamepadConfig);
         
         operatorDriveCommand = new OperatorDriveCommand();
         shootReloadCommand = new ThrowerShootReloadCommand();
@@ -112,7 +113,9 @@ public class BaseProject extends IterativeRobot {
     }
     
     public void disabledInit() {
-        
+        CommandBase.pivot.reset();
+        CommandBase.intake.reset();
+        CommandBase.thrower.reset();
     }
     
     public void disabledPeriodic() {
