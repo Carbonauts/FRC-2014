@@ -18,8 +18,10 @@ public class UIConfig {
     private int pivotReverseButtonPort = -1;
     private int invertDriveButtonID = -1;
     private int invertDriveButtonPort = -1;
-    private int intakeButtonID = -1;
-    private int intakeButtonPort = -1;
+    private int intakeForwardButtonID = -1;
+    private int intakeForwardButtonPort = -1;
+    private int intakeReverseButtonID = -1;
+    private int intakeReverseButtonPort = -1;
     private int shiftButtonID = -1;
     private int shiftButtonPort = -1;
     private int throwButtonID = -1;
@@ -53,8 +55,8 @@ public class UIConfig {
         pivotReverseButtonPort = 1;
         invertDriveButtonID = Constants.BUTTON_DEFAULT_INVERT_DRIVE;
         invertDriveButtonPort = 1;
-        intakeButtonID = Constants.BUTTON_DEFAULT_INTAKE;
-        intakeButtonPort = 1;
+        intakeForwardButtonID = Constants.BUTTON_DEFAULT_INTAKE;
+        intakeForwardButtonPort = 1;
         shiftButtonID = Constants.BUTTON_DEFAULT_SHIFT;
         shiftButtonPort = 1;
         throwButtonID = Constants.BUTTON_DEFAULT_THROW;
@@ -111,20 +113,36 @@ public class UIConfig {
         this.invertDriveButtonPort = invertDriveButtonPort;
     }
 
-    public int getIntakeButtonID() {
-        return intakeButtonID;
+    public int getIntakeForwardButtonID() {
+        return intakeForwardButtonID;
     }
 
-    public void setIntakeButtonID(int intakeButtonID) {
-        this.intakeButtonID = intakeButtonID;
+    public void setIntakeForwardButtonID(int intakeButtonID) {
+        this.intakeForwardButtonID = intakeButtonID;
     }
 
-    public int getIntakeButtonPort() {
-        return intakeButtonPort;
+    public int getIntakeForwardButtonPort() {
+        return intakeForwardButtonPort;
     }
 
-    public void setIntakeButtonPort(int intakeButtonPort) {
-        this.intakeButtonPort = intakeButtonPort;
+    public void setIntakeForwardButtonPort(int intakeButtonPort) {
+        this.intakeForwardButtonPort = intakeButtonPort;
+    }
+    
+    public int getIntakeReverseButtonID() {
+        return intakeReverseButtonID;
+    }
+
+    public void setIntakeReverseButtonID(int intakeButtonID) {
+        this.intakeReverseButtonID = intakeButtonID;
+    }
+
+    public int getIntakeReverseButtonPort() {
+        return intakeReverseButtonPort;
+    }
+
+    public void setIntakeReverseButtonPort(int intakeButtonPort) {
+        this.intakeReverseButtonPort = intakeButtonPort;
     }
 
     public int getShiftButtonID() {

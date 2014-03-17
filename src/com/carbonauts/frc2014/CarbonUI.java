@@ -97,15 +97,26 @@ public class CarbonUI {
         return getJoystick(getConfig().getInvertDriveButtonID()).getRawButton(getConfig().getInvertDriveButtonID());
     }
     
-    public boolean getIntakeButtonState() {
-        if(getConfig().getIntakeButtonPort() == -1) {
-            System.err.println("[CarbonUI|ERROR] Intake Button Port not defined for current config!");
+    public boolean getIntakeForwardButtonState() {
+        if(getConfig().getIntakeForwardButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Forward Button Port not defined for current config!");
             return false;
-        } else if(getConfig().getIntakeButtonID() == -1) {
-            System.err.println("[CarbonUI|ERROR] Intake Button ID not defined for current config!");
+        } else if(getConfig().getIntakeForwardButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Forward Button ID not defined for current config!");
             return false;
         }
-        return getJoystick(getConfig().getIntakeButtonPort()).getRawButton(getConfig().getIntakeButtonID());
+        return getJoystick(getConfig().getIntakeForwardButtonPort()).getRawButton(getConfig().getIntakeForwardButtonID());
+    }
+    
+    public boolean getIntakeReverseButtonState() {
+        if(getConfig().getIntakeForwardButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Reverse Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getIntakeForwardButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Intake Reverse Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getIntakeForwardButtonPort()).getRawButton(getConfig().getIntakeForwardButtonID());
     }
     
     public boolean getShiftButtonState() {
