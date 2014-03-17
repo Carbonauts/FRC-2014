@@ -48,6 +48,7 @@ public class CarbonAutoSwitcher {
     
     public Command getActiveCommand() {
         if(activeModeIndex == -1) {
+            System.err.println("No autonomous commands registered!");
             return null;
         } else {
             return (Command) autoModes.elementAt(activeModeIndex);
@@ -57,12 +58,16 @@ public class CarbonAutoSwitcher {
     public void registerAutoCommand(Command autoCommand) {
         if(!autoModes.contains(autoCommand)) {
             autoModes.addElement(autoCommand);
+        } else {
+            System.err.println("AutoSwitcher already contains command! " + autoCommand);
         }
     }
     
     public void unregisterAutoCommand(Command autoCommand) {
         if(autoModes.contains(autoCommand)) {
             autoModes.removeElement(autoCommand);
+        } else {
+            System.err.println("AutoSwitcher does not contain command! " + autoCommand);
         }
     }
 }

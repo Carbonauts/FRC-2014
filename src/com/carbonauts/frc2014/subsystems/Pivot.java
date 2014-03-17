@@ -6,6 +6,7 @@ package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.command.OperatorPivotFloatCommand;
 import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
@@ -29,7 +30,8 @@ public class Pivot extends Subsystem {
     public static final int POSITION_REVERSE = 2;    //State constant
     
     private CarbonTalon pivotMotor;
-    private OperatorPivotSimpleCommand defaultPivotCommand;
+    private OperatorPivotFloatCommand floatCommand;
+    private OperatorPivotSimpleCommand simpleCommand;
     private Console console;
     
     //Declare Limit switch objects
@@ -83,7 +85,7 @@ public class Pivot extends Subsystem {
             setPivotSpeed(Constants.PIVOT_RATE);
         } else {
             hardStopPivot();
-            forwardPositionValue = getDistance();
+            forwardPositionValue = getPosition();
         }
     }
     
@@ -92,7 +94,7 @@ public class Pivot extends Subsystem {
             setPivotSpeed(-Constants.PIVOT_RATE);
         } else {
             hardStopPivot();
-            reversePositionValue = getDistance();
+            reversePositionValue = getPosition();
         }
     }
     
@@ -105,10 +107,13 @@ public class Pivot extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        if(defaultPivotCommand == null) {
-            defaultPivotCommand = new OperatorPivotSimpleCommand();
+        if(floatCommand == null) {
+            floatCommand = new OperatorPivotFloatCommand();
         }
-        setDefaultCommand(defaultPivotCommand);
+        if(simpleCommand == null) {
+            simpleCommand = new OperatorPivotSimpleCommand();
+        }
+        setDefaultCommand(floatCommand);
     }
     
     public boolean getForwardLimitState() {
@@ -123,7 +128,7 @@ public class Pivot extends Subsystem {
         return encoder.getDirection();
     }
     
-    public double getDistance() {
+    public double getPosition() {
         return encoder.getDistance();
     }
     

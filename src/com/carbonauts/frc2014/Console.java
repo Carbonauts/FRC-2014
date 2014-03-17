@@ -26,7 +26,7 @@ public class Console {
 
     private Console() {
         lcdManager = new LCDManager();
-        initNickJoystickUI();
+        initUIConfigs();
     }
     
     public static Console getConsole() {
@@ -47,7 +47,10 @@ public class Console {
         return ui;
     }
     
-    public final void initNickJoystickUI() {
+    public final void initUIConfigs() {
+        /*
+         * NICK JOYSTICK CONFIG
+         */
         nickJoystickConfig = new UIConfig();
         //Button IDs
         nickJoystickConfig.setThrowButtonID(1);
@@ -69,9 +72,10 @@ public class Console {
         nickJoystickConfig.setDriveArcadeYAxisPort(1);
         nickJoystickConfig.setDriveTankLeftAxisPort(1);
         nickJoystickConfig.setDriveTankRightPort(1);
-    }
-    
-    public final void initNickGamepadUI() {
+        
+        /*
+         * NICK GAMEPAD CONFIG
+         */
         nickGamepadConfig = new UIConfig();
         //Button IDs
         nickGamepadConfig.setThrowButtonID(6);

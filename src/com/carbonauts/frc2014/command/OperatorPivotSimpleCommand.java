@@ -50,6 +50,8 @@ public class OperatorPivotSimpleCommand extends CommandBase {
         } else if(console.getUI().getIntakeReverseButtonState()) {
             intake.setIntakeReverse();
         }
+        
+        System.out.println("Pivot position: " + pivot.getPosition());
     }
 
     protected boolean isFinished() {

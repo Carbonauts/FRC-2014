@@ -7,6 +7,7 @@
 
 package com.carbonauts.frc2014;
 
+import com.carbonauts.frc2014.auto.CarbonAutoSwitcher;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
@@ -28,6 +29,8 @@ public class BaseProject extends IterativeRobot {
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
+    CarbonAutoSwitcher autoSwitcher;
+    
     Console console;
     
     Latch shiftLatch;
@@ -45,13 +48,14 @@ public class BaseProject extends IterativeRobot {
         CommandBase.init();
         console = Console.getConsole();
         
-        console.initNickJoystickUI();
-        console.initNickGamepadUI();
+        console.initUIConfigs();
         console.initUI().setConfig(console.nickJoystickConfig);
         
         operatorDriveCommand = new OperatorDriveCommand();
         shootReloadCommand = new ThrowerShootReloadCommand();
         unloadReloadCommand = new ThrowerUnloadReloadCommand();
+        
+        autoSwitcher = new CarbonAutoSwitcher();
         
         shiftLatch = new Latch();
         shootLatch = new Latch();
@@ -113,7 +117,7 @@ public class BaseProject extends IterativeRobot {
         System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
                            " LR:" + CommandBase.pivot.getReverseLimitState() +
                            " LT:" + CommandBase.thrower.isAtLimit() +
-                           " PE:" + CommandBase.pivot.getDistance());
+                           " PE:" + CommandBase.pivot.getPosition());
     }
     
     public void disabledInit() {
@@ -126,6 +130,6 @@ public class BaseProject extends IterativeRobot {
         System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
                            " LR:" + CommandBase.pivot.getReverseLimitState() +
                            " LT:" + CommandBase.thrower.isAtLimit() +
-                           " PE:" + CommandBase.pivot.getDistance());
+                           " PE:" + CommandBase.pivot.getPosition());
     }
 }
