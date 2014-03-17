@@ -70,4 +70,7 @@ public class Constants {
     public static final double PIVOT_RATE = 0.3;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
     public static final long THROWER_UNLOAD_TIME = 700;
+    
+    //AUTONOMOUS
+    public static final double AUTO_DRIVE_POWER = 0.3;
 }
