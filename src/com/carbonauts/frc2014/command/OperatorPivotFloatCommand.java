@@ -51,10 +51,10 @@ public class OperatorPivotFloatCommand extends CommandBase {
             
         } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
             
-            if(pivot.getDistance() > (pivot.getRestingPosition() + Constants.PIVOT_POSITION_TOLERANCE)) {
+            if(pivot.getPosition() > (pivot.getRestingPosition() + Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotReverse();
                 
-            } else if(pivot.getDistance() < (pivot.getRestingPosition() - Constants.PIVOT_POSITION_TOLERANCE)) {
+            } else if(pivot.getPosition() < (pivot.getRestingPosition() - Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotForward();
                 
             } else {
@@ -63,7 +63,7 @@ public class OperatorPivotFloatCommand extends CommandBase {
             }
         }
         
-        System.out.println("Pivot Encoder Distance: " + pivot.getDistance() + " Direction: " + pivot.getDirection());
+        System.out.println("Encoder Distance: " + pivot.getPosition() + " Direction: " + pivot.getDirection());
     }
 
     protected boolean isFinished() {
