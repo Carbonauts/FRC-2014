@@ -40,6 +40,6 @@ public class OperatorShiftCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        shifter.setHighGear(Constants.SHIFTER_HIGH_GEAR);
+        
     }
 }

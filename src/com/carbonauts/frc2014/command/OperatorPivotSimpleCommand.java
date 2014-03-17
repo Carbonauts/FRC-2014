@@ -63,7 +63,6 @@ public class OperatorPivotSimpleCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        pivot.stopPivot();
-        intake.stopIntake();
+        
     }
 }

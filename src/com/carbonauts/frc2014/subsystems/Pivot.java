@@ -30,8 +30,6 @@ public class Pivot extends Subsystem {
     public static final int POSITION_REVERSE = 2;    //State constant
     
     private CarbonTalon pivotMotor;
-    private OperatorPivotFloatCommand floatCommand;
-    private OperatorPivotSimpleCommand simpleCommand;
     private Console console;
     
     //Declare Limit switch objects
@@ -107,13 +105,7 @@ public class Pivot extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        if(floatCommand == null) {
-            floatCommand = new OperatorPivotFloatCommand();
-        }
-        if(simpleCommand == null) {
-            simpleCommand = new OperatorPivotSimpleCommand();
-        }
-        setDefaultCommand(floatCommand);
+        setDefaultCommand(new OperatorPivotSimpleCommand());
     }
     
     public boolean getForwardLimitState() {

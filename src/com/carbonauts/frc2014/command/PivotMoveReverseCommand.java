@@ -39,7 +39,7 @@ public class PivotMoveReverseCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        pivot.stopPivot();
+        
     }
     
 }

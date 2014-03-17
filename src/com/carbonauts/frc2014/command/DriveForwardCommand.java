@@ -46,7 +46,6 @@ public class DriveForwardCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        drive.stopDrive();
-        finished = true;
+        
     }
 }

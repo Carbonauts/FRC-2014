@@ -39,6 +39,6 @@ public class PivotMoveForwardCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        pivot.stopPivot();
+        
     }
 }

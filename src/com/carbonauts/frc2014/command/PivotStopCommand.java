@@ -35,6 +35,6 @@ public class PivotStopCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        pivot.stopPivot();
+        
     }
 }

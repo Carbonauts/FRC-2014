@@ -75,6 +75,6 @@ public class OperatorPivotFloatCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        pivot.stopPivot();
+        
     }
 }

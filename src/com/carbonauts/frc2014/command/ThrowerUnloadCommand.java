@@ -20,7 +20,7 @@ public class ThrowerUnloadCommand extends CommandBase {
     
     public ThrowerUnloadCommand() {
         requires(thrower);
-        setInterruptible(true);
+        setInterruptible(false);
         console = Console.getConsole();
         finished = false;
     }
@@ -32,11 +32,9 @@ public class ThrowerUnloadCommand extends CommandBase {
     protected void execute() {
         if(!timer.isDone()) {
             thrower.spinThrowerReverse();
-            
         } else {
             thrower.stopThrower();
             finished = true;
-            
         }
     }
 
@@ -49,6 +47,6 @@ public class ThrowerUnloadCommand extends CommandBase {
     }
 
     protected void interrupted() {
-        thrower.stopThrower();
+        System.err.println("ThrowerUnloadCommand: Got interrupted!");
     }
 }

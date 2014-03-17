@@ -97,12 +97,9 @@ public class BaseProject extends IterativeRobot {
         
         if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
             
-            if(!unloadReloadCommand.isRunning()) {
-                /*unloadReloadCommand = new ThrowerUnloadReloadCommand();
-                Scheduler.getInstance().add(unloadReloadCommand);*/
-                unloadReloadCommand.start();
+            if(CommandBase.thrower.isAtLimit()) {
+                Scheduler.getInstance().add(new ThrowerUnloadReloadCommand());
             }
-            
             System.out.println("Unload Button Pressed");
         }
         
