@@ -27,9 +27,9 @@ public class Constants {
     public static final int INTAKE = 7;              //PWM for Roller Talon
     
     //LIMIT SWITCHES
-    public static final int THROWER_LIMIT = 1;         //PWM for Thrower Limit
+    public static final int PIVOT_LIMIT_REVERSE = 1;   //PWM for Reverse Limit
     public static final int PIVOT_LIMIT_FORWARD = 2;   //PWM for Forward Limit
-    public static final int PIVOT_LIMIT_REVERSE = 3;   //PWM for Reverse Limit
+    public static final int THROWER_LIMIT = 3;         //PWM for Thrower Limit
     
     //ENCODERS
     public static final int PIVOT_ENCODER_PIN1 = 13;   //DIO for Encoder
@@ -42,7 +42,8 @@ public class Constants {
     public static final boolean PIVOT_LIMIT_FORWARD_INVERTED = true;
     public static final boolean PIVOT_LIMIT_REVERSE_INVERTED = true;
     public static final boolean THROWER_LIMIT_INVERTED = true;
-    public static final boolean PIVOT_ENCODER_INVERTED = false;
+    public static final boolean PIVOT_ENCODER_INVERTED = true;
+    public static final boolean SHIFTER_HIGH_GEAR = true;
     
     //JOYSTICK
     public static final int JOYSTICK1 = 1;               //USB for Joystick
@@ -64,8 +65,9 @@ public class Constants {
     //VALUES
     public static final boolean RAMPS_ENABLED = true;
     public static final double RAMP_DEFAULT_STEPSIZE = 0.05;
-    public static final double PIVOT_POSITION_CENTER = 100;
+    public static final double PIVOT_POSITION_CENTER = 0;
     public static final double PIVOT_POSITION_TOLERANCE = 10.0;
+    public static final double PIVOT_RATE = 0.3;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
-    public static final long THROWER_UNLOAD_TIME = 1000;
+    public static final long THROWER_UNLOAD_TIME = 700;
 }

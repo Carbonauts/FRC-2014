@@ -34,7 +34,7 @@ public class ThrowerShootReloadCommand extends CommandBase {
             thrower.spinThrowerForward();
             //console.getLCDManager().setThrowerReloaded(false);
         } else {
-            thrower.stopThrower();
+            thrower.hardStopThrower();
             //console.getLCDManager().setThrowerReloaded(true);
             finished = true;
         }

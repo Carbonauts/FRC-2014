@@ -13,7 +13,6 @@ import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
 import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -48,7 +47,7 @@ public class BaseProject extends IterativeRobot {
         
         console.initNickJoystickUI();
         console.initNickGamepadUI();
-        console.initUI().setConfig(console.nickGamepadConfig);
+        console.initUI().setConfig(console.nickJoystickConfig);
         
         operatorDriveCommand = new OperatorDriveCommand();
         shootReloadCommand = new ThrowerShootReloadCommand();
@@ -95,9 +94,9 @@ public class BaseProject extends IterativeRobot {
         if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
             
             if(!unloadReloadCommand.isRunning()) {
-                unloadReloadCommand = new ThrowerUnloadReloadCommand();
-                Scheduler.getInstance().add(unloadReloadCommand);
-                System.out.println("unloadReloadCommand == null");
+                /*unloadReloadCommand = new ThrowerUnloadReloadCommand();
+                Scheduler.getInstance().add(unloadReloadCommand);*/
+                unloadReloadCommand.start();
             }
             
             System.out.println("Unload Button Pressed");
@@ -110,6 +109,11 @@ public class BaseProject extends IterativeRobot {
                            " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
                            " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
                            " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
+        
+        System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
+                           " LR:" + CommandBase.pivot.getReverseLimitState() +
+                           " LT:" + CommandBase.thrower.isAtLimit() +
+                           " PE:" + CommandBase.pivot.getDistance());
     }
     
     public void disabledInit() {
@@ -119,6 +123,9 @@ public class BaseProject extends IterativeRobot {
     }
     
     public void disabledPeriodic() {
-        
+        System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
+                           " LR:" + CommandBase.pivot.getReverseLimitState() +
+                           " LT:" + CommandBase.thrower.isAtLimit() +
+                           " PE:" + CommandBase.pivot.getDistance());
     }
 }

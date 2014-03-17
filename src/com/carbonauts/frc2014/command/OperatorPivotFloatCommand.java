@@ -11,12 +11,12 @@ import com.carbonauts.frc2014.Constants;
  * Moves the PivotPickup subsystem in a direction given by a parameter
  * @author Nick
  */
-public class OperatorPivotCommand extends CommandBase {
+public class OperatorPivotFloatCommand extends CommandBase {
     
     private Console console;
     private boolean finished = false;
     
-    public OperatorPivotCommand() {
+    public OperatorPivotFloatCommand() {
         requires(pivot);
         requires(intake);
         setInterruptible(true);
@@ -34,7 +34,7 @@ public class OperatorPivotCommand extends CommandBase {
             
             
         } else if(pivot.getReverseLimitState()) {
-            pivot.resetDistance();
+            //pivot.resetDistance();
             
         }
         
@@ -51,10 +51,10 @@ public class OperatorPivotCommand extends CommandBase {
             
         } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
             
-            if(pivot.getDistance() > (Constants.PIVOT_POSITION_CENTER + Constants.PIVOT_POSITION_TOLERANCE)) {
+            if(pivot.getDistance() > (pivot.getRestingPosition() + Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotReverse();
                 
-            } else if(pivot.getDistance() < (Constants.PIVOT_POSITION_CENTER - Constants.PIVOT_POSITION_TOLERANCE)) {
+            } else if(pivot.getDistance() < (pivot.getRestingPosition() - Constants.PIVOT_POSITION_TOLERANCE)) {
                 pivot.setPivotForward();
                 
             } else {
