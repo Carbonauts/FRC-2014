@@ -8,7 +8,6 @@ import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.util.CarbonRamp;
-import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -28,8 +27,8 @@ public class Drive extends Subsystem {
     private Talon rightRearDrive;
     private RobotDrive robotDrive;
     
-    private CarbonRamp arcadeLateralRamp;
-    private CarbonRamp arcadeRotationalRamp;
+    private CarbonRamp arcadeYRamp;
+    private CarbonRamp arcadeXRamp;
     private CarbonRamp tankLeftRamp;
     private CarbonRamp tankRightRamp;
     
@@ -37,8 +36,7 @@ public class Drive extends Subsystem {
     
     private Console console;
     
-    private boolean driveEnabled;
-    private int driveDirection;
+    private double driveDirection;
     
     /**
      * Primary constructor for Drive
@@ -55,10 +53,10 @@ public class Drive extends Subsystem {
             rightFrontDrive, 
             rightRearDrive);
         
-        driveDirection = 1;
+        driveDirection = 1.0;
         
-        arcadeLateralRamp = new CarbonRamp();
-        arcadeRotationalRamp = new CarbonRamp();
+        arcadeYRamp = new CarbonRamp();
+        arcadeXRamp = new CarbonRamp();
         tankLeftRamp = new CarbonRamp();
         tankRightRamp = new CarbonRamp();
         
@@ -68,35 +66,31 @@ public class Drive extends Subsystem {
     /**
      * Method for driving the robot by specifying lateral motion (forward and
      * backward) and rotation.
-     * @param lateralPower The power to drive forward/backward (-1 - 1) at.
-     * @param rotationalPower The power to turn with (-1 - 1).
+     * @param yPower The power to drive forward/backward (-1 - 1) at.
+     * @param xPower The power to turn with (-1 - 1).
      */
-    public void driveArcadeRamp(double lateralPower, double rotationalPower) {
-        if(lateralPower > 1.0) {
-            lateralPower = 1.0;
-        } else if(lateralPower < -1.0) {
-            lateralPower = -1.0;
+    public void driveArcade(double yPower, double xPower) {
+        if(yPower > 1.0) {
+            yPower = 1.0;
+        } else if(yPower < -1.0) {
+            yPower = -1.0;
         }
         
-        if(rotationalPower > 1.0) {
-            rotationalPower = 1.0;
-        } else if(rotationalPower < -1.0) {
-            rotationalPower = -1.0;
+        if(xPower > 1.0) {
+            xPower = 1.0;
+        } else if(xPower < -1.0) {
+            xPower = -1.0;
         }
         
-        arcadeLateralRamp.setTarget(lateralPower);
-        arcadeRotationalRamp.setTarget(rotationalPower);
+        arcadeYRamp.setTarget(yPower);
+        arcadeXRamp.setTarget(xPower);
         
-        arcadeLateralRamp.tick();
-        arcadeRotationalRamp.tick();
+        arcadeYRamp.tick();
+        arcadeXRamp.tick();
         
-        robotDrive.arcadeDrive(getDirection() * arcadeLateralRamp.getOutput(),
-                arcadeRotationalRamp.getOutput());
+        robotDrive.arcadeDrive(getDirection() * arcadeYRamp.getOutput(),
+                arcadeXRamp.getOutput());
         //TODO set motor speeds in console
-    }
-    
-    public void driveArcade(double lateralPower, double rotationalPower) {
-        robotDrive.arcadeDrive(lateralPower, rotationalPower);
     }
     
     /**
@@ -126,7 +120,6 @@ public class Drive extends Subsystem {
         
         robotDrive.tankDrive(getDirection() * tankLeftRamp.getOutput(),
                 getDirection() * tankRightRamp.getOutput());
-        console.getLCDManager().setDriveMode(Console.LCDManager.DRIVEMODE_TANK);
         //TODO set motor speeds in console
     }
     
@@ -138,32 +131,43 @@ public class Drive extends Subsystem {
         driveDirection = -driveDirection;
     }
     
-    /**
-     * Set the state which enables or disables the drive system.  Upon receiving
-     * false, all functions which require the drive system to operate will be
-     * frozen until re-enabled.
-     * @param enabled
-     */
-    public void setDriveEnabled(boolean enabled) {
-        driveEnabled = enabled;
-    }
-    
-    public void toggleEnabled() {
-        driveEnabled = !driveEnabled;
-    }
-    
-    public boolean isEnabled() {
-        return driveEnabled;
-    }
-    
     protected void initDefaultCommand() {
+        /*
+         * Default Drive command cannot be declared in the constructor because
+         * the command requires the drive, and in the constructor the Drive
+         * object has not been created.  This is the earliest it can be defined.
+         */
         if(defaultDriveCommand == null) {
             defaultDriveCommand = new OperatorDriveCommand();
         }
         setDefaultCommand(defaultDriveCommand);
     }
     
-    public int getDirection() {
+    public double getDirection() {
         return driveDirection;
+    }
+    
+    public void reset() {
+        arcadeYRamp.reset();
+        arcadeXRamp.reset();
+        tankLeftRamp.reset();
+        tankRightRamp.reset();
+    }
+    
+    public void stopDrive() {
+        arcadeYRamp.setTarget(0.0);
+        arcadeXRamp.setTarget(0.0);
+        tankLeftRamp.setTarget(0.0);
+        tankRightRamp.setTarget(0.0);
+    }
+    
+    public void hardStopDrive() {
+        reset();
+        leftFrontDrive.set(0.0);
+        rightFrontDrive.set(0.0);
+        leftRearDrive.set(0.0);
+        rightRearDrive.set(0.0);
+        robotDrive.arcadeDrive(0.0, 0.0);
+        robotDrive.tankDrive(0.0, 0.0);
     }
 }
