@@ -10,6 +10,7 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.auto.CarbonAutoSwitcher;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
 import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
@@ -128,5 +129,13 @@ public class BaseProject extends IterativeRobot {
                            " LR:" + CommandBase.pivot.getReverseLimitState() +
                            " LT:" + CommandBase.thrower.isAtLimit() +
                            " PE:" + CommandBase.pivot.getPosition());
+    }
+    
+    public void testInit() {
+        //Scheduler.getInstance().add(new OperatorPivotSimpleCommand());
+    }
+    
+    public void testPeriodic() {
+        
     }
 }

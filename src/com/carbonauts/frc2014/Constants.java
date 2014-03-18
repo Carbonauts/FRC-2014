@@ -66,8 +66,10 @@ public class Constants {
     public static final boolean RAMPS_ENABLED = true;
     public static final double RAMP_DEFAULT_STEPSIZE = 0.05;
     public static final double PIVOT_POSITION_CENTER = 0;
-    public static final double PIVOT_POSITION_TOLERANCE = 10.0;
-    public static final double PIVOT_RATE = 0.5;
+    public static final double PIVOT_POSITION_TOLERANCE = 20.0;
+    public static final double PIVOT_RATE = 0.4;
+    public static final double PIVOT_PID_MIN = -PIVOT_RATE;
+    public static final double PIVOT_PID_MAX = PIVOT_RATE;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
     public static final long THROWER_UNLOAD_TIME = 700;
     

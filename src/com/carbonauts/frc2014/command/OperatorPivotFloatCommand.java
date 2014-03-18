@@ -6,15 +6,20 @@ package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 
 /**
  * Moves the PivotPickup subsystem in a direction given by a parameter
  * @author Nick
  */
-public class OperatorPivotFloatCommand extends CommandBase {
+public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput {
     
     private Console console;
+    private PIDController controller;
     private boolean finished = false;
+    private boolean pidEnabled = false;
+    private double pidTarget = 0;
     
     public OperatorPivotFloatCommand() {
         requires(pivot);
@@ -24,43 +29,47 @@ public class OperatorPivotFloatCommand extends CommandBase {
     }
     
     protected void initialize() {
-        
+        controller = new PIDController(0.01, 0, 0, pivot, this);
+        controller.setInputRange(Constants.PIVOT_PID_MIN, Constants.PIVOT_PID_MAX);
+        controller.enable();
     }
 
     protected void execute() {
         
-        //Zero encoder when limits are hit
-        if(pivot.getForwardLimitState()) {
-            
-            
-        } else if(pivot.getReverseLimitState()) {
-            //pivot.resetDistance();
-            
-        }
-        
         if(console.getUI().getPivotForwardButtonState() && console.getUI().getPivotReverseButtonState()) {
             pivot.stopPivot();
+            pidEnabled = false;
+            pivot.getMotor().setRampEnabled(true);
             
         } else if(console.getUI().getPivotForwardButtonState()) {
             pivot.setPivotForward();
-            intake.setIntakeForward();
-                
+            pidEnabled = false;
+            pivot.getMotor().setRampEnabled(true);
+            
         } else if(console.getUI().getPivotReverseButtonState()) {
             pivot.setPivotReverse();
-            intake.setIntakeReverse();
+            pidEnabled = false;
+            pivot.getMotor().setRampEnabled(true);
             
         } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
             
-            if(pivot.getPosition() > (pivot.getRestingPosition() + Constants.PIVOT_POSITION_TOLERANCE)) {
-                pivot.setPivotReverse();
-                
-            } else if(pivot.getPosition() < (pivot.getRestingPosition() - Constants.PIVOT_POSITION_TOLERANCE)) {
-                pivot.setPivotForward();
-                
+            if(!console.getUI().getPivotPIDButtonState()) {
+                pidEnabled = true;
+                controller.setSetpoint(0.0);
             } else {
+                pidEnabled = false;
                 pivot.stopPivot();
-                intake.stopIntake();
             }
+        }
+        
+        if(pivot.getPosition() > 0.0 + Constants.PIVOT_POSITION_TOLERANCE) {
+            intake.setIntakeForward();
+            
+        } else if(pivot.getPosition() < 0.0 - Constants.PIVOT_POSITION_TOLERANCE) {
+            intake.setIntakeReverse();
+            
+        } else {
+            intake.stopIntake();
         }
         
         System.out.println("Encoder Distance: " + pivot.getPosition() + " Direction: " + pivot.getDirection());
@@ -76,5 +85,12 @@ public class OperatorPivotFloatCommand extends CommandBase {
 
     protected void interrupted() {
         
+    }
+
+    public void pidWrite(double output) {
+        if(pidEnabled) {
+            pivot.setPivotSpeed(output);
+            System.out.println("PID Write: " + output);
+        }
     }
 }

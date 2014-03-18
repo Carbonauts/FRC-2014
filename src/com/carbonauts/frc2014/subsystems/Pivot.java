@@ -7,11 +7,11 @@ package com.carbonauts.frc2014.subsystems;
 import com.carbonauts.frc2014.Console;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.OperatorPivotFloatCommand;
-import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * necessary (or just nice) to employ encoders for this subsystem
  * @author Nick
  */
-public class Pivot extends Subsystem {
+public class Pivot extends Subsystem implements PIDSource {
 
     public static final boolean DIRECTION_FORWARD = true;   //State constant
     public static final boolean DIRECTION_REVERSE = false;  //State constant
@@ -74,26 +74,22 @@ public class Pivot extends Subsystem {
         reversePositionValue = 0;
     }
     
-    private void setPivotSpeed(double speed) {
-        pivotMotor.setRamp(speed);
+    public void setPivotSpeed(double speed) {
+        if((speed > 0 && !getForwardLimitState()) ||
+           (speed < 0 && !getReverseLimitState())) {
+            pivotMotor.setRamp(speed);
+            
+        } else {
+            pivotMotor.hardStopMotor();
+        }
     }
     
     public void setPivotForward() {
-        if(!getForwardLimitState()) {
-            setPivotSpeed(Constants.PIVOT_RATE);
-        } else {
-            hardStopPivot();
-            forwardPositionValue = getPosition();
-        }
+        setPivotSpeed(Constants.PIVOT_RATE);
     }
     
     public void setPivotReverse() {
-        if(!getReverseLimitState()) {
-            setPivotSpeed(-Constants.PIVOT_RATE);
-        } else {
-            hardStopPivot();
-            reversePositionValue = getPosition();
-        }
+        setPivotSpeed(-Constants.PIVOT_RATE);
     }
     
     public void stopPivot() {
@@ -105,7 +101,7 @@ public class Pivot extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        setDefaultCommand(new OperatorPivotSimpleCommand());
+        setDefaultCommand(new OperatorPivotFloatCommand());
     }
     
     public boolean getForwardLimitState() {
@@ -134,5 +130,13 @@ public class Pivot extends Subsystem {
     
     public double getRestingPosition() {
         return ((forwardPositionValue + reversePositionValue) / 2) - 50.0;
+    }
+    
+    public CarbonTalon getMotor() {
+        return pivotMotor;
+    }
+
+    public double pidGet() {
+        return getPosition();
     }
 }

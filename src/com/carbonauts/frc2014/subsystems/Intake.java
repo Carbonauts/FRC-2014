@@ -34,11 +34,11 @@ public class Intake extends Subsystem {
     }
     
     public void setIntakeForward() {
-        setIntakeSpeed(1.0);
+        setIntakeSpeed(-1.0);
     }
     
     public void setIntakeReverse() {
-        setIntakeSpeed(-1.0);
+        setIntakeSpeed(1.0);
     }
     
     public void reset() {

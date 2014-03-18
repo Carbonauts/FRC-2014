@@ -86,6 +86,17 @@ public class CarbonUI {
         return getJoystick(getConfig().getPivotReverseButtonPort()).getRawButton(getConfig().getPivotReverseButtonID());
     }
     
+    public boolean getPivotPIDButtonState() {
+        if(getConfig().getPivotPIDButtonPort() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot PID Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getPivotPIDButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Pivot PID Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getPivotPIDButtonPort()).getRawButton(getConfig().getPivotPIDButtonID());
+    }
+    
     public boolean getInvertDriveButtonState() {
         if(getConfig().getInvertDriveButtonPort() == -1) {
             System.err.println("[CarbonUI|ERROR] InvertDrive Button Port not defined for current config!");

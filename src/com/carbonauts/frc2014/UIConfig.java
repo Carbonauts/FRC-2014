@@ -16,6 +16,8 @@ public class UIConfig {
     private int pivotForwardButtonPort = -1;
     private int pivotReverseButtonID = -1;
     private int pivotReverseButtonPort = -1;
+    private int pivotPIDButtonPort = -1;
+    private int pivotPIDButtonID = -1;
     private int invertDriveButtonID = -1;
     private int invertDriveButtonPort = -1;
     private int intakeForwardButtonID = -1;
@@ -271,5 +273,20 @@ public class UIConfig {
 
     public void setDriveSensitivityPort(int driveSensitivityPort) {
         this.driveSensitivityPort = driveSensitivityPort;
+    }
+
+    public int getPivotPIDButtonPort() {
+        return pivotPIDButtonPort;
+    }
+    public void setPivotPIDButtonPort(int pivotPIDButtonPort) {
+        this.pivotPIDButtonPort = pivotPIDButtonPort;
+    }
+
+    public int getPivotPIDButtonID() {
+        return pivotPIDButtonID;
+    }
+
+    public void setPivotPIDButtonID(int pivotPIDButtonID) {
+        this.pivotPIDButtonID = pivotPIDButtonID;
     }
 }

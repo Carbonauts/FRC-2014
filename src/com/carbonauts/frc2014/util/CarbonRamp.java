@@ -19,6 +19,7 @@ public class CarbonRamp {
     private long stepTime;
     private double target = 0;
     private double currentOutput = 0;
+    private boolean enabled;
     
     private CarbonTimer delayTimer;
     
@@ -36,6 +37,7 @@ public class CarbonRamp {
         this.target = target;
         
         delayTimer = new CarbonTimer(0);
+        enabled = Constants.RAMPS_ENABLED;
     }
     
     /**
@@ -46,7 +48,7 @@ public class CarbonRamp {
      * by the stepSize, reset the timer, and continue.
      */
     public void tick() {
-        if(Constants.RAMPS_ENABLED) {
+        if(enabled) {
             if(delayTimer.isDone()) {
                 delayTimer.reset(stepTime);
                 boolean isUp = (currentOutput < target);
@@ -112,6 +114,14 @@ public class CarbonRamp {
      */
     public double getTarget() {
         return this.target;
+    }
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    public boolean isEnabled() {
+        return this.enabled;
     }
     
     public void reset() {
