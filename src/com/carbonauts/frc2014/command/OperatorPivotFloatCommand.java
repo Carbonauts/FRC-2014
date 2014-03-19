@@ -19,7 +19,6 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
     private PIDController controller;
     private boolean finished = false;
     private boolean pidEnabled = false;
-    private double pidTarget = 0;
     
     public OperatorPivotFloatCommand() {
         requires(pivot);
@@ -29,7 +28,11 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
     }
     
     protected void initialize() {
-        controller = new PIDController(0.01, 0, 0, pivot, this);
+        controller = new PIDController(Constants.PIVOT_PID_P,
+                                       Constants.PIVOT_PID_I, 
+                                       Constants.PIVOT_PID_D, 
+                                       pivot, 
+                                       this);
         controller.setInputRange(Constants.PIVOT_PID_MIN, Constants.PIVOT_PID_MAX);
         controller.enable();
     }
@@ -39,17 +42,14 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
         if(console.getUI().getPivotForwardButtonState() && console.getUI().getPivotReverseButtonState()) {
             pivot.stopPivot();
             pidEnabled = false;
-            pivot.getMotor().setRampEnabled(true);
             
         } else if(console.getUI().getPivotForwardButtonState()) {
             pivot.setPivotForward();
             pidEnabled = false;
-            pivot.getMotor().setRampEnabled(true);
             
         } else if(console.getUI().getPivotReverseButtonState()) {
             pivot.setPivotReverse();
             pidEnabled = false;
-            pivot.getMotor().setRampEnabled(true);
             
         } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
             
@@ -71,8 +71,6 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
         } else {
             intake.stopIntake();
         }
-        
-        System.out.println("Encoder Distance: " + pivot.getPosition() + " Direction: " + pivot.getDirection());
     }
 
     protected boolean isFinished() {
@@ -90,7 +88,6 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
     public void pidWrite(double output) {
         if(pidEnabled) {
             pivot.setPivotSpeed(output);
-            System.out.println("PID Write: " + output);
         }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Vector;
 public class CarbonAutoSwitcher {
     
     private Vector autoModes;
-    private int activeModeIndex = -1;
+    private int activeModeIndex = 0;
     
     public CarbonAutoSwitcher() {
         autoModes = new Vector();
@@ -23,31 +23,31 @@ public class CarbonAutoSwitcher {
     public void setMode(int index) {
         if(index < 0) {
             activeModeIndex = 0;
-        } else if(index > autoModes.size()) {
-            activeModeIndex = autoModes.size();
+        } else if(index > autoModes.size() - 1) {
+            activeModeIndex = autoModes.size() - 1;
         } else {
             activeModeIndex = index;
         }
     }
     
-    public void incrementMode() {
+    public void increment() {
         activeModeIndex++;
         
-        if(activeModeIndex > autoModes.size()) {
+        if(activeModeIndex >= autoModes.size()) {
             activeModeIndex = 0;
         }
     }
     
-    public void decrementMode() {
+    public void decrement() {
         activeModeIndex--;
         
         if(activeModeIndex < 0) {
-            activeModeIndex = autoModes.size();
+            activeModeIndex = autoModes.size() - 1;
         }
     }
     
     public Command getActiveCommand() {
-        if(activeModeIndex == -1) {
+        if(autoModes.isEmpty()) {
             System.err.println("No autonomous commands registered!");
             return null;
         } else {
@@ -55,7 +55,16 @@ public class CarbonAutoSwitcher {
         }
     }
     
+    public String getActiveCommandName() {
+        if(getActiveCommand() != null) {
+            return getActiveCommand().getName();
+        } else {
+            return "NULL COMMAND";
+        }
+    }
+    
     public void registerAutoCommand(Command autoCommand) {
+        System.out.println("[AutoSwitcher|RegisterAutoCommand]");
         if(!autoModes.contains(autoCommand)) {
             autoModes.addElement(autoCommand);
         } else {
@@ -64,6 +73,7 @@ public class CarbonAutoSwitcher {
     }
     
     public void unregisterAutoCommand(Command autoCommand) {
+        System.out.println("[AutoSwitcher|UnregisterAutoCommand]");
         if(autoModes.contains(autoCommand)) {
             autoModes.removeElement(autoCommand);
         } else {

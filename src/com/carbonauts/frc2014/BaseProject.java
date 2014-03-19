@@ -10,7 +10,6 @@ package com.carbonauts.frc2014;
 import com.carbonauts.frc2014.auto.CarbonAutoSwitcher;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
-import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
 import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
@@ -40,6 +39,9 @@ public class BaseProject extends IterativeRobot {
     Latch unloadLatch;
     Latch pivotForwardLatch;
     Latch pivotReverseLatch;
+    Latch autoSwitchIncrementLatch;
+    Latch autoSwitchDecrementLatch;
+    Latch autoSwitchLaunchLatch;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -56,14 +58,19 @@ public class BaseProject extends IterativeRobot {
         shootReloadCommand = new ThrowerShootReloadCommand();
         unloadReloadCommand = new ThrowerUnloadReloadCommand();
         
-        autoSwitcher = new CarbonAutoSwitcher();
-        
         shiftLatch = new Latch();
         shootLatch = new Latch();
         debugEnabledLatch = new Latch();
         unloadLatch = new Latch();
         pivotForwardLatch = new Latch();
         pivotReverseLatch = new Latch();
+        autoSwitchIncrementLatch = new Latch();
+        autoSwitchDecrementLatch = new Latch();
+        autoSwitchLaunchLatch = new Latch();
+        
+        autoSwitcher = new CarbonAutoSwitcher();
+        autoSwitcher.registerAutoCommand(new ThrowerShootReloadCommand());
+        autoSwitcher.registerAutoCommand(new ThrowerUnloadReloadCommand());
     }
 
     public void autonomousInit() {
@@ -88,54 +95,50 @@ public class BaseProject extends IterativeRobot {
         Scheduler.getInstance().run();
 
         if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
-            
-            if(!shootReloadCommand.isRunning()) {
+            if(!shootReloadCommand.isRunning() && 
+                    CommandBase.pivot.isAtSafeZone() &&
+                    CommandBase.thrower.isLoaded()) {
                 shootReloadCommand.start();
             }
-            
-            System.out.println("Throw Button Pressed");
         }
         
         if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
-            
-            if(CommandBase.thrower.isAtLimit()) {
-                Scheduler.getInstance().add(new ThrowerUnloadReloadCommand());
+            if(!unloadReloadCommand.isRunning() && CommandBase.thrower.isRetractLimit()) {
+                unloadReloadCommand.start();
             }
-            System.out.println("Unload Button Pressed");
         }
         
-        /*System.out.println("1:" + (console.getJoystick().getArmForwardButtonState() ? "T" : "F") +
-                           " 2:" + (console.getJoystick().getArmRestingButtonState() ? "T" : "F") +
-                           " 2:" + (console.getJoystick().getArmReverseButtonState() ? "T" : "F") + 
-                           " 3:" + (console.getJoystick().getInvertDriveButtonState() ? "T" : "F") + 
-                           " 4:" + (console.getJoystick().getRollerButtonState() ? "T" : "F") + 
-                           " 5:" + (console.getJoystick().getShiftButtonState() ? "T" : "F") +
-                           " 6:" + (console.getJoystick().getThrowButtonState() ? "T" : "F"));*/
         
-        System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
-                           " LR:" + CommandBase.pivot.getReverseLimitState() +
-                           " LT:" + CommandBase.thrower.isAtLimit() +
-                           " PE:" + CommandBase.pivot.getPosition());
+        
+        /*if(autoSwitchLaunchLatch.onTrue(console.getUI().getAutoSwitchLaunchButtonState())) {
+            autoSwitcher.getActiveCommand().start();
+            System.out.println("Launched " + autoSwitcher.getActiveCommandName());
+            
+        } else if(autoSwitchIncrementLatch.onTrue(console.getUI().getAutoSwitchIncrementButtonState())) {
+            autoSwitcher.increment();
+            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
+            
+        } else if(autoSwitchDecrementLatch.onTrue(console.getUI().getAutoSwitchDecrementButtonState())) {
+            autoSwitcher.decrement();
+            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
+        }*/
     }
     
     public void disabledInit() {
         CommandBase.pivot.reset();
         CommandBase.intake.reset();
         CommandBase.thrower.reset();
+        shootReloadCommand.cancel();
+        unloadReloadCommand.cancel();
     }
     
     public void disabledPeriodic() {
-        System.out.println("LF:" + CommandBase.pivot.getForwardLimitState() +
-                           " LR:" + CommandBase.pivot.getReverseLimitState() +
-                           " LT:" + CommandBase.thrower.isAtLimit() +
-                           " PE:" + CommandBase.pivot.getPosition());
-    }
-    
-    public void testInit() {
-        //Scheduler.getInstance().add(new OperatorPivotSimpleCommand());
-    }
-    
-    public void testPeriodic() {
-        
+        if(autoSwitchIncrementLatch.onTrue(console.getUI().getAutoSwitchIncrementButtonState())) {
+            autoSwitcher.increment();
+            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
+        } else if(autoSwitchDecrementLatch.onTrue(console.getUI().getAutoSwitchDecrementButtonState())) {
+            autoSwitcher.decrement();
+            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
+        }
     }
 }

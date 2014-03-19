@@ -75,8 +75,8 @@ public class Pivot extends Subsystem implements PIDSource {
     }
     
     public void setPivotSpeed(double speed) {
-        if((speed > 0 && !getForwardLimitState()) ||
-           (speed < 0 && !getReverseLimitState())) {
+        if((speed > 0 && !isAtForwardLimit()) ||
+           (speed < 0 && !isAtReverseLimit())) {
             pivotMotor.setRamp(speed);
             
         } else {
@@ -104,12 +104,26 @@ public class Pivot extends Subsystem implements PIDSource {
         setDefaultCommand(new OperatorPivotFloatCommand());
     }
     
-    public boolean getForwardLimitState() {
+    public boolean isAtForwardLimit() {
         return limitForward.get();
     }
     
-    public boolean getReverseLimitState() {
+    public boolean isAtReverseLimit() {
         return limitReverse.get();
+    }
+    
+    public boolean isAtRest() {
+        if(getPosition() < 0.0 + Constants.PIVOT_POSITION_TOLERANCE ||
+           getPosition() > 0.0 - Constants.PIVOT_POSITION_TOLERANCE) {
+           
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean isAtSafeZone() {
+        return isAtForwardLimit() || isAtReverseLimit() || isAtRest();
     }
     
     public boolean getDirection() {
@@ -126,10 +140,6 @@ public class Pivot extends Subsystem implements PIDSource {
     
     public void reset() {
         pivotMotor.reset();
-    }
-    
-    public double getRestingPosition() {
-        return ((forwardPositionValue + reversePositionValue) / 2) - 50.0;
     }
     
     public CarbonTalon getMotor() {

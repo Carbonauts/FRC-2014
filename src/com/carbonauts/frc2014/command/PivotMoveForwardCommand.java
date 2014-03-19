@@ -22,12 +22,8 @@ public class PivotMoveForwardCommand extends CommandBase {
     }
 
     protected void execute() {
-        if(!pivot.getForwardLimitState()) {
-            pivot.setPivotForward();
-        } else {
-            pivot.stopPivot();
-            finished = true;
-        }
+        pivot.setPivotForward();
+        pivot.getMotor().setRampEnabled(true);
     }
 
     protected boolean isFinished() {
@@ -35,7 +31,7 @@ public class PivotMoveForwardCommand extends CommandBase {
     }
 
     protected void end() {
-        pivot.stopPivot();
+        
     }
 
     protected void interrupted() {

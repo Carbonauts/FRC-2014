@@ -163,6 +163,39 @@ public class CarbonUI {
         return getJoystick(getConfig().getUnloadButtonPort()).getRawButton(getConfig().getUnloadButtonID());
     }
     
+    public boolean getAutoSwitchIncrementButtonState() {
+        if(getConfig().getAutoSwitchIncrementButtonPort()== -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Increment Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getAutoSwitchIncrementButtonID() == -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Increment Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getAutoSwitchIncrementButtonPort()).getRawButton(getConfig().getAutoSwitchIncrementButtonID());
+    }
+    
+    public boolean getAutoSwitchDecrementButtonState() {
+        if(getConfig().getAutoSwitchDecrementButtonPort()== -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Decrement Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getAutoSwitchDecrementButtonID()== -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Decrement Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getAutoSwitchDecrementButtonPort()).getRawButton(getConfig().getAutoSwitchDecrementButtonID());
+    }
+    
+    public boolean getAutoSwitchLaunchButtonState() {
+        if(getConfig().getAutoSwitchLaunchButtonPort()== -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Launch Button Port not defined for current config!");
+            return false;
+        } else if(getConfig().getAutoSwitchLaunchButtonID()== -1) {
+            System.err.println("[CarbonUI|ERROR] Auto Switcher Launch Button ID not defined for current config!");
+            return false;
+        }
+        return getJoystick(getConfig().getAutoSwitchLaunchButtonPort()).getRawButton(getConfig().getAutoSwitchLaunchButtonID());
+    }
+    
     public double getDriveArcadeXAxis() {
         if(getConfig().getDriveArcadeXAxisPort() == -1) {
             System.err.println("[CarbonUI|ERROR] Drive Arcade X Axis Port not defined for current config!");

@@ -30,7 +30,7 @@ public class ThrowerShootReloadCommand extends CommandBase {
      * Runs the thrower motor at full speed unless the reload point has been reached
      */
     protected void execute() {
-        if(!thrower.isReloaded()) {
+        if(!thrower.isRetracted()) {
             thrower.spinThrowerForward();
             //console.getLCDManager().setThrowerReloaded(false);
         } else {

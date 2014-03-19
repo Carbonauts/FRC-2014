@@ -18,14 +18,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Thrower extends Subsystem {
     
     private CarbonTalon throwerMotor;
-    private CarbonDigitalInput throwerSwitch;
-    private Latch reloadLatch;
+    private CarbonDigitalInput retractSwitch;
+    private CarbonDigitalInput loadedSwitch;
+    private Latch retractLatch;
     
     public Thrower() {
         throwerMotor = new CarbonTalon(Constants.THROWER);
-        throwerSwitch = new CarbonDigitalInput(Constants.THROWER_LIMIT, 
-                                               Constants.THROWER_LIMIT_INVERTED);
-        reloadLatch = new Latch();
+        retractSwitch = new CarbonDigitalInput(Constants.THROWER_RETRACT_LIMIT, 
+                                               Constants.THROWER_RETRACT_LIMIT_INVERTED);
+        loadedSwitch = new CarbonDigitalInput(Constants.THROWER_LOADED_LIMIT,
+                                              Constants.THROWER_LOADED_LIMIT_INVERTED);
+        retractLatch = new Latch();
     }
     
     public void setThrowerSpeed(double speed) {
@@ -52,8 +55,12 @@ public class Thrower extends Subsystem {
         throwerMotor.hardStopMotor();
     }
     
-    public boolean isAtLimit() {
-        return throwerSwitch.get();
+    public boolean isRetractLimit() {
+        return retractSwitch.get();
+    }
+    
+    public boolean isLoaded() {
+        return loadedSwitch.get();
     }
     
     public void reset() {
@@ -61,11 +68,11 @@ public class Thrower extends Subsystem {
     }
     
     /**
-     * Determines whether the shooter is reloaded
-     * @return True if reloaded, false otherwise
+     * Determines whether the shooter is retracted
+     * @return True if retracted, false otherwise
      */
-    public boolean isReloaded() {
-        return reloadLatch.onTrue(throwerSwitch.get());
+    public boolean isRetracted() {
+        return retractLatch.onTrue(retractSwitch.get());
     }
     
     public void initDefaultCommand() {

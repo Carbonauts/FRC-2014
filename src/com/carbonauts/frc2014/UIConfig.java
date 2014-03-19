@@ -30,6 +30,12 @@ public class UIConfig {
     private int throwButtonPort = -1;
     private int unloadButtonID = -1;
     private int unloadButtonPort = -1;
+    private int autoSwitchIncrementButtonID = -1;
+    private int autoSwitchIncrementButtonPort = -1;
+    private int autoSwitchDecrementButtonID = -1;
+    private int autoSwitchDecrementButtonPort = -1;
+    private int autoSwitchLaunchButtonID = -1;
+    private int autoSwitchLaunchButtonPort = -1;
     
     private int driveArcadeXAxisID = -1;
     private int driveArcadeXPort = -1;
@@ -288,5 +294,53 @@ public class UIConfig {
 
     public void setPivotPIDButtonID(int pivotPIDButtonID) {
         this.pivotPIDButtonID = pivotPIDButtonID;
+    }
+
+    public void setAutoSwitchIncrementButtonID(int autoSwitchButtonID) {
+        this.autoSwitchIncrementButtonID = autoSwitchButtonID;
+    }
+
+    public void setAutoSwitchIncrementButtonPort(int autoSwitchButtonPort) {
+        this.autoSwitchIncrementButtonPort = autoSwitchButtonPort;
+    }
+
+    public int getAutoSwitchDecrementButtonID() {
+        return autoSwitchDecrementButtonID;
+    }
+
+    public void setAutoSwitchDecrementButtonID(int autoSwitchDecrementButtonID) {
+        this.autoSwitchDecrementButtonID = autoSwitchDecrementButtonID;
+    }
+
+    public int getAutoSwitchDecrementButtonPort() {
+        return autoSwitchDecrementButtonPort;
+    }
+
+    public void setAutoSwitchDecrementButtonPort(int autoSwitchDecrementButtonPort) {
+        this.autoSwitchDecrementButtonPort = autoSwitchDecrementButtonPort;
+    }
+
+    public int getAutoSwitchIncrementButtonID() {
+        return autoSwitchIncrementButtonID;
+    }
+
+    public int getAutoSwitchIncrementButtonPort() {
+        return autoSwitchIncrementButtonPort;
+    }
+
+    public int getAutoSwitchLaunchButtonID() {
+        return autoSwitchLaunchButtonID;
+    }
+
+    public void setAutoSwitchLaunchButtonID(int autoSwitchLaunchButtonID) {
+        this.autoSwitchLaunchButtonID = autoSwitchLaunchButtonID;
+    }
+
+    public int getAutoSwitchLaunchButtonPort() {
+        return autoSwitchLaunchButtonPort;
+    }
+
+    public void setAutoSwitchLaunchButtonPort(int autoSwitchLaunchButtonPort) {
+        this.autoSwitchLaunchButtonPort = autoSwitchLaunchButtonPort;
     }
 }

@@ -18,12 +18,14 @@ public class IntakeSpinForwardCommand extends CommandBase {
     }
     
     protected void initialize() {
+        System.out.println("Init IntakeSpinForwardCommand");
         intake.setIntakeForward();
         finished = false;
     }
 
     protected void execute() {
-        
+        intake.setIntakeForward();
+        System.out.println("In IntakeSpinForwardCommand.execute()");
     }
 
     protected boolean isFinished() {

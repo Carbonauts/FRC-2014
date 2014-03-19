@@ -29,19 +29,21 @@ public class Constants {
     //LIMIT SWITCHES
     public static final int PIVOT_LIMIT_REVERSE = 1;   //PWM for Reverse Limit
     public static final int PIVOT_LIMIT_FORWARD = 2;   //PWM for Forward Limit
-    public static final int THROWER_LIMIT = 3;         //PWM for Thrower Limit
+    public static final int THROWER_RETRACT_LIMIT = 3; //PWM for Thrower retracted limit
+    public static final int THROWER_LOADED_LIMIT = 4;  //PWM for Thrower loaded limit
     
     //ENCODERS
     public static final int PIVOT_ENCODER_PIN1 = 13;   //DIO for Encoder
     public static final int PIVOT_ENCODER_PIN2 = 14;   //DIO for Encoder
     
     //SOLENOIDS
-    public static final int SHIFTER_SOLENOID = 1;   //DIO for Shifter Solenoid
+    public static final int SHIFTER_SOLENOID = 1;   //Port for Shifter Solenoid
     
     //HARDWARE INVERSIONS
     public static final boolean PIVOT_LIMIT_FORWARD_INVERTED = true;
     public static final boolean PIVOT_LIMIT_REVERSE_INVERTED = true;
-    public static final boolean THROWER_LIMIT_INVERTED = true;
+    public static final boolean THROWER_RETRACT_LIMIT_INVERTED = true;
+    public static final boolean THROWER_LOADED_LIMIT_INVERTED = true;
     public static final boolean PIVOT_ENCODER_INVERTED = true;
     public static final boolean SHIFTER_HIGH_GEAR = true;
     
@@ -68,6 +70,9 @@ public class Constants {
     public static final double PIVOT_POSITION_CENTER = 0;
     public static final double PIVOT_POSITION_TOLERANCE = 20.0;
     public static final double PIVOT_RATE = 0.4;
+    public static final double PIVOT_PID_P = 0.01;
+    public static final double PIVOT_PID_I = 0;
+    public static final double PIVOT_PID_D = 0;
     public static final double PIVOT_PID_MIN = -PIVOT_RATE;
     public static final double PIVOT_PID_MAX = PIVOT_RATE;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    

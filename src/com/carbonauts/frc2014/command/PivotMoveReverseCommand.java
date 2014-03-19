@@ -22,11 +22,12 @@ public class PivotMoveReverseCommand extends CommandBase {
     }
 
     protected void execute() {
-        if(!pivot.getReverseLimitState()) {
-            pivot.setPivotReverse();
-        } else {
-            pivot.stopPivot();
+        if(pivot.isAtReverseLimit()) {
+            pivot.hardStopPivot();
             finished = true;
+        } else {
+            pivot.setPivotReverse();
+            pivot.getMotor().setRampEnabled(true);
         }
     }
 
@@ -35,11 +36,10 @@ public class PivotMoveReverseCommand extends CommandBase {
     }
 
     protected void end() {
-        pivot.stopPivot();
+        
     }
 
     protected void interrupted() {
         
     }
-    
 }

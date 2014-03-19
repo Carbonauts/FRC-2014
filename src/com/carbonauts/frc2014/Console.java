@@ -57,13 +57,19 @@ public class Console {
         nickJoystickConfig.setUnloadButtonID(2);
         nickJoystickConfig.setPivotForwardButtonID(3);
         nickJoystickConfig.setPivotReverseButtonID(4);
-        nickJoystickConfig.setPivotPIDButtonID(9);
+        nickJoystickConfig.setPivotPIDButtonID(6);
+        nickJoystickConfig.setAutoSwitchLaunchButtonID(8);
+        nickJoystickConfig.setAutoSwitchIncrementButtonID(9);
+        nickJoystickConfig.setAutoSwitchDecrementButtonID(10);
         //Button Ports
         nickJoystickConfig.setThrowButtonPort(1);
         nickJoystickConfig.setUnloadButtonPort(1);
         nickJoystickConfig.setPivotForwardButtonPort(1);
         nickJoystickConfig.setPivotReverseButtonPort(1);
         nickJoystickConfig.setPivotPIDButtonPort(1);
+        nickJoystickConfig.setAutoSwitchLaunchButtonPort(1);
+        nickJoystickConfig.setAutoSwitchIncrementButtonPort(1);
+        nickJoystickConfig.setAutoSwitchDecrementButtonPort(1);
         //Axis IDs
         nickJoystickConfig.setDriveArcadeXAxisID(1);
         nickJoystickConfig.setDriveArcadeYAxisID(2);
