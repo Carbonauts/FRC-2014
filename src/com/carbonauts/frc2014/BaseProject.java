@@ -7,7 +7,6 @@
 
 package com.carbonauts.frc2014;
 
-import com.carbonauts.frc2014.auto.CarbonAutoSwitcher;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
@@ -29,8 +28,6 @@ public class BaseProject extends IterativeRobot {
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
-    CarbonAutoSwitcher autoSwitcher;
-    
     Console console;
     
     Latch shiftLatch;
@@ -39,9 +36,6 @@ public class BaseProject extends IterativeRobot {
     Latch unloadLatch;
     Latch pivotForwardLatch;
     Latch pivotReverseLatch;
-    Latch autoSwitchIncrementLatch;
-    Latch autoSwitchDecrementLatch;
-    Latch autoSwitchLaunchLatch;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -64,13 +58,6 @@ public class BaseProject extends IterativeRobot {
         unloadLatch = new Latch();
         pivotForwardLatch = new Latch();
         pivotReverseLatch = new Latch();
-        autoSwitchIncrementLatch = new Latch();
-        autoSwitchDecrementLatch = new Latch();
-        autoSwitchLaunchLatch = new Latch();
-        
-        autoSwitcher = new CarbonAutoSwitcher();
-        autoSwitcher.registerAutoCommand(new ThrowerShootReloadCommand());
-        autoSwitcher.registerAutoCommand(new ThrowerUnloadReloadCommand());
     }
 
     public void autonomousInit() {
@@ -107,21 +94,6 @@ public class BaseProject extends IterativeRobot {
                 unloadReloadCommand.start();
             }
         }
-        
-        
-        
-        /*if(autoSwitchLaunchLatch.onTrue(console.getUI().getAutoSwitchLaunchButtonState())) {
-            autoSwitcher.getActiveCommand().start();
-            System.out.println("Launched " + autoSwitcher.getActiveCommandName());
-            
-        } else if(autoSwitchIncrementLatch.onTrue(console.getUI().getAutoSwitchIncrementButtonState())) {
-            autoSwitcher.increment();
-            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
-            
-        } else if(autoSwitchDecrementLatch.onTrue(console.getUI().getAutoSwitchDecrementButtonState())) {
-            autoSwitcher.decrement();
-            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
-        }*/
     }
     
     public void disabledInit() {
@@ -133,12 +105,6 @@ public class BaseProject extends IterativeRobot {
     }
     
     public void disabledPeriodic() {
-        if(autoSwitchIncrementLatch.onTrue(console.getUI().getAutoSwitchIncrementButtonState())) {
-            autoSwitcher.increment();
-            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
-        } else if(autoSwitchDecrementLatch.onTrue(console.getUI().getAutoSwitchDecrementButtonState())) {
-            autoSwitcher.decrement();
-            System.out.println("Current Auto Mode: " + autoSwitcher.getActiveCommandName());
-        }
+        
     }
 }
