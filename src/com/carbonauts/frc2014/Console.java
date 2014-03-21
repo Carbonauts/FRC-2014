@@ -55,9 +55,10 @@ public class Console {
         //Button IDs
         nickJoystickConfig.setThrowButtonID(1);
         nickJoystickConfig.setUnloadButtonID(2);
-        nickJoystickConfig.setPivotForwardButtonID(3);
-        nickJoystickConfig.setPivotReverseButtonID(4);
-        nickJoystickConfig.setPivotPIDButtonID(6);
+        nickJoystickConfig.setShiftButtonID(6);
+        nickJoystickConfig.setPivotForwardButtonID(8);
+        nickJoystickConfig.setPivotReverseButtonID(7);
+        nickJoystickConfig.setPivotPIDButtonID(5);
         nickJoystickConfig.setAutoSwitchLaunchButtonID(8);
         nickJoystickConfig.setAutoSwitchIncrementButtonID(9);
         nickJoystickConfig.setAutoSwitchDecrementButtonID(10);
@@ -67,6 +68,7 @@ public class Console {
         nickJoystickConfig.setPivotForwardButtonPort(1);
         nickJoystickConfig.setPivotReverseButtonPort(1);
         nickJoystickConfig.setPivotPIDButtonPort(1);
+        nickJoystickConfig.setShiftButtonPort(1);
         nickJoystickConfig.setAutoSwitchLaunchButtonPort(1);
         nickJoystickConfig.setAutoSwitchIncrementButtonPort(1);
         nickJoystickConfig.setAutoSwitchDecrementButtonPort(1);
@@ -86,10 +88,10 @@ public class Console {
          */
         nickGamepadConfig = new UIConfig();
         //Button IDs
-        nickGamepadConfig.setThrowButtonID(6);
-        nickGamepadConfig.setUnloadButtonID(8);
-        nickGamepadConfig.setPivotForwardButtonID(5);
-        nickGamepadConfig.setPivotReverseButtonID(7);
+        nickGamepadConfig.setThrowButtonID(8);
+        nickGamepadConfig.setUnloadButtonID(4);
+        nickGamepadConfig.setPivotForwardButtonID(7);
+        nickGamepadConfig.setPivotReverseButtonID(5);
         //Button Ports
         nickGamepadConfig.setThrowButtonPort(1);
         nickGamepadConfig.setUnloadButtonPort(1);

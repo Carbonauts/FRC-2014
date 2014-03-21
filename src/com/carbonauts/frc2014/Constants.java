@@ -83,5 +83,5 @@ public class Constants {
     public static final long THROWER_UNLOAD_TIME = 700;
     
     //AUTONOMOUS
-    public static final double AUTO_DRIVE_POWER = 0.3;
+    public static final double AUTO_DRIVE_POWER = -1;
 }

@@ -5,7 +5,7 @@
 package com.carbonauts.frc2014.auto;
 
 import com.carbonauts.frc2014.command.DriveForwardCommand;
-import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
+import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
@@ -18,6 +18,6 @@ public class AutoMoveShoot extends CommandGroup {
     public AutoMoveShoot() {
         addSequential(new DriveForwardCommand(3000));
         addSequential(new WaitCommand(1000));
-        addSequential(new ThrowerShootReloadCommand());
+        addSequential(new ThrowerUnloadReloadCommand());
     }
 }

@@ -7,6 +7,7 @@
 
 package com.carbonauts.frc2014;
 
+import com.carbonauts.frc2014.auto.AutoMoveShoot;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class BaseProject extends IterativeRobot {
     
+    AutoMoveShoot autonomousCommand;
     OperatorDriveCommand operatorDriveCommand;
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
@@ -61,7 +63,8 @@ public class BaseProject extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        
+        autonomousCommand = new AutoMoveShoot();
+        autonomousCommand.start();
     }
     
     /**
@@ -93,6 +96,10 @@ public class BaseProject extends IterativeRobot {
             if(!unloadReloadCommand.isRunning() && CommandBase.thrower.isRetractLimit()) {
                 unloadReloadCommand.start();
             }
+        }
+        
+        if(shiftLatch.onTrue(console.getUI().getShiftButtonState())) {
+            CommandBase.shifter.toggleHighGear();
         }
     }
     
