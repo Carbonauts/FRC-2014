@@ -32,8 +32,6 @@ public class Drive extends Subsystem {
     private CarbonRamp tankLeftRamp;
     private CarbonRamp tankRightRamp;
     
-    private OperatorDriveCommand defaultDriveCommand;
-    
     private Console console;
     
     private double driveDirection;
@@ -123,6 +121,10 @@ public class Drive extends Subsystem {
         //TODO set motor speeds in console
     }
     
+    public RobotDrive getRobotDrive() {
+        return robotDrive;
+    }
+    
     public void setDriveDirection(int direction) {
         driveDirection = direction;
     }
@@ -132,15 +134,7 @@ public class Drive extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        /*
-         * Default Drive command cannot be declared in the constructor because
-         * the command requires the drive, and in the constructor the Drive
-         * object has not been created.  This is the earliest it can be defined.
-         */
-        if(defaultDriveCommand == null) {
-            defaultDriveCommand = new OperatorDriveCommand();
-        }
-        setDefaultCommand(defaultDriveCommand);
+        setDefaultCommand(new OperatorDriveCommand());
     }
     
     public double getDirection() {

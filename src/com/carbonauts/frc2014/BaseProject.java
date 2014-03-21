@@ -83,8 +83,8 @@ public class BaseProject extends IterativeRobot {
 
         if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
             if(!shootReloadCommand.isRunning() && 
-                    CommandBase.pivot.isAtSafeZone() &&
-                    CommandBase.thrower.isLoaded()) {
+                    CommandBase.pivot.isAtSafeZone() /*&&
+                    CommandBase.thrower.isLoaded()*/) {
                 shootReloadCommand.start();
             }
         }
@@ -105,6 +105,7 @@ public class BaseProject extends IterativeRobot {
     }
     
     public void disabledPeriodic() {
-        
+        System.out.println("X axis: " + console.getUI().getDriveArcadeXAxis() + 
+                " Y axis: " + console.getUI().getDriveArcadeYAxis());
     }
 }

@@ -25,7 +25,8 @@ public class OperatorDriveCommand extends CommandBase {
     }
 
     protected void execute() {
-        drive.driveArcade(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
+        //drive.driveArcade(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
+        drive.getRobotDrive().arcadeDrive(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
     }
 
     protected boolean isFinished() {

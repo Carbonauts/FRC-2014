@@ -22,9 +22,9 @@ public class Constants {
     public static final int DRIVE_LEFT_FRONT = 2;   //PWM for LF Talon
     public static final int DRIVE_RIGHT_REAR = 3;   //PWM for RR Talon
     public static final int DRIVE_LEFT_REAR = 4;    //PWM for LR Talon
-    public static final int PIVOT = 5;              //PWM for Pivot Talon
+    public static final int PIVOT = 7;              //PWM for Pivot Talon
     public static final int THROWER = 6;            //PWM for Thrower Talon
-    public static final int INTAKE = 7;              //PWM for Roller Talon
+    public static final int INTAKE = 5;              //PWM for Roller Talon
     
     //LIMIT SWITCHES
     public static final int PIVOT_LIMIT_REVERSE = 1;   //PWM for Reverse Limit
@@ -40,6 +40,10 @@ public class Constants {
     public static final int SHIFTER_SOLENOID = 1;   //Port for Shifter Solenoid
     
     //HARDWARE INVERSIONS
+    public static final boolean DRIVE_LEFT_FRONT_INVERTED = false;
+    public static final boolean DRIVE_LEFT_REAR_INVERTED = false;
+    public static final boolean DRIVE_RIGHT_FRONT_INVERTED = false;
+    public static final boolean DRIVE_RIGHT_REAR_INVERTED = false;
     public static final boolean PIVOT_LIMIT_FORWARD_INVERTED = true;
     public static final boolean PIVOT_LIMIT_REVERSE_INVERTED = true;
     public static final boolean THROWER_RETRACT_LIMIT_INVERTED = true;

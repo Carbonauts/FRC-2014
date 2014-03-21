@@ -5,6 +5,7 @@
 package com.carbonauts.frc2014.command;
 
 import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.util.Latch;
 
 /**
  * Command which both shoots and reloads the throwing mechanism by rotating
@@ -15,11 +16,13 @@ public class ThrowerShootReloadCommand extends CommandBase {
     
     private Console console;
     private boolean finished = false;
+    private Latch stopLatch;
     
     public ThrowerShootReloadCommand() {
         requires(thrower);
         setInterruptible(false); 
         console = Console.getConsole();
+        stopLatch = new Latch();
     }
     
     public void initialize() {
@@ -30,7 +33,10 @@ public class ThrowerShootReloadCommand extends CommandBase {
      * Runs the thrower motor at full speed unless the reload point has been reached
      */
     protected void execute() {
-        if(!thrower.isRetracted()) {
+        
+        if(stopLatch.onTrue(console.getUI().getUnloadButtonState())) {
+            finished = true;
+        } else if(!thrower.isRetracted()) {
             thrower.spinThrowerForward();
             //console.getLCDManager().setThrowerReloaded(false);
         } else {

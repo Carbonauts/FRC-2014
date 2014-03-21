@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class AutoMoveShoot extends CommandGroup {
     
     public AutoMoveShoot() {
-        addSequential(new DriveForwardCommand(1000));
+        addSequential(new DriveForwardCommand(3000));
         addSequential(new WaitCommand(1000));
         addSequential(new ThrowerShootReloadCommand());
     }
