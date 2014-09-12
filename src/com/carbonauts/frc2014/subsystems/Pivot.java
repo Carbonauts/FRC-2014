@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.subsystems;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.OperatorPivotFloatCommand;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
@@ -30,7 +30,7 @@ public class Pivot extends Subsystem implements PIDSource {
     public static final int POSITION_REVERSE = 2;    //State constant
     
     private CarbonTalon pivotMotor;
-    private Console console;
+    private CarbonUI ui;
     
     //Declare Limit switch objects
     private DigitalInput limitForward;
@@ -47,6 +47,8 @@ public class Pivot extends Subsystem implements PIDSource {
      */
     public Pivot() {
         
+        ui = CarbonUI.getUI();
+        
         //Define Talon
         pivotMotor = new CarbonTalon(Constants.PIVOT);
         
@@ -61,8 +63,6 @@ public class Pivot extends Subsystem implements PIDSource {
         limitReverse = new CarbonDigitalInput(
                 Constants.PIVOT_LIMIT_REVERSE,
                 Constants.PIVOT_LIMIT_REVERSE_INVERTED);
-        
-        console = Console.getConsole();
         
         encoder = new Encoder(Constants.PIVOT_ENCODER_PIN1, 
                               Constants.PIVOT_ENCODER_PIN2, 
@@ -122,8 +122,13 @@ public class Pivot extends Subsystem implements PIDSource {
         }
     }
     
+    /**
+     * TODO develop a reliable way of determining whether the Pivot arms are
+     * out of the way of the thrower.
+     * @return 
+     */
     public boolean isAtSafeZone() {
-        return isAtForwardLimit() || isAtReverseLimit() || isAtRest();
+        return true;
     }
     
     public boolean getDirection() {

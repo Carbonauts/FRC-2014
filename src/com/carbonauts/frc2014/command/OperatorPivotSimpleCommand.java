@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 
 /**
  *
@@ -12,14 +12,14 @@ import com.carbonauts.frc2014.Console;
  */
 public class OperatorPivotSimpleCommand extends CommandBase {
 
-    private Console console;
+    private CarbonUI ui;
     private boolean finished = false;
     
     public OperatorPivotSimpleCommand() {
         requires(pivot);
         requires(intake);
         setInterruptible(true);
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
     }
     
     protected void initialize() {
@@ -28,26 +28,26 @@ public class OperatorPivotSimpleCommand extends CommandBase {
 
     protected void execute() {
         
-        if(console.getUI().getPivotForwardButtonState() && console.getUI().getPivotReverseButtonState()) {
+        if(ui.getPivotForwardButtonState() && ui.getPivotReverseButtonState()) {
             pivot.stopPivot();
             
-        } else if(console.getUI().getPivotForwardButtonState()) {
+        } else if(ui.getPivotForwardButtonState()) {
             pivot.setPivotForward();
             
-        } else if(console.getUI().getPivotReverseButtonState()) {
+        } else if(ui.getPivotReverseButtonState()) {
             pivot.setPivotReverse();
             
         } else {
             pivot.stopPivot();
         }
         
-        if(console.getUI().getIntakeForwardButtonState() && console.getUI().getIntakeReverseButtonState()) {
+        if(ui.getIntakeForwardButtonState() && ui.getIntakeReverseButtonState()) {
             intake.stopIntake();
             
-        } else if(console.getUI().getIntakeForwardButtonState()) {
+        } else if(ui.getIntakeForwardButtonState()) {
             intake.setIntakeForward();
             
-        } else if(console.getUI().getIntakeReverseButtonState()) {
+        } else if(ui.getIntakeReverseButtonState()) {
             intake.setIntakeReverse();
         }
         

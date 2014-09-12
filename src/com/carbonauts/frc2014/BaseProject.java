@@ -30,7 +30,7 @@ public class BaseProject extends IterativeRobot {
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
-    Console console;
+    CarbonUI ui;
     
     Latch shiftLatch;
     Latch shootLatch;
@@ -38,6 +38,7 @@ public class BaseProject extends IterativeRobot {
     Latch unloadLatch;
     Latch pivotForwardLatch;
     Latch pivotReverseLatch;
+    Latch pivotResetLatch;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -45,26 +46,39 @@ public class BaseProject extends IterativeRobot {
      */
     public void robotInit() {
         CommandBase.init();
-        console = Console.getConsole();
         
-        console.initUIConfigs();
-        console.initUI().setConfig(console.nickJoystickConfig);
+        ui = CarbonUI.getUI();
+        ui.initUIConfigs();
+        ui.setConfig(ui.nickGamepadConfig);
         
+        /**
+         * These commands are instances which are stored in BaseProject to be
+         * reused as needed.  The Operator Drive Command remains active as long
+         * as there are no autonomous routines which require the Drive system,
+         * The Shoot/Reload and Unload/Reload commands are used so that the 
+         * progress of the command can be monitored from these variable 
+         * references.
+         */
         operatorDriveCommand = new OperatorDriveCommand();
         shootReloadCommand = new ThrowerShootReloadCommand();
         unloadReloadCommand = new ThrowerUnloadReloadCommand();
         
+        /*
+         * Define Latches to use in the BaseProject.  These are made for
+         * different purposes, and will detect whether a dedicated state has
+         * flipped true, flipped false, or flipped either.
+         */
         shiftLatch = new Latch();
         shootLatch = new Latch();
         debugEnabledLatch = new Latch();
         unloadLatch = new Latch();
         pivotForwardLatch = new Latch();
         pivotReverseLatch = new Latch();
+        pivotResetLatch = new Latch();
     }
 
     public void autonomousInit() {
-        autonomousCommand = new AutoMoveShoot();
-        autonomousCommand.start();
+        
     }
     
     /**
@@ -84,25 +98,43 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        if(shootLatch.onTrue(console.getUI().getThrowButtonState())) {
+        /**
+         * If the Throw button has been pressed, and if the Shoot/Reload
+         * Command is not currently running, and if the Pivot arms are out of
+         * the way of the Thrower, then start the Shoot/Reload command.
+         */
+        if(shootLatch.onTrue(ui.getThrowButtonState())) {
             if(!shootReloadCommand.isRunning() && 
-                    CommandBase.pivot.isAtSafeZone() /*&&
-                    CommandBase.thrower.isLoaded()*/) {
+                    CommandBase.pivot.isAtSafeZone()) {
                 shootReloadCommand.start();
             }
         }
         
-        if(unloadLatch.onTrue(console.getUI().getUnloadButtonState())) {
+        /**
+         * If the Unload button has been pressed, and if the Unload/Reload
+         * Command is not currently running, and if the thrower is currently
+         * in its retracted state, then start the Unload/Reload command.
+         */
+        if(unloadLatch.onTrue(ui.getUnloadButtonState())) {
             if(!unloadReloadCommand.isRunning() && CommandBase.thrower.isRetractLimit()) {
                 unloadReloadCommand.start();
             }
         }
         
-        if(shiftLatch.onTrue(console.getUI().getShiftButtonState())) {
+        /**
+         * If the Shift button has been pressed, then toggle the state of the
+         * Drive gear.
+         */
+        if(shiftLatch.onTrue(ui.getShiftButtonState())) {
             CommandBase.shifter.toggleHighGear();
         }
     }
     
+    /**
+     * When the robot is disabled, reset the Pivot, Intake, and Thrower
+     * subsystems, and cancel the Shoot/Reload command (if active) and cancel
+     * the Unload/Reload command (if active).
+     */
     public void disabledInit() {
         CommandBase.pivot.reset();
         CommandBase.intake.reset();
@@ -111,8 +143,10 @@ public class BaseProject extends IterativeRobot {
         unloadReloadCommand.cancel();
     }
     
+    /**
+     * Runs periodically while the robot is disabled
+     */
     public void disabledPeriodic() {
-        System.out.println("X axis: " + console.getUI().getDriveArcadeXAxis() + 
-                " Y axis: " + console.getUI().getDriveArcadeYAxis());
+        
     }
 }

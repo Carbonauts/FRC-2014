@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.Constants;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
  */
 public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput {
     
-    private Console console;
+    private CarbonUI ui;
     private PIDController controller;
     private boolean finished = false;
     private boolean pidEnabled = false;
@@ -24,7 +24,9 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
         requires(pivot);
         requires(intake);
         setInterruptible(true);
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
+        
+        System.out.println("OperatorPivotFloatCommand!");
     }
     
     protected void initialize() {
@@ -39,27 +41,47 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
 
     protected void execute() {
         
-        if(console.getUI().getPivotForwardButtonState() && console.getUI().getPivotReverseButtonState()) {
+        /*
+        * If both forward and reverse pivot buttons are pressed
+        */
+        if(ui.getPivotForwardButtonState() && ui.getPivotReverseButtonState()) {
             pivot.stopPivot();
             pidEnabled = false;
+            System.out.println("Forward and reverse pivot buttons pressed!");
             
-        } else if(console.getUI().getPivotForwardButtonState()) {
+        /*
+        * If the forward pivot button is pressed
+        */
+        } else if(ui.getPivotForwardButtonState()) {
             pivot.setPivotForward();
             pidEnabled = false;
-            
-        } else if(console.getUI().getPivotReverseButtonState()) {
+            System.out.println("Forward pivot button is pressed!");
+           
+        /*
+        * If the reverse pivot button is pressed   
+        */
+        } else if(ui.getPivotReverseButtonState()) {
             pivot.setPivotReverse();
             pidEnabled = false;
+            System.out.println("Reverse pivot button is pressed!");
             
-        } else if(!console.getUI().getPivotForwardButtonState() && !console.getUI().getPivotReverseButtonState()) {
+        /*
+        * If neither the forward or reverse pivot buttons are pressed    
+        */
+        } else if(!ui.getPivotForwardButtonState() && !ui.getPivotReverseButtonState()) {
             
-            if(!console.getUI().getPivotPIDButtonState()) {
+            /*
+            * Return the pivot to the zero position
+            */
+            if(!ui.getPivotPIDButtonState()) {
                 pidEnabled = true;
                 controller.setSetpoint(0.0);
             } else {
                 pidEnabled = false;
                 pivot.stopPivot();
             }
+            
+            System.out.println("Neither pivot button is pressed!");
         }
         
         if(pivot.getPosition() > 0.0 + Constants.PIVOT_POSITION_TOLERANCE) {

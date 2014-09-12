@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.subsystems;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.util.CarbonRamp;
@@ -32,7 +32,7 @@ public class Drive extends Subsystem {
     private CarbonRamp tankLeftRamp;
     private CarbonRamp tankRightRamp;
     
-    private Console console;
+    private CarbonUI ui;
     
     private double driveDirection;
     
@@ -58,7 +58,7 @@ public class Drive extends Subsystem {
         tankLeftRamp = new CarbonRamp();
         tankRightRamp = new CarbonRamp();
         
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
     }
     
     /**

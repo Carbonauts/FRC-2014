@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.Constants;
 import com.carbonauts.frc2014.util.CarbonTimer;
 
@@ -14,14 +14,14 @@ import com.carbonauts.frc2014.util.CarbonTimer;
  */
 public class ThrowerUnloadCommand extends CommandBase {
 
-    private Console console;
+    private CarbonUI ui;
     private CarbonTimer timer;
     private boolean finished;
     
     public ThrowerUnloadCommand() {
         requires(thrower);
         setInterruptible(false);
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
         finished = false;
     }
     

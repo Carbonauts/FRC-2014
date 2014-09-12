@@ -4,20 +4,20 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 
 /**
  *
  * @author Nick
  */
 public class OperatorDriveCommand extends CommandBase {
-
-    private Console console;
+    
+    CarbonUI ui;
     
     public OperatorDriveCommand() {
         requires(drive);
         setInterruptible(true);
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
     }
     
     protected void initialize() {
@@ -25,8 +25,11 @@ public class OperatorDriveCommand extends CommandBase {
     }
 
     protected void execute() {
-        //drive.driveArcade(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
-        drive.getRobotDrive().arcadeDrive(console.getUI().getDriveArcadeYAxis(), console.getUI().getDriveArcadeXAxis());
+        drive.getRobotDrive().arcadeDrive(ui.getDriveArcadeYAxis(), 
+                                          ui.getDriveArcadeXAxis());
+        
+        System.out.print("Y: " + ui.getDriveArcadeYAxis());
+        System.out.println(", X: " + ui.getDriveArcadeXAxis());
     }
 
     protected boolean isFinished() {

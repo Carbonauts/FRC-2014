@@ -4,7 +4,7 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
+import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.util.Latch;
 
 /**
@@ -14,14 +14,14 @@ import com.carbonauts.frc2014.util.Latch;
  */
 public class ThrowerShootReloadCommand extends CommandBase {
     
-    private Console console;
+    private CarbonUI ui;
     private boolean finished = false;
     private Latch stopLatch;
     
     public ThrowerShootReloadCommand() {
         requires(thrower);
         setInterruptible(false); 
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
         stopLatch = new Latch();
     }
     
@@ -34,7 +34,7 @@ public class ThrowerShootReloadCommand extends CommandBase {
      */
     protected void execute() {
         
-        if(stopLatch.onTrue(console.getUI().getUnloadButtonState())) {
+        if(stopLatch.onTrue(ui.getUnloadButtonState())) {
             finished = true;
         } else if(!thrower.isRetracted()) {
             thrower.spinThrowerForward();

@@ -4,8 +4,7 @@
  */
 package com.carbonauts.frc2014.command;
 
-import com.carbonauts.frc2014.Console;
-import com.carbonauts.frc2014.Constants;
+import com.carbonauts.frc2014.CarbonUI;
 
 /**
  *
@@ -13,13 +12,13 @@ import com.carbonauts.frc2014.Constants;
  */
 public class OperatorShiftCommand extends CommandBase {
 
-    private Console console;
+    private CarbonUI ui;
     private boolean finished = false;
     
     public OperatorShiftCommand() {
         requires(shifter);
         setInterruptible(true);
-        console = Console.getConsole();
+        ui = CarbonUI.getUI();
         finished = false;
     }
     
@@ -28,7 +27,7 @@ public class OperatorShiftCommand extends CommandBase {
     }
 
     protected void execute() {
-        shifter.setHighGear(console.getUI().getShiftButtonState());
+        shifter.setHighGear(ui.getShiftButtonState());
     }
 
     protected boolean isFinished() {
