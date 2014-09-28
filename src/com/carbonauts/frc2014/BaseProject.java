@@ -49,7 +49,7 @@ public class BaseProject extends IterativeRobot {
         
         ui = CarbonUI.getUI();
         ui.initUIConfigs();
-        ui.setConfig(ui.nickGamepadConfig);
+        ui.setConfig(CarbonUI.nickXboxConfig);
         
         /*
          * These commands are instances which are stored in BaseProject to be

@@ -95,17 +95,17 @@ public class CarbonUI {
     /**
      * Nick's personal favorite configuration for use with a joystick.
      */
-    public UIConfig nickJoystickConfig;
+    public static UIConfig nickJoystickConfig;
     
     /**
      * Nick's personal favorite configuration for use with a gamepad.
      */
-    public UIConfig nickGamepadConfig;
+    public static UIConfig nickGamepadConfig;
     
     /**
      * Nick's personal favorite configuration for use with an Xbox controller.
      */
-    public UIConfig nickXboxConfig;
+    public static UIConfig nickXboxConfig;
     
     /**
      * A static reference to THIS class.  This class uses the "Singleton"
