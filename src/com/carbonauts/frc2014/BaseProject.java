@@ -7,9 +7,9 @@
 
 package com.carbonauts.frc2014;
 
-import com.carbonauts.frc2014.auto.AutoMoveShoot;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
+import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.command.ThrowerShootReloadCommand;
 import com.carbonauts.frc2014.command.ThrowerUnloadReloadCommand;
 import com.carbonauts.frc2014.util.Latch;
@@ -25,8 +25,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class BaseProject extends IterativeRobot {
     
-    AutoMoveShoot autonomousCommand;
     OperatorDriveCommand operatorDriveCommand;
+    OperatorPivotSimpleCommand operatorPivotSimpleCommand;
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
@@ -60,6 +60,7 @@ public class BaseProject extends IterativeRobot {
          * references.
          */
         operatorDriveCommand = new OperatorDriveCommand();
+        operatorPivotSimpleCommand = new OperatorPivotSimpleCommand();
         shootReloadCommand = new ThrowerShootReloadCommand();
         unloadReloadCommand = new ThrowerUnloadReloadCommand();
         
@@ -89,7 +90,7 @@ public class BaseProject extends IterativeRobot {
     }
 
     public void teleopInit() {
-        
+        operatorPivotSimpleCommand.start();
     }
     
     /**

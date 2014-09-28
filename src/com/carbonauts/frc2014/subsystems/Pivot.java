@@ -75,13 +75,15 @@ public class Pivot extends Subsystem implements PIDSource {
     }
     
     public void setPivotSpeed(double speed) {
-        if((speed > 0 && !isAtForwardLimit()) ||
+        /*if((speed > 0 && !isAtForwardLimit()) ||
            (speed < 0 && !isAtReverseLimit())) {
             pivotMotor.setRamp(speed);
             
         } else {
             pivotMotor.hardStopMotor();
-        }
+        }*/
+        
+        pivotMotor.setRamp(speed);
     }
     
     public void setPivotForward() {
@@ -101,7 +103,7 @@ public class Pivot extends Subsystem implements PIDSource {
     }
     
     protected void initDefaultCommand() {
-        setDefaultCommand(new OperatorPivotFloatCommand());
+        //setDefaultCommand(new OperatorPivotFloatCommand());
     }
     
     public boolean isAtForwardLimit() {

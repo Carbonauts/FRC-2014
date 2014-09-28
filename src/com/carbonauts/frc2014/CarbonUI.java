@@ -51,10 +51,10 @@ public class CarbonUI {
         defaultConfig.setDefaultUI();
         loadedConfig = defaultConfig;
         
-        j1 = new Joystick(1);
-        j2 = new Joystick(2);
-        j3 = new Joystick(3);
-        j4 = new Joystick(4);
+        j1 = new Joystick(Constants.JOYSTICK1);
+        j2 = new Joystick(Constants.JOYSTICK2);
+        j3 = new Joystick(Constants.JOYSTICK3);
+        j4 = new Joystick(Constants.JOYSTICK4);
     }
     
     public static CarbonUI getUI() {
@@ -136,11 +136,15 @@ public class CarbonUI {
         nickGamepadConfig.setUnloadButtonID(4);
         nickGamepadConfig.setPivotForwardButtonID(8);
         nickGamepadConfig.setPivotReverseButtonID(7);
+        nickGamepadConfig.setIntakeForwardButtonID(6);
+        nickGamepadConfig.setIntakeReverseButtonID(5);
         //Button Ports
         nickGamepadConfig.setThrowButtonPort(1);
         nickGamepadConfig.setUnloadButtonPort(1);
         nickGamepadConfig.setPivotForwardButtonPort(1);
         nickGamepadConfig.setPivotReverseButtonPort(1);
+        nickGamepadConfig.setIntakeForwardButtonPort(1);
+        nickGamepadConfig.setIntakeReverseButtonPort(1);
         //Axis IDs
         nickGamepadConfig.setDriveArcadeXAxisID(3);
         nickGamepadConfig.setDriveArcadeYAxisID(2);
