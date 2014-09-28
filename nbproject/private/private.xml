@@ -8,6 +8,8 @@
             <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/Constants.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/BaseProject.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/subsystems/Pivot.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/command/IntakeStopCommand.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/command/PivotFloatCenterCommand.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/CarbonUI.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/FRC-2014/src/com/carbonauts/frc2014/command/OperatorDriveCommand.java</file>
         </group>

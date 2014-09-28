@@ -75,7 +75,7 @@ public class OperatorPivotSimpleCommand extends CommandBase {
             intake.setIntakeReverse();
         }
         
-        System.out.println("Pivot position: " + pivot.getPosition());
+        //System.out.println("Pivot position: " + pivot.getPosition());
     }
 
     protected boolean isFinished() {

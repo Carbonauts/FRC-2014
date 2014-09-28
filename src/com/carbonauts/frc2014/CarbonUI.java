@@ -98,9 +98,14 @@ public class CarbonUI {
     public UIConfig nickJoystickConfig;
     
     /**
-     * Nicks personal favorite configuration for use with a gamepad.
+     * Nick's personal favorite configuration for use with a gamepad.
      */
     public UIConfig nickGamepadConfig;
+    
+    /**
+     * Nick's personal favorite configuration for use with an Xbox controller.
+     */
+    public UIConfig nickXboxConfig;
     
     /**
      * A static reference to THIS class.  This class uses the "Singleton"
@@ -189,6 +194,54 @@ public class CarbonUI {
     }
     
     /**
+     * Prints an error when a control has an undefined USB port or ID.
+     * @param control The name of the control (and the undefined property).
+     */
+    public void undefinedError(String control) {
+        if(Constants.DEBUG_UI) {
+            System.err.println("[CarbonUI|ERROR] " + control + " not defined for current config!");
+        }
+    }
+    
+    /**
+     * Prints the status of all buttons on the controller at the specified USB
+     * port.
+     * @param port The USB port of the controller to read.
+     */
+    public void readControllerButtons(int port) {
+        if(port < 0 || port > 4) {
+            System.out.println("Port out of bounds!");
+            return;
+        }
+        System.out.print("P:" + port);
+        System.out.print(" Buttons:");
+        for(int i = 1; i <= 12; i++) {
+            System.out.print(" " + i + ":");
+            System.out.print(getJoystick(port).getRawButton(i) ? "T" : "F");
+        }
+        System.out.println();
+    }
+    
+    /**
+     * Prints the status of all axes on the controller at the specified USB
+     * port.
+     * @param port The USB port of the controller to read.
+     */
+    public void readControllerAxes(int port) {
+        if(port < 0 || port > 4) {
+            System.out.println("Port out of bounds!");
+            return;
+        }
+        System.out.print("P:" + port);
+        System.out.println(" Axes:");
+        for(int i = 1; i <= 6; i++) {
+            System.out.print(" " + i + ":");
+            System.out.print(getJoystick(port).getRawAxis(i));
+        }
+        System.out.println();
+    }
+    
+    /**
      * Since the UIConfig class is defined inside of CarbonUI, UIConfig objects
      * cannot be constructed until the CarbonUI object has completed its own
      * construction.  Because of this, instances of UIConfig cannot be created
@@ -223,153 +276,166 @@ public class CarbonUI {
         nickGamepadConfig.getIntakeReverse().set(1, 5);
         nickGamepadConfig.getArcadeX().set(1, 3);
         nickGamepadConfig.getArcadeY().set(1, 2);
+        
+        /*
+         * NICK XBOX CONFIG
+         */
+        nickXboxConfig = new UIConfig();
+        nickXboxConfig.getThrow().set(1, 1);
+        nickXboxConfig.getUnload().set(1, 3);
+        nickXboxConfig.getPivotForward().set(1, 6);
+        nickXboxConfig.getPivotReverse().set(1, 5);
+        nickXboxConfig.getIntakeForward().set(1, 4);
+        nickXboxConfig.getIntakeReverse().set(1, 2);
+        nickXboxConfig.getArcadeX().set(1, 4);
+        nickXboxConfig.getArcadeY().set(1, 2);
     }
     
     /**
-     * Gets the boolean state of the Pivot Forward button.
+     * Returns the boolean state of the Pivot Forward button.
      * @return The boolean state of the Pivot Forward button.
      */
     public boolean getPivotForwardButtonState() {
         if(getConfig().getPivotForward().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot Forward Button Port not defined for current config!");
+            undefinedError("Pivot Forward Button Port");
             return false;
         } else if(getConfig().getPivotForward().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot Forward Button ID not defined for current config!");
+            undefinedError("Pivot Forward Button ID");
             return false;
         }
         return getJoystick(getConfig().getPivotForward().getPort()).getRawButton(getConfig().getPivotForward().getID());
     }
     
     /**
-     * Gets the boolean state of the Pivot Reverse button.
+     * Returns the boolean state of the Pivot Reverse button.
      * @return The boolean state of the Pivot Reverse button.
      */
     public boolean getPivotReverseButtonState() {
         if(getConfig().getPivotReverse().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot Reverse Button Port not defined for current config!");
+            undefinedError("Pivot Reverse Button Port");
             return false;
         } else if(getConfig().getPivotReverse().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot Reverse Button ID not defined for current config!");
+            undefinedError("Pivot Reverse Button ID");
             return false;
         }
         return getJoystick(getConfig().getPivotReverse().getPort()).getRawButton(getConfig().getPivotReverse().getID());
     }
     
     /**
-     * Gets the boolean state of the Pivot PID button.
+     * Returns the boolean state of the Pivot PID button.
      * @return The boolean state of the Pivot PID button.
      */
     public boolean getPivotPIDButtonState() {
         if(getConfig().getPivotPID().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot PID Button Port not defined for current config!");
+            undefinedError("Pivot PID Button Port");
             return false;
         } else if(getConfig().getPivotPID().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Pivot PID Button ID not defined for current config!");
+            undefinedError("Pivot PID Button ID");
             return false;
         }
         return getJoystick(getConfig().getPivotPID().getPort()).getRawButton(getConfig().getPivotPID().getID());
     }
     
     /**
-     * Gets the boolean state of the Invert Drive button.
+     * Returns the boolean state of the Invert Drive button.
      * @return The boolean state of the Invert Drive button.
      */
     public boolean getInvertDriveButtonState() {
         if(getConfig().getInvertDrive().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] InvertDrive Button Port not defined for current config!");
+            undefinedError("Invert Drive Button Port");
             return false;
         } else if(getConfig().getInvertDrive().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] InvertDrive Button ID not defined for current config!");
+            undefinedError("Invert Drive Button ID");
             return false;
         }
         return getJoystick(getConfig().getInvertDrive().getPort()).getRawButton(getConfig().getInvertDrive().getID());
     }
     
     /**
-     * Gets the boolean state of the Intake Forward button.
+     * Returns the boolean state of the Intake Forward button.
      * @return The boolean state of the Intake Forward button.
      */
     public boolean getIntakeForwardButtonState() {
         if(getConfig().getIntakeForward().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Intake Forward Button Port not defined for current config!");
+            undefinedError("Intake Forward Button Port");
             return false;
         } else if(getConfig().getIntakeForward().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Intake Forward Button ID not defined for current config!");
+            undefinedError("Intake Forward Button ID");
             return false;
         }
         return getJoystick(getConfig().getIntakeForward().getPort()).getRawButton(getConfig().getIntakeForward().getID());
     }
     
     /**
-     * Gets the boolean state of the Intake Reverse button.
+     * Returns the boolean state of the Intake Reverse button.
      * @return The boolean state of the Intake Reverse button.
      */
     public boolean getIntakeReverseButtonState() {
         if(getConfig().getIntakeReverse().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Intake Reverse Button Port not defined for current config!");
+            undefinedError("Intake Reverse Button Port");
             return false;
         } else if(getConfig().getIntakeReverse().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Intake Reverse Button ID not defined for current config!");
+            undefinedError("Intake Reverse Button ID");
             return false;
         }
         return getJoystick(getConfig().getIntakeReverse().getPort()).getRawButton(getConfig().getIntakeReverse().getID());
     }
     
     /**
-     * Gets the boolean state of the Shift button.
+     * Returns the boolean state of the Shift button.
      * @return The boolean state of the Shift button.
      */
     public boolean getShiftButtonState() {
         if(getConfig().getShift().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Shift Button Port not defined for current config!");
+            undefinedError("Shift Button Port");
             return false;
         } else if(getConfig().getShift().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Shift Button ID not defined for current config!");
+            undefinedError("Shift Button ID");
             return false;
         }
         return getJoystick(getConfig().getShift().getPort()).getRawButton(getConfig().getShift().getID());
     }
     
     /**
-     * Gets the boolean state of the Throw button.
+     * Returns the boolean state of the Throw button.
      * @return The boolean state of the Throw button.
      */
     public boolean getThrowButtonState() {
         if(getConfig().getThrow().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Throw Button Port not defined for current config!");
+            undefinedError("Throw Button Port");
             return false;
         } else if(getConfig().getThrow().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Throw Button ID not defined for current config!");
+            undefinedError("Throw Button ID");
             return false;
         }
         return getJoystick(getConfig().getThrow().getPort()).getRawButton(getConfig().getThrow().getID());
     }
     
     /**
-     * Gets the boolean state of the Unload button.
+     * Returns the boolean state of the Unload button.
      * @return The boolean state of the Unload button.
      */
     public boolean getUnloadButtonState() {
         if(getConfig().getUnload().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Unload Button Port not defined for current config!");
+            undefinedError("Unload Button Port");
             return false;
         } else if(getConfig().getUnload().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Unload Button ID not defined for current config!");
+            undefinedError("Unload Button ID");
             return false;
         }
         return getJoystick(getConfig().getUnload().getPort()).getRawButton(getConfig().getUnload().getID());
     }
     
     /**
-     * Gets the raw axis value of the Arcade X axis.
+     * Returns the raw axis value of the Arcade X axis.
      * @return The raw axis value of the Arcade X axis.
      */
     public double getDriveArcadeXAxis() {
         if(getConfig().getArcadeX().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Arcade X Axis Port not defined for current config!");
+            undefinedError("Arcade X Port");
             return 0.0;
         } else if(getConfig().getArcadeX().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Arcade X Axis ID not defined for current config!");
+            undefinedError("Arcade X ID");
             return 0.0;
         }
         return (Constants.AXIS_ARCADEX_INVERTED ? -1.0 : 1.0) * 
@@ -378,15 +444,15 @@ public class CarbonUI {
     }
     
     /**
-     * Gets the raw axis value of the Arcade Y axis.
+     * Returns the raw axis value of the Arcade Y axis.
      * @return The raw axis value of the Arcade Y axis.
      */
     public double getDriveArcadeYAxis() {
         if(getConfig().getArcadeY().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Arcade Y Axis Port not defined for current config!");
+            undefinedError("Arcade Y Port");
             return 0.0;
         } else if(getConfig().getArcadeY().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Arcade Y Axis ID not defined for current config!");
+            undefinedError("Arcade Y ID");
             return 0.0;
         }
         return (Constants.AXIS_ARCADEY_INVERTED ? -1.0 : 1.0) * 
@@ -395,15 +461,15 @@ public class CarbonUI {
     }
     
     /**
-     * Gets the raw axis value of the Tank Left axis.
+     * Returns the raw axis value of the Tank Left axis.
      * @return The raw axis value of the Tank Left axis.
      */
     public double getDriveTankLeftAxis() {
         if(getConfig().getTankLeft().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Tank Left Axis Port not defined for current config!");
+            undefinedError("Tank Left Port");
             return 0.0;
         } else if(getConfig().getTankLeft().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Tank Left Axis ID not defined for current config!");
+            undefinedError("Tank Left ID");
             return 0.0;
         }
         return (Constants.AXIS_TANKLEFT_INVERTED ? -1.0 : 1.0) * 
@@ -412,15 +478,15 @@ public class CarbonUI {
     }
     
     /**
-     * Gets the raw axis value of the Tank Right axis.
+     * Returns the raw axis value of the Tank Right axis.
      * @return The raw axis value of the Tank Right axis.
      */
     public double getDriveTankRightAxis() {
         if(getConfig().getTankRight().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Tank Right Axis Port not defined for current config!");
+            undefinedError("Tank Right Port");
             return 0.0;
         } else if(getConfig().getTankRight().getID()== UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Tank Right Axis ID not defined for current config!");
+            undefinedError("Tank Right ID");
             return 0.0;
         }
         return (Constants.AXIS_TANKRIGHT_INVERTED ? -1.0 : 1.0) * 
@@ -429,15 +495,15 @@ public class CarbonUI {
     }
     
     /**
-     * Gets the raw axis value of the Drive Sensitivity axis.
+     * Returns the raw axis value of the Drive Sensitivity axis.
      * @return The raw axis value of the Drive Sensitivity axis.
      */
     public double getDriveSensitivity() {
         if(getConfig().getDriveSensitivity().getPort() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Sensitivity Port not defined for current config!");
+            undefinedError("Drive Sensitivity Port");
             return 1.0;
         } else if(getConfig().getDriveSensitivity().getID() == UNINITIALIZED) {
-            System.err.println("[CarbonUI|ERROR] Drive Sensitivity ID not defined for current config!");
+            undefinedError("Drive Sensitivity ID");
             return 1.0;
         }
         return getJoystick(getConfig().getDriveSensitivity().getPort())

@@ -17,6 +17,8 @@ package com.carbonauts.frc2014;
  */
 public class Constants {
     
+    public static final boolean DEBUG_UI = false;
+    
     //MOTORS
     public static final int DRIVE_RIGHT_FRONT = 1;  //PWM for RF Talon
     public static final int DRIVE_LEFT_FRONT = 2;   //PWM for LF Talon

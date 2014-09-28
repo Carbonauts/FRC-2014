@@ -51,12 +51,12 @@ public class BaseProject extends IterativeRobot {
         ui.initUIConfigs();
         ui.setConfig(ui.nickGamepadConfig);
         
-        /**
+        /*
          * These commands are instances which are stored in BaseProject to be
          * reused as needed.  The Operator Drive Command remains active as long
-         * as there are no autonomous routines which require the Drive system,
-         * The Shoot/Reload and Unload/Reload commands are used so that the 
-         * progress of the command can be monitored from these variable 
+         * as there are no autonomous routines which require the Drive system.
+         * The Shoot/Reload and Unload/Reload commands are stored so that the 
+         * progress of the command can be monitored from these object 
          * references.
          */
         operatorDriveCommand = new OperatorDriveCommand();
@@ -99,7 +99,7 @@ public class BaseProject extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        /**
+        /*
          * If the Throw button has been pressed, and if the Shoot/Reload
          * Command is not currently running, and if the Pivot arms are out of
          * the way of the Thrower, then start the Shoot/Reload command.
@@ -111,7 +111,7 @@ public class BaseProject extends IterativeRobot {
             }
         }
         
-        /**
+        /*
          * If the Unload button has been pressed, and if the Unload/Reload
          * Command is not currently running, and if the thrower is currently
          * in its retracted state, then start the Unload/Reload command.
@@ -122,7 +122,7 @@ public class BaseProject extends IterativeRobot {
             }
         }
         
-        /**
+        /*
          * If the Shift button has been pressed, then toggle the state of the
          * Drive gear.
          */
