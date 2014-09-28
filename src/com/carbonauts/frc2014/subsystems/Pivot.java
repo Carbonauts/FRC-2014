@@ -29,15 +29,15 @@ public class Pivot extends Subsystem implements PIDSource {
     public static final int POSITION_RESTING = 1;    //State constant
     public static final int POSITION_REVERSE = 2;    //State constant
     
-    private CarbonTalon pivotMotor;
-    private CarbonUI ui;
+    private final CarbonTalon pivotMotor;
+    private final CarbonUI ui;
     
     //Declare Limit switch objects
-    private DigitalInput limitForward;
-    private DigitalInput limitReverse;
+    private final DigitalInput limitForward;
+    private final DigitalInput limitReverse;
     
     //Declare pivot encoder
-    private Encoder encoder;
+    private final Encoder encoder;
     
     private double forwardPositionValue;
     private double reversePositionValue;
@@ -74,15 +74,7 @@ public class Pivot extends Subsystem implements PIDSource {
         reversePositionValue = 0;
     }
     
-    public void setPivotSpeed(double speed) {
-        /*if((speed > 0 && !isAtForwardLimit()) ||
-           (speed < 0 && !isAtReverseLimit())) {
-            pivotMotor.setRamp(speed);
-            
-        } else {
-            pivotMotor.hardStopMotor();
-        }*/
-        
+    public void setPivotSpeed(double speed) { 
         pivotMotor.setRamp(speed);
     }
     
@@ -103,7 +95,7 @@ public class Pivot extends Subsystem implements PIDSource {
     }
     
     protected void initDefaultCommand() {
-        //setDefaultCommand(new OperatorPivotFloatCommand());
+        
     }
     
     public boolean isAtForwardLimit() {

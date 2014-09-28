@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 
-    private CarbonTalon intakeMotor;
+    private final CarbonTalon intakeMotor;
     
     public Intake() {
         intakeMotor = new CarbonTalon(Constants.INTAKE);
+        intakeMotor.setStepSize(0.25);
     }
     
     public void setIntakeSpeed(double speed) {

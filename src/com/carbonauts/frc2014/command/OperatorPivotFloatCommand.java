@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
  */
 public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput {
     
-    private CarbonUI ui;
+    private final CarbonUI ui;
     private PIDController controller;
     private boolean finished = false;
     private boolean pidEnabled = false;
@@ -42,37 +42,34 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
     protected void execute() {
         
         /*
-        * If both forward and reverse pivot buttons are pressed
-        */
+         * If both forward and reverse pivot buttons are pressed
+         */
         if(ui.getPivotForwardButtonState() && ui.getPivotReverseButtonState()) {
             pivot.stopPivot();
             pidEnabled = false;
-            System.out.println("Forward and reverse pivot buttons pressed!");
             
         /*
-        * If the forward pivot button is pressed
-        */
+         * If the forward pivot button is pressed
+         */
         } else if(ui.getPivotForwardButtonState()) {
             pivot.setPivotForward();
             pidEnabled = false;
-            System.out.println("Forward pivot button is pressed!");
            
         /*
-        * If the reverse pivot button is pressed   
-        */
+         * If the reverse pivot button is pressed   
+         */
         } else if(ui.getPivotReverseButtonState()) {
             pivot.setPivotReverse();
             pidEnabled = false;
-            System.out.println("Reverse pivot button is pressed!");
             
         /*
-        * If neither the forward or reverse pivot buttons are pressed    
-        */
+         * If neither the forward or reverse pivot buttons are pressed    
+         */
         } else if(!ui.getPivotForwardButtonState() && !ui.getPivotReverseButtonState()) {
             
             /*
-            * Return the pivot to the zero position
-            */
+             * Return the pivot to the zero position
+             */
             if(!ui.getPivotPIDButtonState()) {
                 pidEnabled = true;
                 controller.setSetpoint(0.0);
@@ -80,8 +77,6 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
                 pidEnabled = false;
                 pivot.stopPivot();
             }
-            
-            System.out.println("Neither pivot button is pressed!");
         }
         
         if(pivot.getPosition() > 0.0 + Constants.PIVOT_POSITION_TOLERANCE) {
