@@ -51,23 +51,6 @@ public class Constants {
     public static final boolean PIVOT_ENCODER_INVERTED = true;
     public static final boolean SHIFTER_HIGH_GEAR = true;
     
-    //JOYSTICK
-    public static final int JOYSTICK1 = 1;               //USB for Joystick
-    public static final int JOYSTICK2 = 2;               //USB for Joystick
-    public static final int JOYSTICK3 = 3;               //USB for Joystick
-    public static final int JOYSTICK4 = 4;               //USB for Joystick
-    public static final int BUTTON_DEFAULT_THROW = 1;           //Button ID
-    public static final int BUTTON_DEFAULT_UNLOAD = 2;          //Button ID
-    public static final int BUTTON_DEFAULT_PIVOT_FORWARD = 3;     //Button ID
-    public static final int BUTTON_DEFAULT_PIVOT_REVERSE = 5;     //Button ID
-    public static final int BUTTON_DEFAULT_INTAKE = 6;      //Button ID
-    public static final int BUTTON_DEFAULT_INVERT_DRIVE = 7;    //Button ID
-    public static final int BUTTON_DEFAULT_SHIFT = 8;           //Button ID
-    public static final boolean AXIS_ARCADEX_INVERTED = false;
-    public static final boolean AXIS_ARCADEY_INVERTED = false;
-    public static final boolean AXIS_TANKLEFT_INVERTED = false;
-    public static final boolean AXIS_TANKRIGHT_INVERTED = false;
-    
     //VALUES
     public static final boolean RAMPS_ENABLED = true;
     public static final double RAMP_DEFAULT_STEPSIZE = 0.05;
@@ -81,4 +64,9 @@ public class Constants {
     public static final double PIVOT_PID_MAX = PIVOT_RATE;
     public static final long RAMP_DEFAULT_STEPTIME = 10;    
     public static final long THROWER_UNLOAD_TIME = 700;
+    
+    public static final boolean AXIS_ARCADEX_INVERTED = false;
+    public static final boolean AXIS_ARCADEY_INVERTED = false;
+    public static final boolean AXIS_TANKLEFT_INVERTED = false;
+    public static final boolean AXIS_TANKRIGHT_INVERTED = false;
 }
