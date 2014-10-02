@@ -20,21 +20,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class CarbonTalon extends Talon implements ICarbonRampable {
     
-    private CarbonRamp ramp;
+    private final CarbonRamp ramp;
     private CarbonRampCommand rampCommand;
     
     public CarbonTalon(int channel) {
-        super(channel);
-        ramp = new CarbonRamp();
-        rampCommand = new CarbonRampCommand(ramp, this);
-        Scheduler.getInstance().add(rampCommand);
-    }
-    
-    public CarbonTalon(int slot, int channel) {
-        super(slot, channel);
-        ramp = new CarbonRamp();
-        rampCommand = new CarbonRampCommand(ramp, this);
-        Scheduler.getInstance().add(rampCommand);
+        this(channel, Constants.RAMP_DEFAULT_STEPSIZE, Constants.RAMP_DEFAULT_STEPTIME);
     }
     
     public CarbonTalon(int channel, double stepSize, long stepTime) {
@@ -42,6 +32,10 @@ public class CarbonTalon extends Talon implements ICarbonRampable {
         ramp = new CarbonRamp(0, stepSize, stepTime);
         rampCommand = new CarbonRampCommand(ramp, this);
         Scheduler.getInstance().add(rampCommand);
+    }
+    
+    public CarbonTalon(int slot, int channel) {
+        this(slot, channel, Constants.RAMP_DEFAULT_STEPSIZE, Constants.RAMP_DEFAULT_STEPTIME);
     }
     
     public CarbonTalon(int slot, int channel, double stepSize, long stepTime) {

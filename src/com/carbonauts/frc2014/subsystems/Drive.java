@@ -21,18 +21,18 @@ public class Drive extends Subsystem {
     public static final int DIRECTION_FORWARD = 0;    //State constant
     public static final int DIRECTION_REVERSE = 1;   //State constant
     
-    private Talon leftFrontDrive;
-    private Talon leftRearDrive;
-    private Talon rightFrontDrive;
-    private Talon rightRearDrive;
-    private RobotDrive robotDrive;
+    private final Talon leftFrontDrive;
+    private final Talon leftRearDrive;
+    private final Talon rightFrontDrive;
+    private final Talon rightRearDrive;
+    private final RobotDrive robotDrive;
     
-    private CarbonRamp arcadeYRamp;
-    private CarbonRamp arcadeXRamp;
-    private CarbonRamp tankLeftRamp;
-    private CarbonRamp tankRightRamp;
+    private final CarbonRamp arcadeYRamp;
+    private final CarbonRamp arcadeXRamp;
+    private final CarbonRamp tankLeftRamp;
+    private final CarbonRamp tankRightRamp;
     
-    private CarbonUI ui;
+    private final CarbonUI ui;
     
     private double driveDirection;
     
