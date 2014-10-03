@@ -27,7 +27,6 @@ public class PivotMoveReverseCommand extends CommandBase {
             finished = true;
         } else {
             pivot.setPivotReverse();
-            pivot.getMotor().setRampEnabled(true);
         }
     }
 

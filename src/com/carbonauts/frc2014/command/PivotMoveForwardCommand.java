@@ -23,7 +23,6 @@ public class PivotMoveForwardCommand extends CommandBase {
 
     protected void execute() {
         pivot.setPivotForward();
-        pivot.getMotor().setRampEnabled(true);
     }
 
     protected boolean isFinished() {

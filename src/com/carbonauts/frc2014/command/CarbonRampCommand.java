@@ -17,7 +17,7 @@ import com.carbonauts.frc2014.util.ICarbonRampable;
  */
 public class CarbonRampCommand extends CommandBase {
 
-    private CarbonRamp ramp;
+    private final CarbonRamp ramp;
     private ICarbonRampable talon;
     
     private boolean finished = false;

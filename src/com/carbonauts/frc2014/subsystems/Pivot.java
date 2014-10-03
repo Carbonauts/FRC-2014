@@ -140,10 +140,6 @@ public class Pivot extends Subsystem implements PIDSource {
     public void reset() {
         pivotMotor.reset();
     }
-    
-    public CarbonTalon getMotor() {
-        return pivotMotor;
-    }
 
     public double pidGet() {
         return getPosition();
