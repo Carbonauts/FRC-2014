@@ -70,7 +70,7 @@ public class OperatorPivotFloatCommand extends CommandBase implements PIDOutput 
             /*
              * Return the pivot to the zero position
              */
-            if(!ui.getPivotPIDButtonState()) {
+            if(!ui.getZeroPivotEncoderButtonState()) {
                 pidEnabled = true;
                 controller.setSetpoint(0.0);
             } else {

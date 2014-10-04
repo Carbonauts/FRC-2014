@@ -6,7 +6,7 @@ package com.carbonauts.frc2014.command;
 
 /**
  * Single-purpose command to make the intake rollers spin forward
- * @author Nick
+ * @author Nick Mosher
  */
 public class IntakeSpinForwardCommand extends CommandBase {
 
@@ -18,14 +18,12 @@ public class IntakeSpinForwardCommand extends CommandBase {
     }
     
     protected void initialize() {
-        System.out.println("Init IntakeSpinForwardCommand");
         intake.setIntakeForward();
         finished = false;
     }
 
     protected void execute() {
-        intake.setIntakeForward();
-        System.out.println("In IntakeSpinForwardCommand.execute()");
+        
     }
 
     protected boolean isFinished() {

@@ -6,7 +6,7 @@ package com.carbonauts.frc2014.command;
 
 /**
  * Single-purpose command to spin the intake rollers in reverse
- * @author Nick
+ * @author Nick Mosher
  */
 public class IntakeSpinReverseCommand extends CommandBase {
 

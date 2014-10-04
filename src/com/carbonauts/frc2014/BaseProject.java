@@ -7,6 +7,7 @@
 
 package com.carbonauts.frc2014;
 
+import com.carbonauts.frc2014.auto.PrimaryAuto;
 import com.carbonauts.frc2014.command.CommandBase;
 import com.carbonauts.frc2014.command.OperatorDriveCommand;
 import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
@@ -30,6 +31,8 @@ public class BaseProject extends IterativeRobot {
     ThrowerShootReloadCommand shootReloadCommand;
     ThrowerUnloadReloadCommand unloadReloadCommand;
     
+    PrimaryAuto auto;
+    
     CarbonUI ui;
     
     Latch shiftLatch;
@@ -39,6 +42,7 @@ public class BaseProject extends IterativeRobot {
     Latch pivotForwardLatch;
     Latch pivotReverseLatch;
     Latch pivotResetLatch;
+    Latch autoLaunchLatch;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -49,7 +53,7 @@ public class BaseProject extends IterativeRobot {
         
         ui = CarbonUI.getUI();
         ui.initUIConfigs();
-        ui.setConfig(CarbonUI.nickXboxConfig);
+        ui.setConfig(CarbonUI.nickGamepadConfig);
         
         /*
          * These commands are instances which are stored in BaseProject to be
@@ -64,6 +68,8 @@ public class BaseProject extends IterativeRobot {
         shootReloadCommand = new ThrowerShootReloadCommand();
         unloadReloadCommand = new ThrowerUnloadReloadCommand();
         
+        auto = new PrimaryAuto();
+        
         /*
          * Define Latches to use in the BaseProject.  These are made for
          * different purposes, and will detect whether a dedicated state has
@@ -76,6 +82,7 @@ public class BaseProject extends IterativeRobot {
         pivotForwardLatch = new Latch();
         pivotReverseLatch = new Latch();
         pivotResetLatch = new Latch();
+        autoLaunchLatch = new Latch();
     }
 
     public void autonomousInit() {
@@ -128,6 +135,16 @@ public class BaseProject extends IterativeRobot {
          */
         if(shiftLatch.onTrue(ui.getShiftButtonState())) {
             CommandBase.shifter.toggleHighGear();
+        }
+        
+        /*
+         * Used for testing component Command classes which make up the building
+         * blocks of the autonomous code.
+         */
+        if(autoLaunchLatch.onTrue(ui.getAutoLaunchButtonState())) {
+            if(!auto.isRunning()) {
+                auto.start();
+            }
         }
     }
     

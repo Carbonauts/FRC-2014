@@ -253,42 +253,43 @@ public class CarbonUI {
          * NICK JOYSTICK CONFIG
          */
         nickJoystickConfig = new UIConfig();
-        nickJoystickConfig.getThrow().set(1, 1);
-        nickJoystickConfig.getUnload().set(1, 2);
-        nickJoystickConfig.getShift().set(1, 6);
-        nickJoystickConfig.getPivotForward().set(1, 8);
-        nickJoystickConfig.getPivotReverse().set(1, 7);
-        nickJoystickConfig.getPivotPID().set(1, 5);
-        nickJoystickConfig.getArcadeX().set(1, 3);
-        nickJoystickConfig.getArcadeY().set(1, 2);
-        nickJoystickConfig.getTankLeft().set(1, 3);
-        nickJoystickConfig.getTankRight().set(1, 4);
+        nickJoystickConfig.getThrow().set(JOYSTICK1, 1);
+        nickJoystickConfig.getUnload().set(JOYSTICK1, 2);
+        nickJoystickConfig.getShift().set(JOYSTICK1, 6);
+        nickJoystickConfig.getPivotForward().set(JOYSTICK1, 8);
+        nickJoystickConfig.getPivotReverse().set(JOYSTICK1, 7);
+        nickJoystickConfig.getZeroPivotEncoder().set(JOYSTICK1, 5);
+        nickJoystickConfig.getArcadeX().set(JOYSTICK1, 3);
+        nickJoystickConfig.getArcadeY().set(JOYSTICK1, 2);
+        nickJoystickConfig.getTankLeft().set(JOYSTICK1, 3);
+        nickJoystickConfig.getTankRight().set(JOYSTICK1, 4);
         
         /*
          * NICK GAMEPAD CONFIG
          */
         nickGamepadConfig = new UIConfig();
-        nickGamepadConfig.getThrow().set(1, 1);
-        nickGamepadConfig.getUnload().set(1, 4);
-        nickGamepadConfig.getPivotForward().set(1, 8);
-        nickGamepadConfig.getPivotReverse().set(1, 7);
-        nickGamepadConfig.getIntakeForward().set(1, 6);
-        nickGamepadConfig.getIntakeReverse().set(1, 5);
-        nickGamepadConfig.getArcadeX().set(1, 3);
-        nickGamepadConfig.getArcadeY().set(1, 2);
+        nickGamepadConfig.getThrow().set(JOYSTICK1, 1);
+        nickGamepadConfig.getUnload().set(JOYSTICK1, 4);
+        nickGamepadConfig.getPivotForward().set(JOYSTICK1, 8);
+        nickGamepadConfig.getPivotReverse().set(JOYSTICK1, 7);
+        nickGamepadConfig.getIntakeForward().set(JOYSTICK1, 6);
+        nickGamepadConfig.getIntakeReverse().set(JOYSTICK1, 5);
+        nickGamepadConfig.getAutoLaunch().set(JOYSTICK1, 9);
+        nickGamepadConfig.getArcadeX().set(JOYSTICK1, 3);
+        nickGamepadConfig.getArcadeY().set(JOYSTICK1, 2);
         
         /*
          * NICK XBOX CONFIG
          */
         nickXboxConfig = new UIConfig();
-        nickXboxConfig.getThrow().set(1, 1);
-        nickXboxConfig.getUnload().set(1, 3);
-        nickXboxConfig.getPivotForward().set(1, 6);
-        nickXboxConfig.getPivotReverse().set(1, 5);
-        nickXboxConfig.getIntakeForward().set(1, 4);
-        nickXboxConfig.getIntakeReverse().set(1, 2);
-        nickXboxConfig.getArcadeX().set(1, 4);
-        nickXboxConfig.getArcadeY().set(1, 2);
+        nickXboxConfig.getThrow().set(JOYSTICK1, 1);
+        nickXboxConfig.getUnload().set(JOYSTICK1, 3);
+        nickXboxConfig.getPivotForward().set(JOYSTICK1, 6);
+        nickXboxConfig.getPivotReverse().set(JOYSTICK1, 5);
+        nickXboxConfig.getIntakeForward().set(JOYSTICK1, 4);
+        nickXboxConfig.getIntakeReverse().set(JOYSTICK1, 2);
+        nickXboxConfig.getArcadeX().set(JOYSTICK1, 4);
+        nickXboxConfig.getArcadeY().set(JOYSTICK1, 2);
     }
     
     /**
@@ -325,15 +326,15 @@ public class CarbonUI {
      * Returns the boolean state of the Pivot PID button.
      * @return The boolean state of the Pivot PID button.
      */
-    public boolean getPivotPIDButtonState() {
-        if(getConfig().getPivotPID().getPort() == UNINITIALIZED) {
+    public boolean getZeroPivotEncoderButtonState() {
+        if(getConfig().getZeroPivotEncoder().getPort() == UNINITIALIZED) {
             undefinedError("Pivot PID Button Port");
             return false;
-        } else if(getConfig().getPivotPID().getID() == UNINITIALIZED) {
+        } else if(getConfig().getZeroPivotEncoder().getID() == UNINITIALIZED) {
             undefinedError("Pivot PID Button ID");
             return false;
         }
-        return getJoystick(getConfig().getPivotPID().getPort()).getRawButton(getConfig().getPivotPID().getID());
+        return getJoystick(getConfig().getZeroPivotEncoder().getPort()).getRawButton(getConfig().getZeroPivotEncoder().getID());
     }
     
     /**
@@ -424,6 +425,17 @@ public class CarbonUI {
             return false;
         }
         return getJoystick(getConfig().getUnload().getPort()).getRawButton(getConfig().getUnload().getID());
+    }
+    
+    public boolean getAutoLaunchButtonState() {
+        if(getConfig().getAutoLaunch().getPort() == UNINITIALIZED) {
+            undefinedError("AutoLaunch Button Port");
+            return false;
+        } else if(getConfig().getAutoLaunch().getID() == UNINITIALIZED) {
+            undefinedError("AutoLaunch Button ID");
+            return false;
+        }
+        return getJoystick(getConfig().getAutoLaunch().getPort()).getRawButton(getConfig().getAutoLaunch().getID());
     }
     
     /**
@@ -543,7 +555,7 @@ public class CarbonUI {
 
         private final UIElement pivotForward;
         private final UIElement pivotReverse;
-        private final UIElement pivotPID;
+        private final UIElement zeroPivotEncoder;
         private final UIElement invertDrive;
         private final UIElement intakeForward;
         private final UIElement intakeReverse;
@@ -551,6 +563,7 @@ public class CarbonUI {
         private final UIElement shift;
         private final UIElement toss; //Can't call this 'throw' because of java keyword
         private final UIElement unload;
+        private final UIElement autoLaunch;
         private final UIElement arcadeX;
         private final UIElement arcadeY;
         private final UIElement tankLeft;
@@ -565,7 +578,7 @@ public class CarbonUI {
         public UIConfig() {
             pivotForward = new UIElement(UNINITIALIZED, UNINITIALIZED);
             pivotReverse = new UIElement(UNINITIALIZED, UNINITIALIZED);
-            pivotPID = new UIElement(UNINITIALIZED, UNINITIALIZED);
+            zeroPivotEncoder = new UIElement(UNINITIALIZED, UNINITIALIZED);
             invertDrive = new UIElement(UNINITIALIZED, UNINITIALIZED);
             intakeForward = new UIElement(UNINITIALIZED, UNINITIALIZED);
             intakeReverse = new UIElement(UNINITIALIZED, UNINITIALIZED);
@@ -573,6 +586,7 @@ public class CarbonUI {
             shift = new UIElement(UNINITIALIZED, UNINITIALIZED);
             toss = new UIElement(UNINITIALIZED, UNINITIALIZED);
             unload = new UIElement(UNINITIALIZED, UNINITIALIZED);
+            autoLaunch = new UIElement(UNINITIALIZED, UNINITIALIZED);
             
             arcadeX = new UIElement(UNINITIALIZED, UNINITIALIZED);
             arcadeY = new UIElement(UNINITIALIZED, UNINITIALIZED);
@@ -591,7 +605,7 @@ public class CarbonUI {
         public void setDefaultUI() {
             pivotForward.set(PORT1, DEFAULT_PIVOT_FORWARD);
             pivotReverse.set(PORT1, DEFAULT_PIVOT_REVERSE);
-            pivotPID.set(PORT1, DEFAULT_PIVOT_PID);
+            zeroPivotEncoder.set(PORT1, DEFAULT_PIVOT_PID);
             invertDrive.set(PORT1, DEFAULT_INVERT_DRIVE);
             intakeForward.set(PORT1, DEFAULT_INTAKE_FORWARD);
             intakeReverse.set(PORT1, DEFAULT_INTAKE_REVERSE);
@@ -627,8 +641,8 @@ public class CarbonUI {
          * Returns the Pivot PID UIElement.
          * @return The Pivot PID UIElement.
          */
-        public UIElement getPivotPID() {
-            return pivotPID;
+        public UIElement getZeroPivotEncoder() {
+            return zeroPivotEncoder;
         }
         
         /**
@@ -685,6 +699,14 @@ public class CarbonUI {
          */
         public UIElement getUnload() {
             return unload;
+        }
+        
+        /**
+         * Returns the AutoLaunch UIElement.
+         * @return the AutoLaunch UIElement.
+         */
+        public UIElement getAutoLaunch() {
+            return autoLaunch;
         }
         
         /**

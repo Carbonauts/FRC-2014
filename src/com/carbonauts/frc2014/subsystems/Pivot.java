@@ -6,7 +6,7 @@ package com.carbonauts.frc2014.subsystems;
 
 import com.carbonauts.frc2014.CarbonUI;
 import com.carbonauts.frc2014.Constants;
-import com.carbonauts.frc2014.command.OperatorPivotFloatCommand;
+import com.carbonauts.frc2014.command.OperatorPivotSimpleCommand;
 import com.carbonauts.frc2014.util.CarbonDigitalInput;
 import com.carbonauts.frc2014.util.CarbonTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -70,6 +70,8 @@ public class Pivot extends Subsystem implements PIDSource {
         encoder.reset();
         encoder.start();
         
+        //defaultCommand = new OperatorPivotSimpleCommand();
+        
         forwardPositionValue = 0;
         reversePositionValue = 0;
     }
@@ -95,7 +97,7 @@ public class Pivot extends Subsystem implements PIDSource {
     }
     
     protected void initDefaultCommand() {
-        
+        setDefaultCommand(new OperatorPivotSimpleCommand());
     }
     
     public boolean isAtForwardLimit() {

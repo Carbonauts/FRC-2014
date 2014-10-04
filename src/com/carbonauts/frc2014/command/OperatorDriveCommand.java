@@ -8,7 +8,7 @@ import com.carbonauts.frc2014.CarbonUI;
 
 /**
  *
- * @author Nick
+ * @author Nick Mosher
  */
 public class OperatorDriveCommand extends CommandBase {
     
@@ -27,9 +27,6 @@ public class OperatorDriveCommand extends CommandBase {
     protected void execute() {
         drive.getRobotDrive().arcadeDrive(ui.getDriveArcadeYAxis(), 
                                           ui.getDriveArcadeXAxis());
-        
-        System.out.print("Y: " + ui.getDriveArcadeYAxis());
-        System.out.println(", X: " + ui.getDriveArcadeXAxis());
     }
 
     protected boolean isFinished() {
